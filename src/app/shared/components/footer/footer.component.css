@@ -1,0 +1,66 @@
+/* ---------------footer ------------- */
+.footer {
+  min-height: 350px;
+  text-align: center;
+  background-image: url(../../../../assets/images/footer2.jpg);
+}
+
+.footer_text {
+  font-family: system-ui;
+  padding-top: 50px;
+  list-style: none;
+}
+
+.footer_text .input-group span .btn {
+  color: #000;
+  background-color: #F3AE7E;
+}
+
+/* --------------footer1--------------- */
+.footer1 {
+  min-height: 400px;
+  padding-top: 100px;
+
+}
+
+.column1 .column1__logo {
+  height: 55px;
+  background-image: url(../../../../assets/images/logo.png);
+  background-repeat: no-repeat;
+}
+
+.footer1 a {
+  color: #000;
+  font-size: 15px;
+}
+
+.column1 .column1__text {
+  font-size: 15px;
+  margin: 20px 0 20px 0;
+}
+
+.column1 .column1__text {
+  font-size: 15px;
+  margin: 20px 0 20px 0;
+}
+
+.column__last {
+  float: left;
+}
+
+.column__last img {
+  width: 25px;
+  height: 25px;
+}
+
+.iphone {
+  padding: 40px 0 40px 0;
+}
+
+/* ----------footer2------------- */
+.footer2 {
+  height: 50px;
+  background-color: #E2BEA8;
+  color: #FFFFFF;
+  padding-top: 15px;
+}
