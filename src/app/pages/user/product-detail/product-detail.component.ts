@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {ProductService} from "../../../shared/services/product.service";
 import {IProduct} from "../../../shared/models/product.model";
 import {ActivatedRoute} from "@angular/router";
-import {ISize} from "../../../shared/models/size.model";
+import {ISize, ISizeProduct} from "../../../shared/models/size.model";
 import {FormGroup} from "@angular/forms";
+import {ToastrService} from "ngx-toastr";
+import {Cart} from "../../../shared/models/cart.model";
+import {CartService} from "../../../shared/services/cart.service";
 
 @Component({
   selector: 'app-product-detail',
@@ -11,14 +14,22 @@ import {FormGroup} from "@angular/forms";
   styleUrls: ['./product-detail.component.scss']
 })
 export class ProductDetailComponent implements OnInit {
+  isChosseRadio =false;
+  isChosseRadio2 =false;
+  lengthSize =0;
+  size : ISizeProduct ={};
+  salePrice =[];
   imageUrl?: any;
   productId = '';
-  sizes : ISize[] =[];
+  sizes : ISizeProduct[] =[];
   productDetail : IProduct = {}
+  totalQuantity =0;
   form: FormGroup = new FormGroup({});
   constructor(
     private productService : ProductService,
     private router: ActivatedRoute,
+    private toast: ToastrService,
+    private cartService : CartService,
   ) {
     this.router.paramMap.subscribe((res) => {
       this.productId = res.get('id') || '';
@@ -33,11 +44,39 @@ export class ProductDetailComponent implements OnInit {
     this.productService.detail(id).subscribe((respone: any)=> {
       this.productDetail =respone.body?.data;
       // @ts-ignore
-      this.imageUrl = this.productDetail.productImages[0].imageUrl;
+      this.imageUrl = this.productDetail.productImages[0]?.imageUrl;
       // @ts-ignore
-      this.sizes = this.productDetail?.productSizes;
-      console.log(this.sizes)
+      this.sizes = this.productDetail.productSizes;
+      this.lengthSize = this.sizes.length -1;
+      this.sizes.forEach((item) => {
+        this.totalQuantity =this.totalQuantity + (item.quantity ? item.quantity : 0);
+      });
     })
+  }
+
+  addToCart(): void {
+    const cart :Cart = {
+      //needFix
+      cartId : '2cc21d07-3bf0-4b4a-b167-608f5526dee4',
+      amount : 1,
+
+    }
+    this.isChosseRadio2 =false;
+    if (this.checkedRadio(this.size)){
+      this.isChosseRadio2=true;
+      this.toast.error('Vui lòng chọn size trước!')
+    }else {
+      this.cartService.addToCart(cart).subscribe(()=>{
+        this.toast.success('Thêm vào giỏ hàng thành công');
+      })
+    }
+  }
+
+
+
+  checkedRadio(size: ISizeProduct): boolean{
+    this.isChosseRadio = (Object.getOwnPropertyNames(this.size).length === 0);
+    return this.isChosseRadio
   }
 
 }

@@ -1,6 +1,6 @@
+<app-header></app-header>
 <div class="container">
 <div class="row">
-
   <div class="col-3 body__aside">
     <div class="card card__header">
       <div class="card-header">
@@ -282,8 +282,6 @@
                     <option value="3">Three</option>
                   </select>
                 </div>
-
-
               </div>
             </div>
           </div>
@@ -295,7 +293,7 @@
           <div class="col-3 image1" *ngFor="let product of products">
             <img [src]="product.productImages ? product.productImages[0].imageUrl : null" (click)="showProductDetail(product)" alt="">
             <div class="image1__content">
-              <span>{{product.nameProduct}}</span>
+              <span class="product-name" (click)="showProductDetail(product)">{{product.nameProduct}}</span>
               <p>{{product.productSizes ? product.productSizes[0].salePrice : null}}</p>
             </div>
           </div>

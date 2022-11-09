@@ -5,6 +5,10 @@
   background-image: url(../../../../assets/images/footer2.jpg);
 }
 
+.footer-1{
+  padding-top: 30px;
+}
+
 .footer_text {
   font-family: system-ui;
   padding-top: 50px;

@@ -1,4 +1,4 @@
-
+<app-header></app-header>
 <div class="body">
   <div class="container">
     <div class="row">
@@ -251,36 +251,38 @@
                   <li><span>{{productDetail.accessory?.name}}</span></li>
                   <li>
                     <div class="custom-control custom-radio custom-control-inline" *ngFor="let s of sizes">
-                      <input type="radio" class="custom-control-input" name="size">
+                      <input type="radio" class="custom-control-input" name="size" [value]="s"
+                             [(ngModel)]="size" >
                       <label class="custom-control-label" >{{s.size}}</label>
                     </div>
-<!--                    <form [formGroup]="form">-->
-<!--                    <nz-radio-group formControlName="size" class="ant-input size">-->
-<!--                      <label-->
-<!--                        nz-radio-->
-<!--                        *ngFor="let s of sizes"-->
-<!--                        [nzValue]="s.sizeId"-->
-<!--                      >{{ s.size }}-->
-<!--                      </label>-->
-<!--                    </nz-radio-group>-->
-<!--                    </form>-->
                   </li>
                 </ul>
               </div>
             </div>
             <ul class="article--text__price">
               <li>
-                <h2>{{productDetail.productSizes ? (productDetail.productSizes[0].salePrice+'' | vnd)  : null}}</h2>
+                <h2 *ngIf="checkedRadio(size); else value">{{salePrice ? (sizes[0]?.salePrice+'' | vnd)  : ''}} -
+                   {{salePrice ? (sizes[lengthSize]?.salePrice+'' | vnd)  : ''}}
+                </h2>
+                <span class="isChosseRadio" *ngIf="checkedRadio(size)&&this.isChosseRadio2">! Vui lòng chọn kích thước sản phẩm trước</span>
+                <ng-template #value>
+                  <h2>{{size.salePrice +'' | vnd}}</h2>
+                </ng-template>
               </li>
               <li class="price--tax"><span>Ex Tax: $400.00</span></li>
             </ul>
-            <p class="available">Còn hàng {{productDetail.productSizes ?productDetail.productSizes[0].quantity :null}} Sản phẩm</p>
+            <p class="available" *ngIf="!checkedRadio(size); else quantity">Còn
+              {{size.quantity}} sản phẩm
+            </p>
+            <ng-template #quantity>
+              <p class="available">Còn {{totalQuantity}} sản phẩm</p>
+            </ng-template>
             <div id="product">
               <div class="form-group cart">
-                <label class="control-label qty" for="input-quantity">Qty</label>
-                <input type="text" name="quantity" value="1" size="2" id="input-quantity"
-                       class="form-control">
-                <a type="" id="button-cart" data-loading-text="Loading..." class="btn">ADD TO
+                <label class="control-label qty" for="input-quantity">Số lượng</label>
+                <input type="number" name="quantity" min="1" value="1" size="2" max ="{{size.quantity}}" id="input-quantity"
+                       class="form-quantity">
+                <a type="" id="button-cart" data-loading-text="Loading..." class="btn"(click)="addToCart()" >ADD TO
                   CART</a>
                 <span> - OR - </span>
                 <div class="product__btn-group">

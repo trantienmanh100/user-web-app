@@ -14,7 +14,12 @@ export const ROUTER_UTILS = {
   },
   product: {
     root: 'product',
+    list: 'product/list',
     productDetail: 'product/:id/detail'
+  },
+  cart: {
+    root: 'cart',
+    list: 'cart/list',
   },
   guest: {
     root: 'guest',

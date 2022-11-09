@@ -1,0 +1,277 @@
+a {
+  text-decoration: none;
+  color: #FFFFFF;
+  font-size: 20px;
+
+}
+li {
+  list-style: none;
+}
+/* header */
+header {
+  background-color: #E2BEA8;
+}
+
+.container {
+  width: 1400px;
+  margin: auto;
+  padding: 0;
+}
+
+.header__menu ul {
+  display: flex;
+  padding-left: 0;
+}
+
+ul li {
+  list-style: none;
+  font-size: 20px;
+}
+
+.header__menu ul li {
+  list-style: none;
+  font-size: 20px;
+  padding: 15px 100px 0 0;
+}
+
+
+.header__container {
+  display: flex;
+  background-color: #E2BEA8;
+}
+
+a:hover {
+  color: black;
+}
+
+.header__login {
+  display: inline-flex;
+  margin-left: auto;
+  padding-top: 15px ;
+
+}
+
+.header__login-2 {
+  margin-left: 50px;
+  color: #FFFFFF;
+}
+
+.btn {
+  background-color: #01996D;
+  color: white;
+  padding: 20px 50px;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+/* ----------------header 2------------ */
+.header2 {
+  border-bottom: 1px solid rgb(209, 199, 199);
+}
+
+.header2__container {
+  display: flex;
+  align-items: center;
+
+}
+
+.header__logo {
+  padding: 20px 0 20px 0;
+}
+.header__account{
+  background-color: #F8F8F8;
+  padding: 10px;
+}
+.header__account .row .account{
+  padding-left: 50px;
+}
+.header__account .row img{
+  width: 15px;
+}
+.header__account .ac {
+  padding-left: 60px;
+}
+.header__account .row a{
+  color: black;
+  font-size: 15px;
+}
+.header__account .row a:hover{
+  color: #F3AE7E;
+
+}
+.header__account .lineDoc {
+
+  border-left: 1px solid black;
+}
+
+
+/* ------------------slide ------------- */
+.body {
+  margin-top: 40px;
+
+}
+
+/* .container2 {
+  display: flex;
+} */
+
+.body__aside {
+  padding: 0;
+  margin: 0;
+  flex: 3;
+}
+.body__aside .accordion-flush {
+  border: 1px solid #e5e5e5;
+}
+
+.body__article img{
+  width: 100%;
+
+}
+.slide23 {
+  margin-top: 20px;
+}
+.slide2{
+  position: relative;
+}
+.slide2 .slide2__text{
+  list-style: none;
+  font-family: serif;
+  color: #FFFFFF;
+  position: absolute;
+  top: 70px;
+  left: 50px;
+
+}
+.slide2 .slide2__text li{
+  text-decoration: underline;
+
+}
+.button__search  {
+  width: fit-content;
+}
+.button__search  {
+  color: white;
+  padding: 10px 20px;
+  background-color: #F3AE7E ;
+  margin: 0 20px 20px 0;
+  font-size: 14px;
+  float: right;
+  border-radius: 20px
+
+}
+.button__search a {
+  font-size: 13px;
+  font-weight: 600;
+}
+.button__search:hover {
+  background-color: #000000;
+}
+.button__search a:hover {
+  color: white;
+}
+.accordion-item {
+  border: none;
+}
+/* -------------------account notify--------------------- */
+.ac__notify {
+  position: absolute;
+  top: 130px;
+  width: 167px;
+  right: 447px;
+  background-color: #FFFFFF;
+  border: 1px solid #d3d3d3;
+  padding: 10px;
+  padding-bottom: 0;
+  transform-origin: calc(100% - 20px ) top;
+  cursor: default;
+  animation: accountAnima ease-in 0.2s;
+  will-change: opacity, transform;
+  display: none;
+}
+.ac__notify::before {
+  content: "";
+  position: absolute;
+  top: -0px;
+  right: 12px;
+}
+.ac__notify::after {
+  content: "";
+  display: block;
+  position: absolute;
+  right: -1px;
+  top: -20px;
+  width: 167px;
+  height: 20px;
+}
+@keyframes accountAnima {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* ------------ search ------------ */
+.header__search .btn {
+  color: #000000;
+  border: 1px solid black;
+  padding: 5px;
+}
+
+
+.menu-4 {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding-top: 15px;
+}
+.menu-4 * {
+  box-sizing: border-box;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+}
+.menu-4 li {
+  display: inline-block;
+  list-style: outside none none;
+  margin: 0 1.5em;
+  overflow: hidden;
+}
+.menu-4 a {
+  padding: 0.3em 0;
+  color: #FFFFFF;
+  position: relative;
+  display: inline-block;
+  letter-spacing: 1px;
+  margin: 0;
+  text-decoration: none;
+}
+.menu-4 a:before,
+.menu-4 a:after {
+  position: absolute;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+}
+.menu-4 a:before {
+  bottom: 100%;
+  display: block;
+  height: 3px;
+  width: 100%;
+  content: "";
+  background-color: #e67e22;
+}
+.menu-4 a:after {
+  padding: 0.3em 0;
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  content: attr(data-hover);
+  color: #212121;
+  white-space: nowrap;
+}
+.menu-4 li:hover a,
+.menu-4 .current a {
+  transform: translateY(100%);
+}
