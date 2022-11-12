@@ -57,9 +57,10 @@ export class ProductDetailComponent implements OnInit {
   addToCart(): void {
     const cart :Cart = {
       //needFix
-      cartId : '2cc21d07-3bf0-4b4a-b167-608f5526dee4',
+      userId : '02951d3d-1045-4fa1-ad46-6edeffd04a3d',
       amount : 1,
-
+      productId :this.productId,
+      sizeId: this.size.sizeId
     }
     this.isChosseRadio2 =false;
     if (this.checkedRadio(this.size)){

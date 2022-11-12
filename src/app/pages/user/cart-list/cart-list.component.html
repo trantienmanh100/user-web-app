@@ -18,13 +18,13 @@
           </thead>
           <tbody>
           <tr *ngFor="let cart of carts">
-            <td class="image" data-title="No"><img [src]="img" alt="#"></td>
+            <td class="image" data-title="No"><img [src]="cart.image" alt="#"></td>
             <td class="product-des" data-title="Description">
               <p class="product-name"><a href="#"></a></p>
-<!--              {{loadProduct(cart.productId).nameProduct}}-->
-              <p class="product-des">Maboriosam in a tonto nesciung eget  distingy magndapibus.</p>
+              {{cart.productName}}
+              <p class="product-des">Mô tả sản phẩm</p>
             </td>
-            <td class="price" data-title="Price"><span>Giá</span></td>
+            <td class="price" data-title="Price"><span>{{cart.price}}</span></td>
             <td class="qty" data-title="Qty"><!-- Input Order -->
               <div class="input-group">
                 <div class="button minus">
@@ -41,7 +41,7 @@
               </div>
               <!--/ End Input Order -->
             </td>
-            <td class="total-amount" data-title="Total"><span>$220.88</span></td>
+            <td class="total-amount" data-title="Total"><span>{{intoMoney(cart.price,cart.amount)}}</span></td>
             <td class="action" data-title="Remove"><a (click)="delete(cart)"><i class="fa-solid fa-trash"></i></a></td>
           </tr>
           </tbody>

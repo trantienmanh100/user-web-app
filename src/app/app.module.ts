@@ -39,7 +39,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     ProductDetailComponent,
     HeaderComponent,
     HomeComponent,
-    CartListComponent
+    CartListComponent,
   ],
   imports: [
     BrowserModule,

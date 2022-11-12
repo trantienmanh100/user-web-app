@@ -9,6 +9,7 @@ import {ToastrService} from "ngx-toastr";
 import {NzModalRef, NzModalService} from "ng-zorro-antd/modal";
 import {IEvent} from "../../../shared/models/event.model";
 import {EventService} from "../../../shared/services/event.service";
+import {ICartDetail} from "../../../shared/models/cart-detail.model";
 
 @Component({
   selector: 'app-cart-list',
@@ -17,7 +18,7 @@ import {EventService} from "../../../shared/services/event.service";
 })
 export class CartListComponent implements OnInit {
   eventId : string ='';
-  carts: Cart[] = [];
+  carts: ICartDetail[] = [];
   events: IEvent[] = [];
   img = '';
   product :Product = {};
@@ -39,7 +40,7 @@ export class CartListComponent implements OnInit {
 
   loadData(id: string): void {
     this.cartService.search(id, true).subscribe((res :any)=>{
-      this.carts = res.body?.data;
+      this.carts = res.body?.data.cartDetailResponseList;
     })
   }
   loadEvent(): void {
@@ -60,15 +61,21 @@ export class CartListComponent implements OnInit {
     return this.product;
   }
 
-  addQuantity(cart : ICart): void {
-    // let amount: number =0;
-    // // @ts-ignore
-    // amount = cart.amount + 1;
-    // this.cartService.updateQuantity(cart.cartId.,amount,cart ).subscribe((res: any) =>{
-    //   if (cart?.cartId != null) {
-    //     this.loadData(cart?.cartId);
-    //   }
-    // })
+  intoMoney (price ?: number, amount?: number) :any{
+    // @ts-ignore
+    return price * amount ;
+  }
+
+  addQuantity(cart : ICartDetail): void {
+    let amount: number =0;
+    // @ts-ignore
+    amount = cart.amount + 1;
+    this.cartService.updateQuantity(cart?.cartDetailId,amount,cart ).subscribe((res: any) =>{
+      if (cart?.cartDetailId != null) {
+        const id ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
+        this.loadData(id);
+      }
+    })
   }
 
   minusQuantity(cart : ICart): void {
