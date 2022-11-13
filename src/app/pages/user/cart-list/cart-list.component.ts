@@ -11,6 +11,8 @@ import {IEvent} from "../../../shared/models/event.model";
 import {EventService} from "../../../shared/services/event.service";
 import {ICartDetail} from "../../../shared/models/cart-detail.model";
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {Ship} from "../../../shared/models/ship.model";
+import {HttpHeaders} from "@angular/common/http";
 
 @Component({
   selector: 'app-cart-list',
@@ -23,7 +25,9 @@ export class CartListComponent implements OnInit {
   carts: ICartDetail[] = [];
   events: IEvent[] = [];
   img = '';
+  shipMoney : any;
   product :Product = {};
+  ship: Ship ={};
   discount = 0;
   thanhtien = 0;
   total = 0;
@@ -40,6 +44,7 @@ export class CartListComponent implements OnInit {
 
   ngOnInit(): void {
     const id ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
+
     this.loadData(id)
     this.loadEvent();
     this.initForm();
@@ -61,6 +66,7 @@ export class CartListComponent implements OnInit {
            this.total += item.price*item.amount;
          }
       });
+      this.chargeShipping(this.total);
     })
   }
   loadEvent(): void {
@@ -125,6 +131,19 @@ export class CartListComponent implements OnInit {
     this.discount = selectEvent.length > 0 ? selectEvent[0].discount : 0;
     this.thanhtien = this.total - (this.total * this.discount) / 100;
   }
-
+  chargeShipping(total: number) {
+     this.ship.service_id = 53320;
+     this.ship.insurance_value = total;
+     this.ship.from_district_id =3440;
+     this.ship.to_district_id = 1542;
+     this.ship.to_ward_code = "1B1517";
+     this.ship.height=10;
+     this.ship.length=10;
+     this.ship.weight = 1000;
+     this.ship.width =10;
+     this.cartService.chargeShipping(this.ship).subscribe((respone) =>{
+      this.shipMoney = respone.data.total;
+    })
+  }
 
 }

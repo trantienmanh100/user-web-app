@@ -26,7 +26,7 @@
               <p class="product-des">Mô tả sản phẩm</p>
             </td>
             <td>{{cart.sizeName}}</td>
-            <td class="price" data-title="Price"><span>{{cart.price}}</span></td>
+            <td class="price" data-title="Price"><span>{{cart.price+'' | number}}</span></td>
             <td class="qty" data-title="Qty"><!-- Input Order -->
               <div class="input-group">
                 <div class="button minus">
@@ -43,7 +43,7 @@
               </div>
               <!--/ End Input Order -->
             </td>
-            <td class="total-amount" data-title="Total"><span>{{intoMoney(cart.price,cart.amount)}}</span></td>
+            <td class="total-amount" data-title="Total"><span>{{intoMoney(cart.price,cart.amount)+''| number}}</span></td>
             <td class="action" data-title="Remove"><a (click)="delete(cart)"><i class="fa-solid fa-trash"></i></a></td>
           </tr>
           </tbody>
@@ -85,7 +85,7 @@
               <div class="right">
                 <ul>
                   <li>Tổng tiền<span>{{this.total +'' | vnd}}</span></li>
-                  <li>Shipping<span>Free</span></li>
+                  <li>Phí vận chuyển<span>{{this.shipMoney+'' | vnd}}</span></li>
                   <li>Giảm giá: <span class="fw-bold">{{this.discount + '%'}}</span></li>
                   <li class="last">You Pay<span>{{this.total - (this.total * this.discount/100) +'' | vnd}}</span></li>
                 </ul>

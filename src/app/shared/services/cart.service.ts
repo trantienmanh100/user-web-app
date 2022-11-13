@@ -1,8 +1,10 @@
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {Cart, ICart} from "../models/cart.model";
 import {AbstractService, EntityResponseType} from "./abstract.service";
+import CommonUtil from "../utils/common-utils";
+import {Ship} from "../models/ship.model";
 @Injectable({
   providedIn: 'root',
 })
@@ -27,6 +29,12 @@ export class CartService extends AbstractService {
 
   deleteCartDetail(id:any): Observable<EntityResponseType<ICart>>{
     return super.delete<ICart>(`${this.resourceUrl}/${id}`);
+  }
+
+  chargeShipping(ship : Ship ) :Observable<any> {
+    return this.http.post('https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee', ship,
+      { headers: new HttpHeaders().set('Token','47c4a6b7-6337-11ed-b824-262f869eb1a7'),
+  })
   }
 
 }
