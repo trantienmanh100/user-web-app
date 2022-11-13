@@ -54,21 +54,21 @@
         </div>
         <div class="card ">
           <div class="card-header">
-            <img src="assets/images/3.png" alt="">
+            <img src="./../../../assets/images/3.png" alt="">
             Refine Search
           </div>
-          <div class="accordion" id="accordionExample">
+          <div class="accordion" id="accordionPanelsStayOpenExample">
             <div class="accordion-item">
-              <div class="accordion-header" >
+              <div class="accordion-header">
                 <button class="accordion-button collapsed" type="button"
                         data-bs-toggle="collapse" data-bs-target="#collapseThree"
-                        aria-expanded="false" aria-controls="collapseThree">
+                        aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
                   Color
                 </button>
               </div>
-              <div id="collapseThree" class="accordion-collapse collapse"
+              <div id="collapseThree" class="accordion-collapse collapse show"
                    aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                <div class="accordion-body grid-container">
+                <div class="accordion-body pt-0 grid-container">
                   <div>
                     <input type="checkbox" class="check-box"> Yellow
                   </div>
@@ -89,13 +89,13 @@
               <div class="accordion-header" >
                 <button class="accordion-button collapsed" type="button"
                         data-bs-toggle="collapse" data-bs-target="#collapseThree1"
-                        aria-expanded="false" aria-controls="collapseThree">
+                        aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
                   Price
                 </button>
               </div>
-              <div id="collapseThree1" class="accordion-collapse collapse"
+              <div id="collapseThree1" class="accordion-collapse collapse show"
                    aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                <div class="accordion-body grid-container">
+                <div class="accordion-body pt-0 grid-container">
                   <div>
                     <input type="checkbox" class="check-box"> $50.00 - $200.000
                   </div>
@@ -116,13 +116,13 @@
               <div class="accordion-header" id="headingThree">
                 <button class="accordion-button collapsed" type="button"
                         data-bs-toggle="collapse" data-bs-target="#collapseThree2"
-                        aria-expanded="false" aria-controls="collapseThree">
+                        aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
                   Size
                 </button>
               </div>
-              <div id="collapseThree2" class="accordion-collapse collapse"
+              <div id="collapseThree2" class="accordion-collapse collapse show"
                    aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                <div class="accordion-body grid-container">
+                <div class="accordion-body pt-0 grid-container">
                   <div>
                     <input type="checkbox" class="check-box"> XL
                   </div>
@@ -138,6 +138,9 @@
 
                 </div>
               </div>
+            </div>
+            <div class="button__search ">
+              <a href="#">REFIRE SEARCH</a>
             </div>
           </div>
         </div>
@@ -217,7 +220,7 @@
       <div class="col-9 body__article">
         <div class="row">
           <div class="col-6 body__article--image">
-            <img [src]="imageUrl" alt="">
+            <img [src]="imageUrl" alt="" class="image--big">
             <div class="image__small">
               <span class="pre"> <img src="assets/images/pst-prod-prev.svg" alt=""></span>
               <img src="assets/images/icon11.jpg" alt="">
@@ -344,7 +347,7 @@
         </div>
         <br>
         <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade show description" id="nav-home" role="tabpanel"
+          <div class="tab-pane fade show active description" id="nav-home" role="tabpanel"
                aria-labelledby="nav-home-tab">
             <p>Imagine the advantages of going big without slowing down. The big 19" 941BW monitor
               combines wide aspect ratio with fast pixel response time, for bigger images, more room

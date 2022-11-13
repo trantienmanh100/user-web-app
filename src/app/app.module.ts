@@ -23,6 +23,9 @@ import { IconDefinition } from '@ant-design/icons-angular';
 import * as AllIcons from '@ant-design/icons-angular/icons';
 import {NzModalService} from "ng-zorro-antd/modal";
 import {NzSelectModule} from "ng-zorro-antd/select";
+import { RefundComponent } from './pages/user/bought/refund/refund.component';
+import { TagBoughtComponent } from './shared/components/tag-bought/tag-bought.component';
+import { BoughtComponent } from './pages/user/bought/bought.component';
 
 const antDesignIcons = AllIcons as {
   [key: string]: IconDefinition;
@@ -39,6 +42,9 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     ProductDetailComponent,
     HeaderComponent,
     HomeComponent,
+    RefundComponent,
+    TagBoughtComponent,
+    BoughtComponent,
     CartListComponent,
   ],
   imports: [

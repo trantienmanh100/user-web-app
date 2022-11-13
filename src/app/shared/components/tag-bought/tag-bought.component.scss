@@ -1,0 +1,33 @@
+a {
+  font-size: 16px;
+  text-decoration: none;
+  color: #000;
+}
+p {
+  margin: 0;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+ul li {
+  list-style-type: none;
+}
+
+.menu ul {
+  display: flex;
+  justify-content: space-around;
+}
+
+.menu  ul li  a{
+  color: rgb(53, 53, 53);
+  display: inline-block;
+  padding: 15px 15px;
+  text-decoration: none;
+  font-weight: 500;
+}
+.menu ul li a:hover{
+  color: rgb(70, 148, 136);
+  border-bottom: 2px solid rgb(70, 148, 136);
+  padding-bottom: 2px;
+}

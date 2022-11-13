@@ -5,12 +5,22 @@ import {ProductListComponent} from "./pages/user/product-list/product-list.compo
 import {ProductDetailComponent} from "./pages/user/product-detail/product-detail.component";
 import {HomeComponent} from "./pages/user/home/home.component";
 import {CartListComponent} from "./pages/user/cart-list/cart-list.component";
+import {RefundComponent} from "./pages/user/bought/refund/refund.component";
+import {BoughtComponent} from "./pages/user/bought/bought.component";
 
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent
+  },
+  {
+    path: ROUTER_UTILS.bought.list,
+    component: BoughtComponent,
+  },
+  {
+    path: ROUTER_UTILS.refund.list,
+    component: RefundComponent,
   },
   {
     path: ROUTER_UTILS.product.list,

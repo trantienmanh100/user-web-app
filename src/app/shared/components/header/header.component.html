@@ -16,7 +16,6 @@
 <!--      </div>-->
       <div class="header__login">
         <a href="">Language </a>
-
         <div class="header__login-2"><a>Currency </a></div>
       </div>
     </div>
@@ -46,16 +45,11 @@
         <div class="row">
           <div class="col-6 ac">
             <img src="assets/images/account.svg" alt="">
-            <a href="#">Accounts</a>
-            <div class="ac__notify">
-              <p><a href="">Tài khoản của tôi</a></p>
-              <p><a href="#">Đơn mua</a></p>
-              <p><a href="">Đăng xuất</a></p>
-            </div>
+            <a (click)="showBought()">Accounts</a>
           </div>
           <div class="col-6 lineDoc">
             <img src="assets/images/header-cart.svg" alt="">
-            <a href="#">Cart ($0.00)</a>
+            <a (click)="showCartDetail()">Cart ($0.00)</a>
           </div>
         </div>
       </div>

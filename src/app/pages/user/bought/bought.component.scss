@@ -1,0 +1,164 @@
+body {
+  padding: 0px;
+  margin: 0px;
+  margin-top: 40px;
+}
+
+a {
+  font-size: 16px;
+  text-decoration: none;
+  color: #000;
+}
+p {
+  margin: 0;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+ul li {
+  list-style-type: none;
+}
+
+/* ------------------Account------------- */
+.user {
+  display: flex;
+  margin: 18px 0;
+}
+.user .nameuser{
+  padding: 8px 0;
+  margin-left: 15px;
+}
+.flex {
+  display: flex;
+
+}
+.userManager img{
+  width: 20px;
+  height: 20px;
+}
+.userManager div {
+  margin-bottom: 15px;
+}
+.userManager p{
+  margin-left: 10px;
+}
+.userManager p a:hover{
+  color: #F3AE7E;
+}
+/* ------------------ Product ------------- */
+
+.menu ul{
+  display: flex;
+  align-content: space-between;
+}
+.product {
+  border: 1px solid #F0F0F0;
+  padding: 10px;
+  border-radius: 5px;
+}
+.product__title {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+.product__item img {
+  width: 90px;
+  height: 100px;
+}
+.product__item .info {
+  margin: 0 30px;
+  letter-spacing: 1px;
+  font-weight: 400;
+}
+.product__item .info p{
+  margin-bottom: 5px;
+}
+.product__item .info .text--small {
+  font-size: 14px;
+  color: #757575;
+}
+.total {
+  padding: 5px 20px;
+  width: 100%;
+  height: 110px;
+  border: 1px solid rgb(226, 226, 226);
+  background-color: rgb(226, 226, 226);
+  border-radius: 5px;
+}
+.total__price {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.total__price span{
+  color: red;
+  font-size: 28px;
+  font-weight: 500;
+}
+.total__price p{
+  margin-right: 50px
+}
+.total__button {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+
+}
+.total__button a {
+  padding: 10px 50px;
+  background-color: #F3AE7E;
+  margin-right: 15px;
+  border-radius: 5px;
+}
+
+
+/* --------------footer1--------------- */
+.footer1 {
+  min-height: 400px;
+  padding-top: 100px;
+
+}
+
+
+.footer1 a {
+  color: #000;
+  font-size: 15px;
+}
+
+.column1 .column1__text {
+  font-size: 15px;
+  margin: 20px 0 20px 0;
+}
+
+.column1 .column1__text {
+  font-size: 15px;
+  margin: 20px 0 20px 0;
+}
+
+.column__last {
+  float: left;
+}
+
+.column__last img {
+  width: 25px;
+  height: 25px;
+}
+
+.iphone {
+  padding: 40px 0 40px 0;
+}
+
+/* ----------footer2------------- */
+.footer2 {
+  height: 50px;
+  background-color: #E2BEA8;
+  color: #FFFFFF;
+  padding-top: 15px;
+}
+
+/* ------------ search ------------ */
+.header2__container .header__search {
+  border: 20px;
+
+}
