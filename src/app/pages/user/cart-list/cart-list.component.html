@@ -10,6 +10,7 @@
           <tr class="main-hading">
             <th>Hình ảnh</th>
             <th>Sản phẩm</th>
+            <th>Kích thước</th>
             <th class="text-center">Giá</th>
             <th class="text-center">Số lượng</th>
             <th class="text-center">Thành tiền</th>
@@ -24,6 +25,7 @@
               {{cart.productName}}
               <p class="product-des">Mô tả sản phẩm</p>
             </td>
+            <td>{{cart.sizeName}}</td>
             <td class="price" data-title="Price"><span>{{cart.price}}</span></td>
             <td class="qty" data-title="Qty"><!-- Input Order -->
               <div class="input-group">
@@ -57,8 +59,9 @@
             <div class="col-lg-8 col-md-5 col-12">
               <div class="left">
                 <div class="coupon">
-                  <form action="#" target="_blank">
+                  <form [formGroup]="form" action="#" target="_blank">
                     <nz-select
+                      formControlName="eventId"
                       nzAllowClear
                       [nzPlaceHolder]="'Mã giảm giá'"
                       (ngModelChange)="getTotal($event)"
@@ -81,10 +84,10 @@
             <div class="col-lg-4 col-md-7 col-12">
               <div class="right">
                 <ul>
-                  <li>Cart Subtotal<span>$330.00</span></li>
+                  <li>Tổng tiền<span>{{this.total +'' | vnd}}</span></li>
                   <li>Shipping<span>Free</span></li>
-                  <li>You Save<span>$20.00</span></li>
-                  <li class="last">You Pay<span>$310.00</span></li>
+                  <li>Giảm giá: <span class="fw-bold">{{this.discount + '%'}}</span></li>
+                  <li class="last">You Pay<span>{{this.total - (this.total * this.discount/100) +'' | vnd}}</span></li>
                 </ul>
                 <div class="button5">
                   <a href="#" class="btn">Checkout</a>

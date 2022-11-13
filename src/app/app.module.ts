@@ -8,7 +8,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {ProductListComponent} from "./pages/user/product-list/product-list.component";
 import { ProductDetailComponent } from './pages/user/product-detail/product-detail.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { NzRateModule } from 'ng-zorro-antd/rate';
 import {PipeModule} from "./shared/pipe/pipe.module";
 import { HeaderComponent } from './shared/components/header/header.component';
@@ -62,6 +62,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
       positionClass: 'toast-top-right'
     }),
     NzSelectModule,
+    ReactiveFormsModule,
     //NgbModule,
   ],
   providers: [

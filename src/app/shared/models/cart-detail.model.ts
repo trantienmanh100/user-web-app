@@ -21,7 +21,6 @@ export class CartDetail implements ICartDetail {
     public code?: string,
   ) {
     this.cartDetailId = cartDetailId;
-    this.amount = amount;
     this.productId = productId;
     this.cartId = cartId;
     this.userId =userId;
