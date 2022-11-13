@@ -288,10 +288,15 @@
         </div>
       </div>
       <div class="product1">
-
-        <div class="row product1__image ">
+        <div class="row product1__image">
           <div class="col-3 image1" *ngFor="let product of products">
             <img [src]="product.productImages ? product.productImages[0].imageUrl : null" (click)="showProductDetail(product)" alt="">
+              <div class="middle">
+                <a href="#"> <img src="../../../assets/images/header-cart.svg"></a>
+                <a href="#"> <img src="../../../assets/images/header-cart.svg"></a>
+                <a href="#"> <img src="../../../assets/images/header-cart.svg"></a>
+                <a href="#"> <img src="../../../assets/images/header-cart.svg"></a>
+              </div>
             <div class="image1__content">
               <span class="product-name" (click)="showProductDetail(product)">{{product.nameProduct}}</span>
               <p>{{product.productSizes ? product.productSizes[0].salePrice : null}}</p>

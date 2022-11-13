@@ -105,6 +105,10 @@ a:hover {
 .body__article--text .infoProduct .infoProduct__property a:hover {
   color: black;
 }
+.body__article--image .image--big {
+  max-width: 480px;
+  max-height: 541px;
+}
 .body__article--image .image__small{
   margin: 20px 0 0 8px;
 
@@ -128,7 +132,6 @@ a:hover {
 .body__article--text h3 {
   color: #000;
   font-size: 30px;
-  padding: 20px 0px 0px;
   font-family: system-ui;
 }
 
@@ -253,7 +256,6 @@ a:hover {
 /* -----------------Review ---------------- */
 .nav {
   border: none;
-  margin-top: 40px;
 }
 .nav .nav-link{
   border: none;
@@ -262,7 +264,6 @@ a:hover {
 }
 .nav button{
   color: #000;
-  margin-bottom: 100px;
   font-size: 20px;
   font-weight: 400;
 }
@@ -370,7 +371,12 @@ a:hover {
 .custom-control-input {
 margin-right: 5px;
 }
-
+.accordion-body div input {
+  margin-right: 10px;
+}
+.accordion .accordion-item {
+  border: none;
+}
 .custom-control-inline {
   display: inline-flex;
   margin-right: 1rem;

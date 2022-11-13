@@ -8,6 +8,10 @@ body {
   margin: 0px;
   font-family: 'Fira Sans', sans-serif;
 }
+p {
+  padding: 0;
+  margin: 0;
+}
 
 a {
   text-decoration: none;
@@ -160,7 +164,7 @@ a:hover {
 
 .refineSearch__title h3 {
   font-size: 22px;
-  margin-bottom: 30px;
+  margin-top: 30px;
   font-weight: 400;
 }
 
@@ -214,9 +218,6 @@ a:hover {
 
 }
 
-.product1__image .image1 p {
-  color: #757575;
-}
 
 /* ----pagination-wrapper cat-content--- */
 .pagination-wrapper.cat-content {
@@ -353,7 +354,7 @@ a:hover {
   margin-bottom: 10px;
 }
 .sortAll {
-  margin: 15px 0;
+  margin-top: 15px;
 }
 .sort__title {
   padding-top: 5px;
@@ -392,10 +393,62 @@ a:hover {
 .product1__image .image1 p {
   color: #757575;
 }
-
-.image1__content {
-  margin-top: 15px;
+.image1 {
+  margin-top: 10px;
+  position: relative;
 }
+//
+.image1 {
+  img {
+    opacity: 1;
+    display: block;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+  }
+
+  .middle {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 54%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    a {
+      background-color: white;
+      padding: 5px;
+      border-radius: 20px;
+
+    }
+    a img{
+      width: 20px;
+      height: 20px;
+      opacity: 1;
+    }
+    a:hover{
+      padding: 5px;
+      border-radius: 20px;
+      background-color: #CBB28B;
+    }
+  }
+
+  &:hover img {
+    opacity: 0.3;
+  }
+
+  &:hover .middle {
+    opacity: 1;
+  }
+}
+
+
 
 /* ------page --------------- */
 .pagination {
