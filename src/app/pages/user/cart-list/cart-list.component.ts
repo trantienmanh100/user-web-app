@@ -1,8 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CartService} from "../../../shared/services/cart.service";
-import {Cart, ICart} from "../../../shared/models/cart.model";
 import {ProductService} from "../../../shared/services/product.service";
-import {IProduct, Product} from "../../../shared/models/product.model";
+import {Product} from "../../../shared/models/product.model";
 import CommonUtil from "../../../shared/utils/common-utils";
 import {TranslateService} from "@ngx-translate/core";
 import {ToastrService} from "ngx-toastr";
@@ -12,7 +11,8 @@ import {EventService} from "../../../shared/services/event.service";
 import {ICartDetail} from "../../../shared/models/cart-detail.model";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Ship} from "../../../shared/models/ship.model";
-import {HttpHeaders} from "@angular/common/http";
+import {IProductOrder, Order, OrderType, PaymentMethod, StatusEnum} from "../../../shared/models/order.model";
+import {OrderService} from "../../../shared/services/order.service";
 
 @Component({
   selector: 'app-cart-list',
@@ -22,6 +22,7 @@ import {HttpHeaders} from "@angular/common/http";
 export class CartListComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   eventId : string ='';
+  selectedProducts: IProductOrder[] = [];
   carts: ICartDetail[] = [];
   events: IEvent[] = [];
   img = '';
@@ -35,6 +36,7 @@ export class CartListComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private cartService :CartService,
+    private orderService :OrderService,
     private productService: ProductService,
     private translateService: TranslateService,
     private modalService: NzModalService,
@@ -43,7 +45,7 @@ export class CartListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const id ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
+    const id ='be2d6163-7979-40fb-a149-dca33bacad1a';
 
     this.loadData(id)
     this.loadEvent();
@@ -86,7 +88,7 @@ export class CartListComponent implements OnInit {
     amount = cart.amount + 1;
     this.cartService.updateQuantity(cart?.cartDetailId,amount,cart ).subscribe((res: any) =>{
       if (cart?.cartDetailId != null) {
-        const id ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
+        const id ='be2d6163-7979-40fb-a149-dca33bacad1a';
         this.loadData(id);
       }
     })
@@ -98,7 +100,7 @@ export class CartListComponent implements OnInit {
     amount = cart.amount - 1;
     this.cartService.updateQuantity(cart?.cartDetailId,amount,cart ).subscribe((res: any) =>{
       if (cart?.cartDetailId != null) {
-        const id ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
+        const id ='be2d6163-7979-40fb-a149-dca33bacad1a';
         this.loadData(id);
       }
     })
@@ -117,7 +119,7 @@ export class CartListComponent implements OnInit {
       if(result?.success){
         this.cartService.deleteCartDetail(cart.cartDetailId).subscribe((respone: any) =>{
           this.toast.success('Xoá thành công sản phẩm khỏi giỏ hàng');
-          const userId ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
+          const userId ='be2d6163-7979-40fb-a149-dca33bacad1a';
           this.loadData(userId);
         });
       }
@@ -146,4 +148,47 @@ export class CartListComponent implements OnInit {
     })
   }
 
+  createOrder(): void {
+    const order: Order = {
+      // customerMoney: 1,
+      // paymentMethod: PaymentMethod.CARD,
+      // transportFee: 1,
+      // purchaseType: OrderType.ONLINE,
+      // status: StatusEnum.CHO_XAC_NHAN,
+      // eventId: "sdsd",
+      // address: "NN",
+      // userId: "sdsd",
+      ...this.form.value,
+      total: this.thanhtien,
+      orderDetailList: this.selectedProducts.map((res: any) => {
+        const price = res.price as number;
+        const productDetail: IProductOrder = {
+          productId: res.productId,
+          quantity: res.quantityBy,
+          price: res.price,
+          sizeId: res.sizeId,
+          total: ((res.quantityBy as number) * price) as number,
+        };
+        return productDetail;
+      }),
+    };
+    this.orderService.createOrder(order).subscribe(() => {
+      this.toast.success('Thêm được order rồi');
+    })
+    // const createForm = CommonUtil.modalConfirm(
+    //   this.translateService,
+    //   'model.order.createOrderTitle',
+    //   'model.order.createOrderContent'
+    // );
+    //
+    // const modal: NzModalRef = this.modalService.create(createForm);
+    // modal.afterClose.subscribe((result: { success: boolean; data: any }) => {
+    //   if (result?.success) {
+    //     this.orderService.createOrder(order).subscribe((res) => {
+    //       this.toast.success('Thêm hóa đơn thành công');
+    //       this.localStorage.clear("selectedProducts");
+    //     });
+    //   }
+    // });
+  }
 }

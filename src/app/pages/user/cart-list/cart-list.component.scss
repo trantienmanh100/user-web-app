@@ -1,6 +1,9 @@
 /*======================================
    Start Shopping Cart CSS
 ========================================*/
+li {
+  list-style: none;
+}
 .table.shopping-summery {
   background: #fff;
 }
@@ -127,7 +130,7 @@
   color:#E2BEA8;
 }
 .shopping-cart .total-amount{
-  margin-top:50px;
+  margin-top:20px;
 }
 .shopping-cart .total-amount .left{}
 .shopping-cart .total-amount .left .coupon{}
@@ -266,6 +269,7 @@
   border-radius: 0px;
   text-transform:uppercase;
 }
+
 .btn:hover{
   color:#fff;
   background:#E2BEA8;

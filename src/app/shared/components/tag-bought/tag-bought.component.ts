@@ -17,10 +17,10 @@ export class TagBoughtComponent implements OnInit {
   }
 
   showWaitConfirm(): void {
-    this.router.navigate([ROUTER_UTILS.bought.list]);
+    this.router.navigate([ROUTER_UTILS.bought.waitconfirm]);
   }
   showWaitGoods(): void {
-    this.router.navigate([ROUTER_UTILS.bought.list]);
+    this.router.navigate([ROUTER_UTILS.bought.waitgoods]);
   }
   showChange(): void {
     this.router.navigate([ROUTER_UTILS.refund.list]);

@@ -2,33 +2,21 @@
 <div class="container">
   <div class="row donmua">
     <div class="col-2 info__account">
-      <div class="user">
-        <img src="../../../../../assets/images/User.jpg" alt="" style="height: 40px; width:40px;">
-        <p class="nameuser">Do Duc Toan</p>
-      </div>
-      <hr>
-      <div class="userManager">
-        <div class="userManager__info flex">
-          <img src="../../../../../assets/images/userrr.png" alt="">
-          <p><a href="">Tài Khoản Của Tôi</a></p>
-        </div>
-        <div class="userManager__order flex">
-          <img src="../../../../../assets/images/carttttttttt.png" alt="">
-          <p><a href="">Đơn mua</a></p>
-        </div>
-        <div class="userManager__notify flex">
-          <img src="../../../../../assets/images/notify.png" alt="">
-          <p><a href="">Thông báo</a></p>
-        </div>
-        <div class="userManager__voucher flex">
-          <img src="../../../../../assets/images/voucher.png" alt="">
-          <p><a href="">Voucher</a></p>
-        </div>
-
-      </div>
+    <app-menu-user></app-menu-user>
     </div>
     <div class="col-10 info__product">
-      <app-tag-bought></app-tag-bought>
+      <div class="menu">
+        <ul>
+          <li><a href="#">Tất cả</a></li>
+          <li><a  (click)="showWaitConfirm()">Chờ xác nhận</a></li>
+          <li><a  (click)="showWaitGoods()">Chờ lấy hàng </a></li>
+          <li><a href="#" >Đang giao</a></li>
+          <li><a href="#" >Đã giao</a></li>
+          <li><a href="#" >Đã hủy</a></li>
+          <li><a (click)="showChange()">Hàng đổi</a></li>
+        </ul>
+      </div>
+
       <div class="order">
         <div class="product">
           <div class="product__title">

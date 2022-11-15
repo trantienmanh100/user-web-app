@@ -7,6 +7,8 @@ import {HomeComponent} from "./pages/user/home/home.component";
 import {CartListComponent} from "./pages/user/cart-list/cart-list.component";
 import {RefundComponent} from "./pages/user/bought/refund/refund.component";
 import {BoughtComponent} from "./pages/user/bought/bought.component";
+import {ChangeComponent} from "./pages/user/qluser/change/change.component";
+import {QluserComponent} from "./pages/user/qluser/qluser.component";
 
 
 const routes: Routes = [
@@ -18,6 +20,16 @@ const routes: Routes = [
     path: ROUTER_UTILS.bought.list,
     component: BoughtComponent,
   },
+  {
+    path: ROUTER_UTILS.bought.waitconfirm,
+    component: BoughtComponent,
+  },
+  {
+    path: ROUTER_UTILS.bought.waitgoods,
+    component: BoughtComponent,
+  },
+
+  // bought end
   {
     path: ROUTER_UTILS.refund.list,
     component: RefundComponent,
@@ -37,6 +49,14 @@ const routes: Routes = [
   {
     path: ROUTER_UTILS.cart.list,
     component: CartListComponent,
+  },
+  {
+    path: ROUTER_UTILS.change.root,
+    component: ChangeComponent,
+  },
+  {
+    path: ROUTER_UTILS.qlUser.root,
+    component: QluserComponent,
   },
 ]
 

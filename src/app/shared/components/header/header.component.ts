@@ -22,5 +22,7 @@ export class HeaderComponent implements OnInit {
   showCartDetail(): void {
     this.router.navigate([ROUTER_UTILS.cart.detail]);
   }
-
+  showCart(): void {
+    this.router.navigate([ROUTER_UTILS.cart.list]);
+  }
 }

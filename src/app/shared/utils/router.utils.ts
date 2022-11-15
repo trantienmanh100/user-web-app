@@ -20,10 +20,18 @@ export const ROUTER_UTILS = {
   bought: {
     root: 'bought',
     list: 'bought/list',
+    waitconfirm: 'bought/waitconfirm',
+    waitgoods: 'bought/waitgoods',
   },
   refund: {
     root: 'refund',
     list: 'refund/list',
+  },
+  change: {
+    root: 'change',
+  },
+  qlUser: {
+    root: 'qlUser',
   },
   cart: {
     root: 'cart',

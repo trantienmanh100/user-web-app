@@ -1,0 +1,25 @@
+
+.info-user {
+  box-sizing: border-box;
+  margin-top: 20px;
+  border: 1px solid #d5d5d5;
+}
+.file-upload {
+  position: relative;
+  overflow: hidden;
+}
+.file-upload input {
+  position: absolute;
+  font-size: 50px;
+  opacity: 0;
+  right: 0;
+  top: 0;
+}
+.image-avatar img{
+  width: 120px;
+  height: 120px;
+}
+.change-password {
+  box-sizing: border-box;
+  border: 1px solid #d5d5d5;
+}

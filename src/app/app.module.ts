@@ -26,6 +26,9 @@ import {NzSelectModule} from "ng-zorro-antd/select";
 import { RefundComponent } from './pages/user/bought/refund/refund.component';
 import { TagBoughtComponent } from './shared/components/tag-bought/tag-bought.component';
 import { BoughtComponent } from './pages/user/bought/bought.component';
+import { MenuUserComponent } from './shared/components/menu-user/menu-user.component';
+import { QluserComponent } from './pages/user/qluser/qluser.component';
+import { ChangeComponent } from './pages/user/qluser/change/change.component';
 
 const antDesignIcons = AllIcons as {
   [key: string]: IconDefinition;
@@ -46,6 +49,9 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     TagBoughtComponent,
     BoughtComponent,
     CartListComponent,
+    MenuUserComponent,
+    QluserComponent,
+    ChangeComponent,
   ],
   imports: [
     BrowserModule,
