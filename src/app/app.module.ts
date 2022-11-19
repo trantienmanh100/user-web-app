@@ -24,7 +24,6 @@ import * as AllIcons from '@ant-design/icons-angular/icons';
 import {NzModalService} from "ng-zorro-antd/modal";
 import {NzSelectModule} from "ng-zorro-antd/select";
 import { RefundComponent } from './pages/user/bought/refund/refund.component';
-import { TagBoughtComponent } from './shared/components/tag-bought/tag-bought.component';
 import { BoughtComponent } from './pages/user/bought/bought.component';
 import { MenuUserComponent } from './shared/components/menu-user/menu-user.component';
 import { QluserComponent } from './pages/user/qluser/qluser.component';
@@ -46,7 +45,6 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     HeaderComponent,
     HomeComponent,
     RefundComponent,
-    TagBoughtComponent,
     BoughtComponent,
     CartListComponent,
     MenuUserComponent,

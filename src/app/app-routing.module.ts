@@ -20,14 +20,6 @@ const routes: Routes = [
     path: ROUTER_UTILS.bought.list,
     component: BoughtComponent,
   },
-  {
-    path: ROUTER_UTILS.bought.waitconfirm,
-    component: BoughtComponent,
-  },
-  {
-    path: ROUTER_UTILS.bought.waitgoods,
-    component: BoughtComponent,
-  },
 
   // bought end
   {

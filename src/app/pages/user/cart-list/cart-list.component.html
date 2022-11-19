@@ -56,7 +56,7 @@
         <!-- Total Amount -->
         <div class="total-amount">
           <div class="row">
-            <div class="col-lg-8 col-md-5 col-12">
+            <div class="col-lg-12 col-md-5">
               <div class="left">
                 <div class="coupon">
                   <form [formGroup]="form" action="#" target="_blank">
@@ -65,8 +65,10 @@
                       nzAllowClear
                       [nzPlaceHolder]="'Mã giảm giá'"
                       (ngModelChange)="getTotal($event)"
+                      nzBorderless
                     >
-                      <ng-container *ngFor="let event of events">
+                      <ng-container *ngFor="let event of events"                       style="border: none;"
+                      >
                         <nz-option
                           [nzValue]="event.eventId"
                           [nzLabel]="event.name + ' - ' + 'Giảm ' + event.discount + '%'"
@@ -77,10 +79,189 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="row ">
+            <div class="col-lg-8 col-md-5 col-12">
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <p>Phương thức thanh toán </p>
+                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
+                        data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
+                        aria-selected="true">Thẻ tín dụng</button>
+                <button class="nav-link inactive" id="nav-profile-tab" data-bs-toggle="tab"
+                        data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
+                        aria-selected="false">Thanh toán khi nhận hàng</button>
+              </div>
+              <br>
+              <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active description" id="nav-home" role="tabpanel"
+                     aria-labelledby="nav-home-tab">
+                  <div class="row">
+                    <div class="col-lg-4 mb-lg-0 mb-3">
+                      <div class="card p-3">
+                        <div class="img-box">
+                          <img src="https://www.freepnglogos.com/uploads/visa-logo-download-png-21.png" alt="">
+                        </div>
+                        <div class="number">
+                          <label class="fw-bold" for="">**** **** **** 1060</label>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between">
+                          <small><span class="fw-bold">Expiry date:</span><span>10/16</span></small>
+                          <small><span class="fw-bold">Name:</span><span>Kumar</span></small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4 mb-lg-0 mb-3">
+                      <div class="card p-3">
+                        <div class="img-box">
+                          <img src="https://www.freepnglogos.com/uploads/mastercard-png/file-mastercard-logo-svg-wikimedia-commons-4.png"
+                               alt="">
+                        </div>
+                        <div class="number">
+                          <label class="fw-bold">**** **** **** 1060</label>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between">
+                          <small><span class="fw-bold">Expiry date:</span><span>10/16</span></small>
+                          <small><span class="fw-bold">Name:</span><span>Kumar</span></small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4 mb-lg-0 mb-3">
+                      <div class="card p-3">
+                        <div class="img-box">
+                          <img src="https://www.freepnglogos.com/uploads/discover-png-logo/credit-cards-discover-png-logo-4.png"
+                               alt="">
+                        </div>
+                        <div class="number">
+                          <label class="fw-bold">**** **** **** 1060</label>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between">
+                          <small><span class="fw-bold">Expiry date:</span><span>10/16</span></small>
+                          <small><span class="fw-bold">Name:</span><span>Kumar</span></small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 mt-4">
+                      <div class="card p-3">
+                        <p class="mb-0 fw-bold h4">Payment Methods</p>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="card p-3">
+                        <div class="card-body border p-0">
+                          <p>
+                            <a class="btn btn-primary w-100 h-100 d-flex align-items-center justify-content-between"
+                               data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="true"
+                               aria-controls="collapseExample">
+                              <span class="fw-bold">PayPal</span>
+                              <span class="fab fa-cc-paypal">
+                                </span>
+                            </a>
+                          </p>
+                          <div class="collapse p-3 pt-0" id="collapseExample">
+                            <div class="row">
+                              <div class="col-8">
+                                <p class="h4 mb-0">Summary</p>
+                                <p class="mb-0"><span class="fw-bold">Product:</span><span class="c-green">: Name of
+                                            product</span></p>
+                                <p class="mb-0"><span class="fw-bold">Price:</span><span
+                                  class="c-green">:$452.90</span></p>
+                                <p class="mb-0">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque
+                                  nihil neque
+                                  quisquam aut
+                                  repellendus, dicta vero? Animi dicta cupiditate, facilis provident quibusdam ab
+                                  quis,
+                                  iste harum ipsum hic, nemo qui!</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-body border p-0">
+                          <p>
+                            <a class="btn btn-primary p-2 w-100 h-100 d-flex align-items-center justify-content-between"
+                               data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="true"
+                               aria-controls="collapseExample">
+                              <span class="fw-bold">Credit Card</span>
+                              <span class="">
+                                    <span class="fab fa-cc-amex"></span>
+                                    <span class="fab fa-cc-mastercard"></span>
+                                    <span class="fab fa-cc-discover"></span>
+                                </span>
+                            </a>
+                          </p>
+                          <div class="collapse show p-3 pt-0" id="collapseExample">
+                            <div class="row">
+                              <div class="col-lg-5 mb-lg-0 mb-3">
+                                <p class="h4 mb-0">Summary</p>
+                                <p class="mb-0"><span class="fw-bold">Product:</span><span class="c-green">: Name of
+                                            product</span>
+                                </p>
+                                <p class="mb-0">
+                                  <span class="fw-bold">Price:</span>
+                                  <span class="c-green">:$452.90</span>
+                                </p>
+                                <p class="mb-0">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Atque
+                                  nihil neque
+                                  quisquam aut
+                                  repellendus, dicta vero? Animi dicta cupiditate, facilis provident quibusdam ab
+                                  quis,
+                                  iste harum ipsum hic, nemo qui!</p>
+                              </div>
+                              <div class="col-lg-7">
+                                <form action="" class="form">
+                                  <div class="row">
+                                    <div class="col-12">
+                                      <div class="form__div">
+                                        <input type="text" class="form-control" placeholder=" ">
+                                        <label for="" class="form__label">Card Number</label>
+                                      </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                      <div class="form__div">
+                                        <input type="text" class="form-control" placeholder=" ">
+                                        <label for="" class="form__label">MM / yy</label>
+                                      </div>
+                                    </div>
+
+                                    <div class="col-6">
+                                      <div class="form__div">
+                                        <input type="password" class="form-control" placeholder=" ">
+                                        <label for="" class="form__label">cvv code</label>
+                                      </div>
+                                    </div>
+                                    <div class="col-12">
+                                      <div class="form__div">
+                                        <input type="text" class="form-control" placeholder=" ">
+                                        <label for="" class="form__label">name on the card</label>
+                                      </div>
+                                    </div>
+                                    <div class="col-12">
+                                      <div class="btn btn-primary w-100">Sumbit</div>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="tab-pane fade review " id="nav-profile" role="tabpanel"
+                     aria-labelledby="nav-profile-tab">
+                  <p>Thanh toán khi nhận hàng
+                    Phí thu hộ: ₫0 VNĐ. Ưu đãi về phí vận chuyển (nếu có) áp dụng cả với phí thu hộ.
+                  </p>
+                </div>
+              </div>
+
+            </div>
             <div class="col-lg-4 col-md-7 col-12 thanhtoan">
               <div class="right">
                 <ul>
-                  <li>Tổng tiền<span>{{this.total +'' | vnd}}</span></li>
+                  <li>Tổng tiền<span>{{total +'' | vnd}}</span></li>
                   <li>Phí vận chuyển<span>{{this.shipMoney+'' | vnd}}</span></li>
                   <li>Giảm giá: <span class="fw-bold">{{this.discount + '%'}}</span></li>
                   <li class="last">You Pay<span>{{this.total - (this.total * this.discount/100) +this.shipMoney +'' | vnd}}</span></li>

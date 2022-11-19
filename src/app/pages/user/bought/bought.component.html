@@ -7,105 +7,46 @@
     <div class="col-10 info__product">
       <div class="menu">
         <ul>
-          <li><a href="#">Tất cả</a></li>
+          <li><a (click)="showAll()">Tất cả</a></li>
           <li><a  (click)="showWaitConfirm()">Chờ xác nhận</a></li>
-          <li><a  (click)="showWaitGoods()">Chờ lấy hàng </a></li>
-          <li><a href="#" >Đang giao</a></li>
-          <li><a href="#" >Đã giao</a></li>
-          <li><a href="#" >Đã hủy</a></li>
-          <li><a (click)="showChange()">Hàng đổi</a></li>
+          <li><a  (click)="showConfirmed()">Đã xác nhận</a></li>
+          <li><a (click)="showDelivering()" >Đang giao</a></li>
+          <li><a (click)="showDelivered()" >Đã giao</a></li>
+          <li><a (click)="showCancel()" >Đã hủy</a></li>
         </ul>
       </div>
 
-      <div class="order">
+      <div class="order" *ngFor="let Odetail of order">
         <div class="product">
           <div class="product__title">
             <h5>Hàng USA chuẩn Javihey</h5>
             <p>Chờ xác nhận</p>
           </div>
-          <div class="product__item row">
+          <div class="product__item row" *ngFor="let orderDetail of Odetail.orderDetailDTOList">
             <div class="col-1 image">
               <img src="../../../../../assets/images/icon2.jpg" alt="">
             </div>
             <div class="col-9 info">
-              <p>Dây chuyền vàng cao cấp phái mạnh</p>
-              <p class="text--small">Phân loại: Vàng trắng</p>
-              <p>x1</p>
+              <p>{{orderDetail.nameProduct}}</p>
+              <p class="text--small">Size: {{orderDetail.size}} </p>
+              <p>{{'x' +orderDetail.quantity}}</p>
             </div>
             <div class="col-1 price">
-              <p>41.000đ</p>
+              <p>{{ orderDetail.price  + 'đ' }}</p>
             </div>
           </div>
           <hr>
-          <div class="product__item row">
-            <div class="col-1 image">
-              <img src="../../../../../assets/images/icon2.jpg" alt="">
-            </div>
-            <div class="col-9 info">
-              <p>Dây chuyền vàng cao cấp phái mạnh</p>
-              <p class="text--small">Phân loại: Vàng trắng</p>
-              <p>x1</p>
-            </div>
-            <div class="col-1 price">
-              <p>41.000đ</p>
-            </div>
-          </div>
+
         </div>
         <div class="total">
           <div class="total__price">
-            <p> Tổng tiền : <span>150.000đ</span> </p>
+            <p> Tổng tiền : <span>{{Odetail.total +'đ'}}</span> </p>
           </div>
           <div class="total__button">
             <a href="#">Mua lại</a>
             <a routerLink="refund">Trả Hàng</a>
           </div>
         </div>
-
-      </div>
-      <div class="order">
-        <div class="product">
-          <div class="product__title">
-            <h5>Hàng USA chuẩn Javihey</h5>
-            <p>Đã giao</p>
-          </div>
-          <div class="product__item row">
-            <div class="col-1 image">
-              <img src="../../../../../assets/images/icon2.jpg" alt="">
-            </div>
-            <div class="col-9 info">
-              <p>Dây chuyền vàng cao cấp phái mạnh</p>
-              <p class="text--small">Phân loại: Vàng trắng</p>
-              <p>x1</p>
-            </div>
-            <div class="col-1 price">
-              <p>41.000đ</p>
-            </div>
-          </div>
-          <hr>
-          <div class="product__item row">
-            <div class="col-1 image">
-              <img src="../../../../../assets/images/icon2.jpg" alt="">
-            </div>
-            <div class="col-9 info">
-              <p>Dây chuyền vàng cao cấp phái mạnh</p>
-              <p class="text--small">Phân loại: Vàng trắng</p>
-              <p>x1</p>
-            </div>
-            <div class="col-1 price">
-              <p>41.000đ</p>
-            </div>
-          </div>
-        </div>
-        <div class="total">
-          <div class="total__price">
-            <p> Tổng tiền : <span>150.000đ</span> </p>
-          </div>
-          <div class="total__button">
-            <a href="#">Mua lại</a>
-            <a>Trả Hàng</a>
-          </div>
-        </div>
-
       </div>
     </div>
   </div>

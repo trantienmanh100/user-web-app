@@ -54,8 +54,8 @@ export class Order implements IOrder {
     public eventId?:string,
     public address?:string,
     public userId?:string,
-    // public user?:User,
-    // public event?:Event,
+    public user?:User,
+    public event?:Event,
     public  orderDetailDTOList?:IProductOrder[],
     public isRepurchase?:boolean,
     ){
@@ -73,8 +73,8 @@ export class Order implements IOrder {
     this.total =total;
     this.transportFee = transportFee;
     this.address  = address;
-    // this.user = user;
-    // this.event = event;
+    this.user = user;
+    this.event = event;
     this.orderDetailDTOList = orderDetailDTOList;
     this.userId = userId;
     this.isRepurchase = isRepurchase;
@@ -134,7 +134,20 @@ export interface IPurchaseOrderHistory {
   status?: string;
   deleted?: boolean;
 }
-export class IProductOrder    {
+export interface IProductOrder {
+   id?:string,
+   productId?:String,
+   imageUrl?:string[],
+   price?:number,
+   pricePurchase?:number,
+   nameProduct?:string,
+   quantity?:number,
+   size?:string,
+   sizeId?:string,
+   quantityBy?:number,
+   total?:number
+}
+export class ProductOrder implements IProductOrder   {
  constructor(public id?:string,
   public productId?:String,
   public imageUrl?:string[],

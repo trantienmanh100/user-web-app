@@ -6,7 +6,7 @@ import {
   AbstractService, EntityResponseType
 } from "./abstract.service";
 import { Observable, of } from 'rxjs';
-import {IOrder} from "../models/order.model";
+import {IOrder, Order} from "../models/order.model";
 import {ICart} from "../models/cart.model";
 @Injectable({
   providedIn: 'root',
@@ -35,15 +35,10 @@ export class OrderService extends AbstractService {
   ): Observable<EntityResponseType<IOrder>>{
     return super.post<IOrder>(`${this.resourceUrl}/${id}`,params);
   }
-  findStatusAndUserId(status: String,
+  showByBought(status: String,
          idUser : string
-  ): Observable<EntityResponseType<IOrder[]>> {
+  ): Observable<EntityResponseType<Order[]>> {
+    console.log(status)
     return super.get<ICart>(`${this.resourceUrl}/list?status=${status}&userId=${idUser}`);
   }
-  // showChoXacNhan(status:'CHO_XAC_NHAN',
-  //                  idUser : string
-  // ): Observable<EntityResponseType<IOrder[]>> {
-  //   return super.get<ICart>(`${this.resourceUrl}?status=CHO_XAC_NHAN&userId=${idUser}`);
-  // }
-
 }
