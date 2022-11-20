@@ -5,18 +5,17 @@
       <!--      <div class="header__menu">-->
       <nav class="style-4">
         <ul class="menu-4">
-          <li><a href="#"  data-hover="Home">Home</a></li>
-          <li><a href="#" data-hover="About Us">About Us</a></li>
-          <li><a href="#" data-hover="Blog">Blog</a></li>
-          <li><a href="#" data-hover="Services">Services</a></li>
-          <li><a (click)="showProduct()" data-hover="Products">Products</a></li>
-          <li><a href="#" data-hover="Contact">Contact</a></li>
+          <li><a href="#"  data-hover="Home">Trang chủ</a></li>
+          <li><a href="#" data-hover="About Us">Giới thiệu</a></li>
+          <li><a href="#" data-hover="Blog">Bản tin</a></li>
+          <li><a href="#" data-hover="Services">Dịch vụ</a></li>
+          <li><a href="http://localhost:4200/product/list" data-hover="Products">Sản phẩm</a></li>
+          <li><a href="#" data-hover="Contact">Liên lạc</a></li>
         </ul>
       </nav>
       <!--      </div>-->
       <div class="header__login">
-        <a href="">Language </a>
-        <div class="header__login-2"><a>Currency </a></div>
+
       </div>
     </div>
   </div>
@@ -31,7 +30,7 @@
         <div class="row">
           <div class="col-md-12 mx-auto">
             <div class="input-group">
-              <input class="form-control border-end-0 border" type="search" value="search" id="example-search-input">
+              <input class="form-control border-end-0 border" type="search" placeholder="Tìm kiếm" id="example-search-input">
               <span class="input-group-append">
                                     <button class="btn btn-outline-secondary bg-white border-start-0  border ms-n5" type="button">
                                         <i class="fa fa-search"></i>
@@ -45,11 +44,11 @@
         <div class="row">
           <div class="col-6 ac">
             <img src="assets/images/account.svg" alt="">
-            <a (click)="showBought()"> Accounts</a>
+            <a (click)="showBought()">Tài khoản</a>
           </div>
           <div class="col-6 lineDoc">
             <img src="assets/images/header-cart.svg" alt="">
-            <a (click)="showCart()"> Cart</a>
+            <a (click)="showCart()"> Giỏ hàng</a>
           </div>
         </div>
       </div>

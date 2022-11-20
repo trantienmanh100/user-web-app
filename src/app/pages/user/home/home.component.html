@@ -4,158 +4,28 @@
   <div class="container">
     <div class="row">
       <div class="col-3 body__aside">
-        <div class="border accordion accordion-flush" id="accordionFlushExample">
+        <div class="border accordion accordion-flush active" id="accordionFlushExample">
           <div class="accordion-item">
             <h2 class="accordion-header" id="flush-headingOne">
               <div class="item">
                 <a class="sub-btn"
-                ><i class="fas fa-table"></i>All Category<i
+                ><i class="fas fa-table"></i>Tất cả thể loại<i
                   class="fas fa-angle-right dropdown"
                 ></i
                 ></a>
                 <div class="sub-menu" >
                   <div *ngFor="let cate of categories">
-                    <a href="#" class="sub-item" >{{cate.name}}</a>
+                    <a (click)="showProductByCate(cate)" class="sub-item" >{{cate.name}}</a>
                   </div>
                 </div>
               </div>
             </h2>
-            <div id="flush-collapseOne" class="accordion-collapse collapse"
-                 aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-              <div class="accordion-body">Placeholder content for this accordion, which is intended to
-                demonstrate the <code>.accordion-flush</code> class. This is the first item's
-                accordion body.</div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="flush-headingTwo">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                      data-bs-target="#flush-collapseTwo" aria-expanded="false"
-                      aria-controls="flush-collapseTwo">
-                Accordion Item #2
-              </button>
-            </h2>
-            <div id="flush-collapseTwo" class="accordion-collapse collapse"
-                 aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-              <div class="accordion-body">Placeholder content for this accordion, which is intended to
-                demonstrate the <code>.accordion-flush</code> class. This is the second item's
-                accordion body. Let's imagine this being filled with some actual content.</div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header" id="flush-headingThree">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                      data-bs-target="#flush-collapseThree" aria-expanded="false"
-                      aria-controls="flush-collapseThree">
-                Accordion Item #3
-              </button>
-            </h2>
-            <div id="flush-collapseThree" class="accordion-collapse collapse"
-                 aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-              <div class="accordion-body">Placeholder content for this accordion, which is intended to
-                demonstrate the <code>.accordion-flush</code> class. This is the third item's
-                accordion body. Nothing more exciting happening here in terms of content, but just
-                filling up the space to make it look, at least at first glance, a bit more
-                representative of how this would look in a real-world application.</div>
-            </div>
-          </div>
-        </div>
-        <div class="card ">
-          <div class="card-header">
-            <img src="assets/images/3.png" alt="">
-            Refine Search
-          </div>
-          <div class="accordion" id="accordionPanelsStayOpenExample">
-            <div class="accordion-item">
-              <div class="accordion-header" >
-                <button class="accordion-button collapsed" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#collapseThree"
-                        aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
-                  Color
-                </button>
-              </div>
-              <div id="collapseThree" class="accordion-collapse collapse show"
-                   aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                <div class="accordion-body pt-0 grid-container">
-                  <div>
-                    <input type="checkbox" class="check-box"> Yellow
-                  </div>
-                  <div>
-                    <input type="checkbox" class="check-box"> White
-                  </div>
-                  <div>
-                    <input type="checkbox" class="check-box"> Red
-                  </div>
-                  <div>
-                    <input type="checkbox" class="check-box"> Blue
-                  </div>
-
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <div class="accordion-header" >
-                <button class="accordion-button collapsed" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#collapseThree1"
-                        aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                  Price
-                </button>
-              </div>
-              <div id="collapseThree1" class="accordion-collapse collapse show"
-                   aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                <div class="accordion-body pt-0 grid-container">
-                  <div>
-                    <input type="checkbox" class="check-box"> $50.00 - $200.000
-                  </div>
-                  <div>
-                    <input type="checkbox" class="check-box"> $201.000 - $500.00
-                  </div>
-                  <div>
-                    <input type="checkbox" class="check-box"> $501.00 - $800.00
-                  </div>
-                  <div>
-                    <input type="checkbox" class="check-box"> $801.000 - $1000.00
-                  </div>
-
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <div class="accordion-header" id="headingThree">
-                <button class="accordion-button collapsed" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#collapseThree2"
-                        aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                  Size
-                </button>
-              </div>
-              <div id="collapseThree2" class="accordion-collapse collapse show"
-                   aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                <div class="accordion-body pt-0 grid-container">
-                  <div>
-                    <input type="checkbox" class="check-box"> XL
-                  </div>
-                  <div>
-                    <input type="checkbox" class="check-box"> L
-                  </div>
-                  <div>
-                    <input type="checkbox" class="check-box"> M
-                  </div>
-                  <div>
-                    <input type="checkbox" class="check-box"> S
-                  </div>
-
-                </div>
-              </div>
-            </div>
-            <div class="button__search ">
-              <a href="#">REFIRE SEARCH</a>
-            </div>
           </div>
         </div>
 
         <div class="card">
           <div class="card-header">
-            <img src="assets/images/3.png" alt="">
+            <i class="fas fa-table"></i>
             Deal Of The Day
           </div>
           <div class="card-body ">
@@ -166,57 +36,18 @@
         </div>
         <div class="card">
           <div class="card-header">
-            <img src="assets/images/3.png" alt="">
-            New Products
+            <i class="fas fa-table"></i>
+            Sản phẩm mới
           </div>
-          <div class="row card-body ">
-            <div class="card-title col-5 card1__image "><img src="assets/images/icon11.jpg" alt=""></div>
-            <div class="col-7">
-              <p class="card-text ">Gold Croissant Hoop Earrings</p>
-              <p>$19.00</p>
-            </div>
-          </div>
-          <div class="row card-body ">
-            <div class="card-title col-5 card1__image "><img src="assets/images/icon2.jpg" alt=""></div>
-            <div class="col-7">
-              <p class="card-text ">Gold Croissant Hoop Earrings</p>
-              <p>$19.00</p>
-            </div>
-          </div>
-          <div class="row card-body ">
-            <div class="card-title col-5 card1__image "><img src="assets/images/icon3.jpg" alt=""></div>
-            <div class="col-7">
-              <p class="card-text ">Gold Croissant Hoop Earrings</p>
-              <p>$19.00</p>
-            </div>
-          </div>
-          <div class="row card-body ">
-            <div class="card-title col-5 card1__image "><img src="assets/images/icon4.jpg" alt=""></div>
-            <div class="col-7">
-              <p class="card-text ">Gold Croissant Hoop Earrings</p>
-              <p>$19.00</p>
-            </div>
-          </div>
-          <div class="row card-body ">
-            <div class="card-title col-5 card1__image "><img src="assets/images/icon2.jpg" alt=""></div>
-            <div class="col-7">
-              <p class="card-text ">Gold Croissant Hoop Earrings</p>
-              <p>$19.00</p>
-            </div>
-          </div>
-          <div class="row card-body ">
-            <div class="card-title col-5 card1__image "><img src="assets/images/icon3.jpg" alt=""></div>
-            <div class="col-7">
-              <p class="card-text ">Gold Croissant Hoop Earrings</p>
-              <p>$19.00</p>
-            </div>
-          </div>
-          <div class="row card-body ">
-            <div class="card-title col-5 card1__image "><img src="assets/images/icon4.jpg" alt=""></div>
-            <div class="col-7">
-              <p class="card-text ">Gold Croissant Hoop Earrings</p>
-              <p>$19.00</p>
-            </div>
+          <div class="row card-body " *ngFor="let newProduct of newProducts">
+              <div class="card-title col-5 card1__image " >
+                <img [src]="newProduct.productImages ? newProduct.productImages[0].imageUrl : null" alt="">
+              </div>
+              <div class="col-7">
+                <p class="card-text ">{{newProduct.nameProduct}}</p>
+                <p>{{newProduct.productSizes ? (newProduct.productSizes[0]?.salePrice+'' | vnd)  : ''}} -
+                  {{newProduct.productSizes ? (newProduct.productSizes[newProduct.productSizes.length-1]?.salePrice+'' | vnd)  : ''}}</p>
+              </div>
           </div>
         </div>
         <div class="wedding">
@@ -227,8 +58,8 @@
         </div>
         <div class="card">
           <div class="card-header">
-            <img src="assets/images/3.png" alt="">
-            Best Sellers
+            <i class="fas fa-table"></i>
+            Bán chạy nhất
           </div>
           <div class="row card-body ">
             <div class="card-title col-5 card1__image "><img src="assets/images/icon11.jpg" alt=""></div>
@@ -286,9 +117,9 @@
         <div class="product1">
           <div class="product1__title">
             <ul>
-              <li><a href="">Featured Products</a></li>
-              <li><a href="">New Arrivals </a></li>
-              <li><a href="">Best Sellers </a></li>
+              <li><a href="">Nổi bật</a></li>
+              <li><a href="">Sản phẩm mới </a></li>
+              <li><a href="">Bán chạy </a></li>
             </ul>
           </div>
           <div class="row product1__image">

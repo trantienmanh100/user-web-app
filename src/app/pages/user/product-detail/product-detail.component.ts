@@ -7,6 +7,8 @@ import {FormGroup} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 import {Cart} from "../../../shared/models/cart.model";
 import {CartService} from "../../../shared/services/cart.service";
+import {Category} from "../../../shared/models/category.model";
+import {CategoryService} from "../../../shared/services/category.service";
 
 @Component({
   selector: 'app-product-detail',
@@ -20,6 +22,7 @@ export class ProductDetailComponent implements OnInit {
   size : ISizeProduct ={};
   salePrice =[];
   imageUrl?: any;
+  categories : Category[]=[];
   productId = '';
   sizes : ISizeProduct[] =[];
   productDetail : IProduct = {}
@@ -29,6 +32,7 @@ export class ProductDetailComponent implements OnInit {
     private productService : ProductService,
     private router: ActivatedRoute,
     private toast: ToastrService,
+    private categoryService: CategoryService,
     private cartService : CartService,
   ) {
     this.router.paramMap.subscribe((res) => {
@@ -37,9 +41,23 @@ export class ProductDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadDataCategory();
     this.loadData(this.productId);
   }
 
+  loadDataCategory(): void {
+    this.categoryService.searchCategoriesAutoComplete( true).subscribe(
+      (response: any) => {
+        const data = response?.body?.data;
+        this.categories = data;
+        console.log(this.categories)
+      },
+      (error: any) => {
+        this.categories = [];
+      }
+    );
+
+  }
   loadData(id :string): void {
     this.productService.detail(id).subscribe((respone: any)=> {
       this.productDetail =respone.body?.data;

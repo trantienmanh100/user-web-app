@@ -133,6 +133,7 @@ export class CartListComponent implements OnInit {
     this.discount = selectEvent.length > 0 ? selectEvent[0].discount : 0;
     this.thanhtien = this.total - (this.total * this.discount) / 100;
   }
+
   chargeShipping(total: number) {
      this.ship.service_id = 53320;
      this.ship.insurance_value = total;
@@ -149,46 +150,32 @@ export class CartListComponent implements OnInit {
   }
 
   createOrder(): void {
-    const order: Order = {
-      // customerMoney: 1,
-      // paymentMethod: PaymentMethod.CARD,
-      // transportFee: 1,
-      // purchaseType: OrderType.ONLINE,
-      // status: StatusEnum.CHO_XAC_NHAN,
-      // eventId: "sdsd",
-      // address: "NN",
-      // userId: "sdsd",
-      ...this.form.value,
-      total: this.thanhtien,
-      orderDetailList: this.selectedProducts.map((res: any) => {
+    const order = {
+      customerMoney: 1,
+      paymentMethod: PaymentMethod.CARD,
+      transportFee: 1,
+      purchaseType: OrderType.ONLINE,
+      status: StatusEnum.CHO_XAC_NHAN,
+      eventId: "2b052354-f0a4-4815-8cc6-fb6c957bfa55",
+      address: "NN",
+      userId: "be2d6163-7979-40fb-a149-dca33bacad1a",
+      total: this.total - (this.total * this.discount/100) +this.shipMoney,
+      orderDetailList: this.carts.map((res) => {
         const price = res.price as number;
         const productDetail: IProductOrder = {
           productId: res.productId,
-          quantity: res.quantityBy,
+          quantity: res.amount,
           price: res.price,
           sizeId: res.sizeId,
-          total: ((res.quantityBy as number) * price) as number,
+          total: ((res.amount as number) * price) as number,
         };
         return productDetail;
       }),
     };
+    console.log(this.carts)
     this.orderService.createOrder(order).subscribe(() => {
       this.toast.success('Thêm được order rồi');
     })
-    // const createForm = CommonUtil.modalConfirm(
-    //   this.translateService,
-    //   'model.order.createOrderTitle',
-    //   'model.order.createOrderContent'
-    // );
-    //
-    // const modal: NzModalRef = this.modalService.create(createForm);
-    // modal.afterClose.subscribe((result: { success: boolean; data: any }) => {
-    //   if (result?.success) {
-    //     this.orderService.createOrder(order).subscribe((res) => {
-    //       this.toast.success('Thêm hóa đơn thành công');
-    //       this.localStorage.clear("selectedProducts");
-    //     });
-    //   }
-    // });
+    console.log(this.carts)
   }
 }

@@ -39,6 +39,14 @@ const routes: Routes = [
     },
   },
   {
+    path: ROUTER_UTILS.product.productCate,
+    component: ProductListComponent,
+    data: {
+      title: 'sidebar.productCate',
+      action: ROUTER_ACTIONS.detail,
+    },
+  },
+  {
     path: ROUTER_UTILS.cart.list,
     component: CartListComponent,
   },

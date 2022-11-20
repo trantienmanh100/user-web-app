@@ -91,7 +91,12 @@ ul li {
 .product__title {
   display: flex;
   justify-content: space-between;
-  margin: 10px 0;
+  margin: 10px 15px 10px 0;
+  border-bottom: 1px solid #757575;
+}
+.product__item {
+  border-bottom: 1px solid #cfcccc;
+  padding: 10px 0;
 }
 .product__item img {
   width: 90px;
@@ -108,6 +113,13 @@ ul li {
 .product__item .info .text--small {
   font-size: 14px;
   color: #757575;
+}
+
+.price {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .total {
   padding: 5px 20px;

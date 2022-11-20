@@ -24,12 +24,6 @@ li {
   list-style: none;
 }
 
-.container {
-  width: 1400px;
-  margin: auto;
-  margin-top: 40px;
-  padding: 0;
-}
 
 ul li {
   list-style: none;
@@ -58,14 +52,10 @@ a:hover {
   margin-top: 40px;
 
 }
-.body__aside .card__header {
-  margin-top: 0;
-}
-.body__aside .card .card-body {
-  padding: 0;
-}
 
 .body__aside {
+  padding: 0;
+  margin: 0;
   flex: 3;
 }
 
@@ -144,16 +134,18 @@ a:hover {
   border: 1px solid transparent;
 }
 
-.card {
+.card:not(:first-child) {
   margin-top: 20px;
 }
 
-
+.card-header {
+  background-color: #F1EAE1;
+}
 
 /* -------------------article----------------------- */
 .banner p {
   font-size: 13px;
-  color: #2f2f30;
+  color: #000000;
   line-height: 24px;
   font-weight: 400;
   letter-spacing: 0.5px;
@@ -423,18 +415,15 @@ a:hover {
 
     a {
       background-color: white;
-      padding: 5px;
-      border-radius: 20px;
-
+      border-radius: 90px;
+      padding: 0px 5px 0 5px;
     }
-    a img{
-      width: 20px;
-      height: 20px;
+    a i{
       opacity: 1;
     }
     a:hover{
-      padding: 5px;
-      border-radius: 20px;
+      padding: 0px 5px 0 5px;
+      border-radius: 90px;
       background-color: #CBB28B;
     }
   }
@@ -587,4 +576,52 @@ a:hover {
 
 .product-name{
   font-size: 20px;
+}
+
+///
+//Dropdown sidebar
+.sub-item {
+  background-color: #ffffff;
+  color: #ce8837;
+  font-size: 16px;
+  text-decoration: none;
+  display: block;
+  padding: 5px 30px;
+  line-height: 40px;
+}
+.item {
+  background: #ecbc9b;
+  position: relative;
+  cursor: pointer;
+}
+.sub-btn {
+  background-color: #cab6a2;
+  color: #fff;
+  font-size: 16px;
+  text-decoration: none;
+  display: block;
+  padding: 5px 30px;
+  line-height: 60px;
+}
+.item a:hover {
+  background: #f3dac8;
+  transition: 0.3s ease;
+}
+.item i {
+  margin-right: 15px;
+}
+.item a .dropdown {
+  position: absolute;
+  right: 0;
+  margin: 20px;
+  transition: 0.3s ease;
+}
+
+.item .sub-menu {
+  background: #262627;
+  display: none;
+}
+
+.side-bar .menu .item .sub-menu a {
+  padding-left: 80px;
 }

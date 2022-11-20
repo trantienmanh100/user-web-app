@@ -5,7 +5,6 @@ body {
 
 a {
   text-decoration: none;
-  color: #FFFFFF;
   font-size: 20px;
 
 }
@@ -55,6 +54,9 @@ li {
 .slide2 .slide2__text li{
   text-decoration: underline;
 
+}
+.accordion-body div input {
+  margin-right: 10px;
 }
 .button__search  {
   width: fit-content;
@@ -259,6 +261,13 @@ li {
 }
 
 /* ---------------aside--------------- */
+.card-header {
+  background-color: #F1EAE1;
+  padding: 22px 31px;
+  i {
+    margin-right: 10px;
+  }
+}
 .card-body .card1__image img {
   max-width: 100%;
 }
@@ -362,13 +371,17 @@ li {
   cursor: pointer;
 }
 .sub-btn {
-  background-color: #cab6a2;
-  color: #fff;
+  background-color: #F1EAE1;
+  color: #000000;
   font-size: 16px;
   text-decoration: none;
   display: block;
   padding: 5px 30px;
   line-height: 60px;
+}
+.sub-item {
+  color: black;
+  border-bottom: 1px solid #e8e5e5;
 }
 .item a:hover {
   background: #f3dac8;

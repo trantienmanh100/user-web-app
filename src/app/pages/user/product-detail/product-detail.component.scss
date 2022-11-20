@@ -14,12 +14,6 @@ li {
   list-style: none;
 }
 
-.container {
-  width: 1400px;
-  margin: auto;
-  margin-top: 50px;
-  padding: 0;
-}
 
 ul li {
   list-style: none;
@@ -385,4 +379,46 @@ margin-right: 5px;
 .isChosseRadio{
   color: #dc1645;
   font-size: 15px;
+}
+//Dropdown sidebar
+.sub-item {
+  background-color: #ffffff;
+  color: #ce8837;
+  font-size: 16px;
+  text-decoration: none;
+  display: block;
+  padding: 5px 30px;
+  line-height: 40px;
+}
+.item {
+  background: #ecbc9b;
+  position: relative;
+  cursor: pointer;
+}
+.sub-btn {
+  background-color: #cab6a2;
+  color: #fff;
+  font-size: 16px;
+  text-decoration: none;
+  display: block;
+  padding: 5px 30px;
+  line-height: 60px;
+}
+.item a:hover {
+  background: #f3dac8;
+  transition: 0.3s ease;
+}
+.item i {
+  margin-right: 15px;
+}
+.item a .dropdown {
+  position: absolute;
+  right: 0;
+  margin: 20px;
+  transition: 0.3s ease;
+}
+
+.item .sub-menu {
+  background: #262627;
+  display: none;
 }

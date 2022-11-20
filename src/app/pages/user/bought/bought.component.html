@@ -16,15 +16,15 @@
         </ul>
       </div>
 
-      <div class="order" *ngFor="let Odetail of order">
+      <div class="order" *ngFor="let order of order">
         <div class="product">
           <div class="product__title">
             <h5>Hàng USA chuẩn Javihey</h5>
             <p>Chờ xác nhận</p>
           </div>
-          <div class="product__item row" *ngFor="let orderDetail of Odetail.orderDetailDTOList">
+          <div class="product__item row" *ngFor="let orderDetail of order.orderDetailDTOList">
             <div class="col-1 image">
-              <img src="../../../../../assets/images/icon2.jpg" alt="">
+              <img [src]="orderDetail.imageUrl?orderDetail.imageUrl[0] : 'https://i0.wp.com/www.boznoslawoffice.com/wp-content/uploads/2015/09/no_avatar.jpg?fit=512%2C512&ssl=1'" alt="">
             </div>
             <div class="col-9 info">
               <p>{{orderDetail.nameProduct}}</p>
@@ -36,11 +36,10 @@
             </div>
           </div>
           <hr>
-
         </div>
         <div class="total">
           <div class="total__price">
-            <p> Tổng tiền : <span>{{Odetail.total +'đ'}}</span> </p>
+            <p> Tổng tiền : <span>{{order.total +'đ'}}</span> </p>
           </div>
           <div class="total__button">
             <a href="#">Mua lại</a>

@@ -15,7 +15,9 @@ export const ROUTER_UTILS = {
   product: {
     root: 'product',
     list: 'product/list',
-    productDetail: 'product/:id/detail'
+    productDetail: 'product/:id/detail',
+    productCate: 'product/:id/cate'
+
   },
   bought: {
     root: 'bought',

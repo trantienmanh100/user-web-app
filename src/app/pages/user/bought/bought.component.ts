@@ -26,6 +26,7 @@ export class BoughtComponent implements OnInit {
     const idUser = 'be2d6163-7979-40fb-a149-dca33bacad1a'
     this.orderService.showByBought(status,idUser).subscribe((res :any) => {
       this.order = res.body?.data;
+      console.log(this.order)
     })
   }
 
