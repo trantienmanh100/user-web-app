@@ -11,8 +11,12 @@ import {EventService} from "../../../shared/services/event.service";
 import {ICartDetail} from "../../../shared/models/cart-detail.model";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Ship} from "../../../shared/models/ship.model";
-import {IProductOrder, Order, OrderType, PaymentMethod, StatusEnum} from "../../../shared/models/order.model";
+import {IProductOrder, OrderType, PaymentMethod, StatusEnum} from "../../../shared/models/order.model";
 import {OrderService} from "../../../shared/services/order.service";
+import {PaymentService} from "../../../shared/services/payment.service";
+import {ActivatedRoute, Router, RouterModule} from "@angular/router";
+import {Location} from '@angular/common';
+
 
 @Component({
   selector: 'app-cart-list',
@@ -22,6 +26,8 @@ import {OrderService} from "../../../shared/services/order.service";
 export class CartListComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   eventId : string ='';
+  pay!:PaymentMethod;
+  PaymentMethod = PaymentMethod
   selectedProducts: IProductOrder[] = [];
   carts: ICartDetail[] = [];
   events: IEvent[] = [];
@@ -42,6 +48,10 @@ export class CartListComponent implements OnInit {
     private modalService: NzModalService,
     private toast: ToastrService,
     private eventService : EventService,
+    private paymentService : PaymentService,
+    private router : Router,
+    private location: Location
+
   ) { }
 
   ngOnInit(): void {
@@ -150,9 +160,10 @@ export class CartListComponent implements OnInit {
   }
 
   createOrder(): void {
+
     const order = {
       customerMoney: 1,
-      paymentMethod: PaymentMethod.CARD,
+      paymentMethod: this.pay,
       transportFee: 1,
       purchaseType: OrderType.ONLINE,
       status: StatusEnum.CHO_XAC_NHAN,
@@ -172,10 +183,28 @@ export class CartListComponent implements OnInit {
         return productDetail;
       }),
     };
-    console.log(this.carts)
-    this.orderService.createOrder(order).subscribe(() => {
-      this.toast.success('Thêm được order rồi');
-    })
+    if ( this.pay === PaymentMethod.CARD) {
+      const value = {
+        amount : order.total,
+        backcode: 'NCB',
+        txt_inv_addr1: 'PHU THO',
+        txt_bill_city: 'Thanh Pho Viet Tri',
+        txt_inv_mobile: '0387387993',
+        txt_inv_country: 'VN',
+        txt_inv_email: 'ducd@gmail.com',
+        txt_billing_fullname: 'Hoa Don Cua Hang Toan Huyen',
+        vnp_OrderInfo: 'VND',
+      }
+      this.paymentService.payment(value).subscribe((res:any) =>{
+        console.log(res)
+        window.location.assign(res.body.paymentUrl)
+      })
+    }
+    console.log(this.pay)
+    // this.orderService.createOrder(order).subscribe(() => {
+    //   this.toast.success('Thêm được order rồi');
+    //
+    // })
     console.log(this.carts)
   }
 }
