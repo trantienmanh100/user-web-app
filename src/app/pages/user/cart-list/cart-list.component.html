@@ -84,24 +84,32 @@
             <div class="col-lg-8 col-md-5 col-12">
               <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 <p>Phương thức thanh toán </p>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="pay" id="flexRadioDefault1" [value] ="PaymentMethod.CARD" [(ngModel)]="pay">
-                  <label class="form-check-label" for="flexRadioDefault1">
-                    Thanh toán qua thẻ
-                  </label>
+<!--                <div class="form-check">-->
+<!--                  <input class="form-check-input" type="radio" name="pay" id="flexRadioDefault1" [value] ="PaymentMethod.CARD" [(ngModel)]="pay">-->
+<!--                  <label class="form-check-label" for="flexRadioDefault1">-->
+<!--                    Thanh toán qua thẻ-->
+<!--                  </label>-->
+<!--                </div>-->
+<!--                <div class="form-check">-->
+<!--                  <input class="form-check-input" type="radio" name="pay" id="flexRadioDefault2" [value] ="PaymentMethod.MONEY" [(ngModel)]="pay">-->
+<!--                  <label class="form-check-label" for="flexRadioDefault2" value="OFF">-->
+<!--                    Thanh toán khi nhận hàng-->
+<!--                  </label>-->
+<!--                </div>-->
+                <div class="radio-tile-group">
+                  <div class="input-container">
+                    <input id="walk" class="radio-button" type="radio"  name="pay" [value] ="PaymentMethod.CARD" [(ngModel)]="pay"/>
+                    <div class="radio-tile">
+                      <label for="walk" class="radio-tile-label">Ngân hàng</label>
+                    </div>
+                  </div>
+                  <div class="input-container">
+                    <input id="bike" class="radio-button" type="radio"  name="pay" [value] ="PaymentMethod.MONEY" [(ngModel)]="pay" />
+                    <div class="radio-tile">
+                      <label for="bike" class="radio-tile-label">Khi nhận hàng</label>
+                    </div>
+                  </div>
                 </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="pay" id="flexRadioDefault2" [value] ="PaymentMethod.MONEY" [(ngModel)]="pay">
-                  <label class="form-check-label" for="flexRadioDefault2" value="OFF">
-                    Thanh toán khi nhận hàng
-                  </label>
-                </div>
-                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
-                        data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
-                        aria-selected="true">Thẻ tín dụng</button>
-                <button class="nav-link inactive" id="nav-profile-tab" data-bs-toggle="tab"
-                        data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
-                        aria-selected="false">Thanh toán khi nhận hàng</button>
               </div>
               <br>
               <div class="tab-content" id="nav-tabContent">
@@ -259,13 +267,6 @@
                       </div>
                     </div>
                   </div>
-
-                </div>
-                <div class="tab-pane fade review " id="nav-profile" role="tabpanel"
-                     aria-labelledby="nav-profile-tab">
-                  <p>Thanh toán khi nhận hàng
-                    Phí thu hộ: ₫0 VNĐ. Ưu đãi về phí vận chuyển (nếu có) áp dụng cả với phí thu hộ.
-                  </p>
                 </div>
               </div>
 

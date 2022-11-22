@@ -200,11 +200,15 @@ export class CartListComponent implements OnInit {
         window.location.assign(res.body.paymentUrl)
       })
     }
-    console.log(this.pay)
-    // this.orderService.createOrder(order).subscribe(() => {
-    //   this.toast.success('Thêm được order rồi');
-    //
-    // })
+    this.orderService.createOrder(order).subscribe(() => {
+      this.toast.success('Đã đặt hàng thành công');
+      // this.cartService.deleteCartDetail(cart.cartDetailId).subscribe((respone: any) =>{
+      //   this.toast.success('Xoá thành công sản phẩm khỏi giỏ hàng');
+      //   const userId ='be2d6163-7979-40fb-a149-dca33bacad1a';
+      //   this.loadData(userId);
+      // });
+      this.carts =[]
+    })
     console.log(this.carts)
   }
 }
