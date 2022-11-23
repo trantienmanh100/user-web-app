@@ -24,6 +24,7 @@ import {Location} from '@angular/common';
   styleUrls: ['./cart-list.component.scss']
 })
 export class CartListComponent implements OnInit {
+  nodata : boolean = false;
   form: FormGroup = new FormGroup({});
   eventId : string ='';
   pay!:PaymentMethod;
@@ -55,7 +56,7 @@ export class CartListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const id ='be2d6163-7979-40fb-a149-dca33bacad1a';
+    const id ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
 
     this.loadData(id)
     this.loadEvent();
@@ -71,14 +72,20 @@ export class CartListComponent implements OnInit {
 
   loadData(id: string): void {
     this.cartService.search(id, true).subscribe((res :any)=>{
-      this.carts = res.body?.data.cartDetailResponseList;
-      this.total =0;
-       this.carts.forEach((item)=>{
-         if(item.price && item.amount) {
-           this.total += item.price*item.amount;
-         }
-      });
-      this.chargeShipping(this.total);
+      if(res && res.body.data !== null){
+        this.carts = res.body?.data?.cartDetailResponseList;
+        this.total =0;
+        this.carts.forEach((item)=>{
+          if(item.price && item.amount) {
+            this.total += item.price*item.amount;
+          }
+        });
+        this.chargeShipping(this.total);
+      }
+      else {
+          this.nodata = true;
+      }
+
     })
   }
   loadEvent(): void {
@@ -98,7 +105,7 @@ export class CartListComponent implements OnInit {
     amount = cart.amount + 1;
     this.cartService.updateQuantity(cart?.cartDetailId,amount,cart ).subscribe((res: any) =>{
       if (cart?.cartDetailId != null) {
-        const id ='be2d6163-7979-40fb-a149-dca33bacad1a';
+        const id ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
         this.loadData(id);
       }
     })
@@ -110,7 +117,7 @@ export class CartListComponent implements OnInit {
     amount = cart.amount - 1;
     this.cartService.updateQuantity(cart?.cartDetailId,amount,cart ).subscribe((res: any) =>{
       if (cart?.cartDetailId != null) {
-        const id ='be2d6163-7979-40fb-a149-dca33bacad1a';
+        const id ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
         this.loadData(id);
       }
     })
@@ -129,7 +136,7 @@ export class CartListComponent implements OnInit {
       if(result?.success){
         this.cartService.deleteCartDetail(cart.cartDetailId).subscribe((respone: any) =>{
           this.toast.success('Xoá thành công sản phẩm khỏi giỏ hàng');
-          const userId ='be2d6163-7979-40fb-a149-dca33bacad1a';
+          const userId ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
           this.loadData(userId);
         });
       }
@@ -169,7 +176,7 @@ export class CartListComponent implements OnInit {
       status: StatusEnum.CHO_XAC_NHAN,
       eventId: "2b052354-f0a4-4815-8cc6-fb6c957bfa55",
       address: "NN",
-      userId: "be2d6163-7979-40fb-a149-dca33bacad1a",
+      userId: "02951d3d-1045-4fa1-ad46-6edeffd04a3d",
       total: this.total - (this.total * this.discount/100) +this.shipMoney,
       orderDetailList: this.carts.map((res) => {
         const price = res.price as number;

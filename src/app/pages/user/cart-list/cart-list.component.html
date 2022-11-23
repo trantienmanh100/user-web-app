@@ -1,7 +1,7 @@
 <app-header></app-header>
 <!-- Shopping Cart -->
 <div class="shopping-cart section">
-  <div class="container">
+  <div class="container" *ngIf="nodata ;else nodata">
     <div class="row">
       <div class="col-12">
         <!-- Shopping Summery -->
@@ -291,4 +291,11 @@
     </div>
   </div>
 </div>
+
+<ng-template #nodata>
+  <div class="cart-empty">
+    <img class="img-empty" src="assets/images/empty-cart.png">
+    <button [routerLink]="''"  class="continue-shoping">Mua hàng</button>
+  </div>
+</ng-template>
 <app-footer></app-footer>

@@ -54,9 +54,12 @@ export class HomeComponent implements OnInit {
         this.newProducts = res.body?.data;
         this.newProducts.forEach((product:IProduct)=>{
           // @ts-ignore
-          product.currentImg, product.firstImg =product.productImages[0].imageUrl;
+          product.currentImg = product.productImages[0].imageUrl;
           // @ts-ignore
           product.secondImg =product.productImages[1].imageUrl;
+          // @ts-ignore
+          product.firstImg =product.productImages[0].imageUrl;
+          console.log(product)
         })
       }
     });

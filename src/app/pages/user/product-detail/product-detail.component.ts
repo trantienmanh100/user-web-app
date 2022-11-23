@@ -75,7 +75,7 @@ export class ProductDetailComponent implements OnInit {
   addToCart(): void {
     const cart :Cart = {
       //needFix
-      userId : 'be2d6163-7979-40fb-a149-dca33bacad1a',
+      userId : '02951d3d-1045-4fa1-ad46-6edeffd04a3d',
       amount : 1,
       productId :this.productId,
       sizeId: this.size.sizeId

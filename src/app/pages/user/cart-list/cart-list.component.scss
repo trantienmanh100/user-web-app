@@ -524,12 +524,44 @@ body {
   border: 1.5px solid #1A73E8;
   box-shadow: none;
 }
+
 nz-select-top-control {
   border: none;
 }
+
 .qty {
   text-align: center;
 }
+
 .main-hading {
   background-color: #CBB28B;
 }
+
+/*cart empty*/
+.cart-empty {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  //background-color: #4DC7A0;
+  .img-empty{
+    height: 80%;
+   }
+  .continue-shoping {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #555;
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    //justify-content:center;
+  }
+}
+

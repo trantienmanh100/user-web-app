@@ -405,7 +405,7 @@ li {
 
 .item .sub-menu {
   background-color: #fff;
-  display: none;
+  //display: compact ;
 }
 
 .side-bar .menu .item .sub-menu a {
@@ -539,5 +539,14 @@ li {
 
 .product-name {
   font-family: "Fira Sans";
-  font-size: 20px;
+  font-size: 23px;
 }
+/* money*/
+.money {
+  font-size: 14px;
+}
+.active{
+  color: #cbb28b!important;
+  border-bottom: 1px solid #cbb28b;
+}
+

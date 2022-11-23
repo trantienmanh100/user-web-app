@@ -4,27 +4,27 @@
   <div class="container">
     <div class="row">
       <div class="col-3 body__aside">
-        <div class="border accordion accordion-flush active" id="accordionFlushExample">
+        <div class="border accordion accordion-flush active">
           <div class="accordion-item">
-            <h2 class="accordion-header" id="flush-headingOne">
+            <h2 class="accordion-header">
               <div class="item">
                 <a class="sub-btn"
                 ><i class="fas fa-table"></i>Tất cả thể loại<i
                   class="fas fa-angle-right dropdown"
                 ></i
                 ></a>
-                <div class="sub-menu" >
+                <div class="sub-menu">
                   <div *ngFor="let cate of categories">
-                    <a (click)="showProductByCate(cate)" class="sub-item" >{{cate.name}}</a>
+                    <a (click)="showProductByCate(cate)" class="sub-item">{{cate.name}}</a>
                   </div>
                 </div>
               </div>
             </h2>
           </div>
         </div>
-        <div class="border accordion accordion-flush active" id="accordionFlushExample">
+        <div class="border accordion accordion-flush active">
           <div class="accordion-item">
-            <h2 class="accordion-header" id="flush-headingOne">
+            <h2 class="accordion-header">
               <div class="item">
                 <a class="sub-btn"
                 ><i class="fas fa-table"></i>Sản phẩm hấp dẫn<i
@@ -40,23 +40,32 @@
             </h2>
           </div>
         </div>
-        <div class="card">
-          <div class="card-header">
-            <i class="fas fa-table"></i>
-            Sản phẩm mới
-          </div>
-          <div class="row card-body " *ngFor="let product of newProducts">
-              <div class="card-title col-5 card1__image " >
-                <div class="img-hover-zoom--brightness">
-                  <img [src]="product.currentImg || product.secondImg"
-                       (mouseover)="product.currentImg =product.firstImg"
-                       (mouseout)="product.currentImg= product.secondImg">
+        <div class="border accordion accordion-flush active" >
+          <div class="accordion-item">
+            <h2 class="accordion-header" >
+              <div class="item">
+                <a class="sub-btn"
+                ><i class="fas fa-table"></i>Sản phẩm mới<i
+                  class="fas fa-angle-right dropdown"
+                ></i
+                ></a>
+                <div class=" card-body sub-menu">
+                  <div class="row" *ngFor="let product of newProducts">
+                    <div class="card-title col-5 card1__image ">
+                      <div class="img-hover-zoom--brightness">
+                        <img [src]="product.currentImg || product.firstImg"
+                             (mouseover)="product.currentImg =product.secondImg"
+                             (mouseout)="product.currentImg= product.firstImg">
+                      </div>
+                    </div>
+                    <div class="col-7">
+                      <p class="card-text product-name">{{product.nameProduct}}</p>
+                      <p class="money">{{product.productSizes ? (product.productSizes[0]?.salePrice + '' | vnd) : ''}}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="col-7">
-                <p class="card-text product-name">{{product.nameProduct}}</p>
-                <p >{{product.productSizes ? (product.productSizes[0]?.salePrice+'' | vnd)  : ''}}</p>
-              </div>
+            </h2>
           </div>
         </div>
         <div class="wedding">
@@ -65,41 +74,35 @@
             <span>Wedding Ring</span>
           </div>
         </div>
-        <div class="card">
-          <div class="card-header">
-            <i class="fas fa-table"></i>
-            Bán chạy nhất
+        <div class="border accordion accordion-flush active" id="accordionFlushExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne">
+              <div class="item">
+                <a class="sub-btn"
+                ><i class="fas fa-table"></i>Bán chạy nhất<i
+                  class="fas fa-angle-right dropdown"
+                ></i
+                ></a>
+                <div class="card-body sub-menu">
+                  <div class="row" *ngFor="let product of newProducts">
+                    <div class="card-title col-5 card1__image ">
+                      <div class="img-hover-zoom--brightness">
+                        <img [src]="product.currentImg"
+                             (mouseover)="product.currentImg =product.firstImg"
+                             (mouseout)="product.currentImg= product.firstImg">
+                      </div>
+                    </div>
+                    <div class="col-7">
+                      <p class="card-text product-name">{{product.nameProduct}}</p>
+                      <p class="money">{{product.productSizes ? (product.productSizes[0]?.salePrice + '' | vnd) : ''}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </h2>
           </div>
-          <div class="row card-body ">
-            <div class="card-title col-5 card1__image "><img src="assets/images/icon11.jpg" alt=""></div>
-            <div class="col-7">
-              <p class="card-text ">Gold Croissant Hoop Earrings</p>
-              <p>$19.00</p>
-            </div>
-          </div>
-          <div class="row card-body ">
-            <div class="card-title col-5 card1__image "><img src="assets/images/icon11.jpg" alt=""></div>
-            <div class="col-7">
-              <p class="card-text ">Gold Croissant Hoop Earrings</p>
-              <p>$19.00</p>
-            </div>
-          </div>
-          <div class="row card-body ">
-            <div class="card-title col-5 card1__image "><img src="assets/images/icon2.jpg" alt=""></div>
-            <div class="col-7">
-              <p class="card-text ">Gold Croissant Hoop Earrings</p>
-              <p>$19.00</p>
-            </div>
-          </div>
-          <div class="row card-body ">
-            <div class="card-title col-5 card1__image "><img src="assets/images/icon3.jpg" alt=""></div>
-            <div class="col-7">
-              <p class="card-text ">Gold Croissant Hoop Earrings</p>
-              <p>$19.00</p>
-            </div>
-          </div>
-
         </div>
+
       </div>
       <div class="col-9 body__article">
         <div class="slide1">
@@ -126,9 +129,8 @@
         <div class="product1">
           <div class="product1__title">
             <ul>
-              <li><a href="">Nổi bật</a></li>
-              <li><a href="">Sản phẩm mới </a></li>
-              <li><a href="">Bán chạy </a></li>
+              <li><a class="nav-link" [routerLink]="''" [routerLinkActive]="'active'">Sản phẩm mới </a></li>
+              <li><a class="nav-link" [routerLink]="'banchay'"   [routerLinkActive]="'active'">Bán chạy </a></li>
             </ul>
           </div>
           <div class="row product1__image">
