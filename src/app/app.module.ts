@@ -83,7 +83,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class  AppModule { }
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, `./assets/i18n/`, '.json');

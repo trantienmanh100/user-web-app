@@ -22,16 +22,22 @@
             </h2>
           </div>
         </div>
-
-        <div class="card">
-          <div class="card-header">
-            <i class="fas fa-table"></i>
-            Deal Of The Day
-          </div>
-          <div class="card-body ">
-            <div class="card-title card1__image "><img src="assets/images/medium1.jpg" alt=""></div>
-            <p class="card-text">Gold Croissant Hoop Earrings</p>
-            <p>$19.00</p>
+        <div class="border accordion accordion-flush active" id="accordionFlushExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne">
+              <div class="item">
+                <a class="sub-btn"
+                ><i class="fas fa-table"></i>Sản phẩm hấp dẫn<i
+                  class="fas fa-angle-right dropdown"
+                ></i
+                ></a>
+                <div class="card-body sub-menu">
+                  <div class="card-title card1__image "><img src="assets/images/medium1.jpg" alt=""></div>
+                  <p class="product-name">Gold Croissant Hoop Earrings</p>
+                  <p class="product-name">$19.00</p>
+                </div>
+              </div>
+            </h2>
           </div>
         </div>
         <div class="card">
@@ -39,14 +45,17 @@
             <i class="fas fa-table"></i>
             Sản phẩm mới
           </div>
-          <div class="row card-body " *ngFor="let newProduct of newProducts">
+          <div class="row card-body " *ngFor="let product of newProducts">
               <div class="card-title col-5 card1__image " >
-                <img [src]="newProduct.productImages ? newProduct.productImages[0].imageUrl : null" alt="">
+                <div class="img-hover-zoom--brightness">
+                  <img [src]="product.currentImg || product.secondImg"
+                       (mouseover)="product.currentImg =product.firstImg"
+                       (mouseout)="product.currentImg= product.secondImg">
+                </div>
               </div>
               <div class="col-7">
-                <p class="card-text ">{{newProduct.nameProduct}}</p>
-                <p>{{newProduct.productSizes ? (newProduct.productSizes[0]?.salePrice+'' | vnd)  : ''}} -
-                  {{newProduct.productSizes ? (newProduct.productSizes[newProduct.productSizes.length-1]?.salePrice+'' | vnd)  : ''}}</p>
+                <p class="card-text product-name">{{product.nameProduct}}</p>
+                <p >{{product.productSizes ? (product.productSizes[0]?.salePrice+'' | vnd)  : ''}}</p>
               </div>
           </div>
         </div>

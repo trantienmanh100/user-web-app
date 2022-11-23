@@ -7,6 +7,7 @@ import {Router} from "@angular/router";
 import {ProductService} from "../../../shared/services/product.service";
 import {ProductSearchRequest} from "../../../shared/models/request/product-search-request.model";
 import {PAGINATION} from "../../../shared/constants/pagination.constants";
+import {forEach} from "lodash";
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,6 @@ import {PAGINATION} from "../../../shared/constants/pagination.constants";
 export class HomeComponent implements OnInit {
   categories : Category[]=[];
   newProducts : IProduct[]=[];
-
   constructor(
     private categoryService: CategoryService,
     private productService: ProductService,
@@ -33,7 +33,6 @@ export class HomeComponent implements OnInit {
       (response: any) => {
         const data = response?.body?.data;
         this.categories = data;
-        console.log(this.categories)
       },
       (error: any) => {
         this.categories = [];
@@ -51,7 +50,15 @@ export class HomeComponent implements OnInit {
       sortBy: "createAt.desc",
     };
     this.productService.search(request).subscribe((res :any) =>{
-      this.newProducts = res.body?.data;
-    })
+      if(res){
+        this.newProducts = res.body?.data;
+        this.newProducts.forEach((product:IProduct)=>{
+          // @ts-ignore
+          product.currentImg, product.firstImg =product.productImages[0].imageUrl;
+          // @ts-ignore
+          product.secondImg =product.productImages[1].imageUrl;
+        })
+      }
+    });
   }
 }

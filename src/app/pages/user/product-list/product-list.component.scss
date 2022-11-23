@@ -385,16 +385,15 @@ a:hover {
 .product1__image .image1 p {
   color: #757575;
 }
+//
 .image1 {
   margin-top: 10px;
   position: relative;
-}
-//
-.image1 {
   img {
+    border-radius: 3px;
     opacity: 1;
     display: block;
-    height: auto;
+    height: 15rem;
     transition: .5s ease;
     backface-visibility: hidden;
   }

@@ -34,7 +34,7 @@ export interface IProduct {
   accessory?:Accessory;
   vendorId?:string,
   gender?:ProductGender;
-   createdBy?: string;
+  createdBy?: string;
   createdAt?: number;
   lastModifiedBy?: string;
   lastModifiedAt?: number;
@@ -42,6 +42,9 @@ export interface IProduct {
   productSizes?:SizeProduct[];
   productProperties?:ProductPropertyValue[];
   productImages?:ProductImage[];
+  currentImg?: string;
+  firstImg?: string;
+  secondImg?: string;
 }
 
 export class Product implements IProduct {
@@ -69,7 +72,10 @@ export class Product implements IProduct {
   public imageUrls?:string[],
   public productSizes?:SizeProduct[],
   public productProperties?:ProductPropertyValue[],
-  public productImages?:ProductImage[]
+  public productImages?:ProductImage[],
+  public currentImg?:string,
+  public firstImg?:string,
+  public secondImg?:string
   ) {
     this.productId = productId;
     this.nameProduct = nameProduct;
@@ -95,5 +101,8 @@ export class Product implements IProduct {
     this.productSizes = productSizes;
     this.productProperties = productProperties;
     this.productImages = productImages;
+    this.currentImg =currentImg;
+    this.secondImg =secondImg;
+    this.firstImg = firstImg;
   }
 }
