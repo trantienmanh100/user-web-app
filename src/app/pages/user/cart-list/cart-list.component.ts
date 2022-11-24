@@ -168,31 +168,10 @@ export class CartListComponent implements OnInit {
 
   createOrder(): void {
 
-    const order = {
-      customerMoney: 1,
-      paymentMethod: this.pay,
-      transportFee: 1,
-      purchaseType: OrderType.ONLINE,
-      status: StatusEnum.CHO_XAC_NHAN,
-      eventId: "2b052354-f0a4-4815-8cc6-fb6c957bfa55",
-      address: "NN",
-      userId: "02951d3d-1045-4fa1-ad46-6edeffd04a3d",
-      total: this.total - (this.total * this.discount/100) +this.shipMoney,
-      orderDetailList: this.carts.map((res) => {
-        const price = res.price as number;
-        const productDetail: IProductOrder = {
-          productId: res.productId,
-          quantity: res.amount,
-          price: res.price,
-          sizeId: res.sizeId,
-          total: ((res.amount as number) * price) as number,
-        };
-        return productDetail;
-      }),
-    };
+
     if ( this.pay === PaymentMethod.CARD) {
       const value = {
-        amount : order.total,
+        amount : this.total - (this.total * this.discount/100) +this.shipMoney,
         backcode: 'NCB',
         txt_inv_addr1: 'PHU THO',
         txt_bill_city: 'Thanh Pho Viet Tri',
@@ -207,15 +186,15 @@ export class CartListComponent implements OnInit {
         window.location.assign(res.body.paymentUrl)
       })
     }
-    this.orderService.createOrder(order).subscribe(() => {
-      this.toast.success('Đã đặt hàng thành công');
-      // this.cartService.deleteCartDetail(cart.cartDetailId).subscribe((respone: any) =>{
-      //   this.toast.success('Xoá thành công sản phẩm khỏi giỏ hàng');
-      //   const userId ='be2d6163-7979-40fb-a149-dca33bacad1a';
-      //   this.loadData(userId);
-      // });
-      this.carts =[]
-    })
-    console.log(this.carts)
+    // this.orderService.createOrder(order).subscribe(() => {
+    //   this.toast.success('Đã đặt hàng thành công');
+    //   // this.cartService.deleteCartDetail(cart.cartDetailId).subscribe((respone: any) =>{
+    //   //   this.toast.success('Xoá thành công sản phẩm khỏi giỏ hàng');
+    //   //   const userId ='be2d6163-7979-40fb-a149-dca33bacad1a';
+    //   //   this.loadData(userId);
+    //   // });
+    //   this.carts =[]
+    // })
+    // console.log(this.carts)
   }
 }

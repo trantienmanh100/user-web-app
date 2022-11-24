@@ -12,6 +12,9 @@ export const ROUTER_UTILS = {
     dashboard: 'dashboard',
     freeRoute: '**',
   },
+  payment: {
+    root: 'success-payment'
+  },
   product: {
     root: 'product',
     list: 'product/list',
