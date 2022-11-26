@@ -23,7 +23,7 @@ export class BoughtComponent implements OnInit {
 
   showAll(): void {
     const status= '';
-    const idUser = '02951d3d-1045-4fa1-ad46-6edeffd04a3d'
+    const idUser = 'be2d6163-7979-40fb-a149-dca33bacad1a'
     this.orderService.showByBought(status,idUser).subscribe((res :any) => {
       this.order = res.body?.data;
       console.log(this.order)
@@ -32,7 +32,7 @@ export class BoughtComponent implements OnInit {
 
   showWaitConfirm(): void {
     const status= 'CHO_XAC_NHAN'
-    const idUser = '02951d3d-1045-4fa1-ad46-6edeffd04a3d'
+    const idUser = 'be2d6163-7979-40fb-a149-dca33bacad1a'
     this.orderService.showByBought(status,idUser).subscribe((res :any) => {
       this.order = res.body?.data;
     })
@@ -40,28 +40,28 @@ export class BoughtComponent implements OnInit {
 
   showConfirmed(): void {
     const status= 'XAC_NHAN'
-    const idUser = '02951d3d-1045-4fa1-ad46-6edeffd04a3d'
+    const idUser = 'be2d6163-7979-40fb-a149-dca33bacad1a'
     this.orderService.showByBought(status,idUser).subscribe((res :any) => {
       this.order = res.body?.data;
     })
   }
   showDelivering(): void {
     const status= 'DANG_GIAO'
-    const idUser = '02951d3d-1045-4fa1-ad46-6edeffd04a3d'
+    const idUser = 'be2d6163-7979-40fb-a149-dca33bacad1a'
     this.orderService.showByBought(status,idUser).subscribe((res :any) => {
       this.order = res.body?.data;
     })
   }
   showDelivered(): void {
     const status= 'DA_GIAO'
-    const idUser = '02951d3d-1045-4fa1-ad46-6edeffd04a3d'
+    const idUser = 'be2d6163-7979-40fb-a149-dca33bacad1a'
     this.orderService.showByBought(status,idUser).subscribe((res :any) => {
       this.order = res.body?.data;
     })
   }
   showCancel(): void {
     const status= 'HUY'
-    const idUser = '02951d3d-1045-4fa1-ad46-6edeffd04a3d'
+    const idUser = 'be2d6163-7979-40fb-a149-dca33bacad1a'
     this.orderService.showByBought(status,idUser).subscribe((res :any) => {
       this.order = res.body?.data;
     })

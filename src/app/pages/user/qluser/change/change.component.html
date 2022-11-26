@@ -7,8 +7,17 @@
     <div class="col-10">
       <div class="change-password p-4">
         <h3>Đổi mật khẩu</h3>
-        <form class="p-3">
+        <form class="p-3" [formGroup]="changeForm" (submit)="changePass()">
           <div class="mb-3 row">
+<!--            <input type="text" class="form-control" formControlName="fullName" [(ngModel)]="users.fullName" hidden/>-->
+<!--            <input type="text" class="form-control" formControlName="userName" [(ngModel)]="users.userName" hidden/>-->
+<!--            <input type="text" class="form-control" formControlName="email" [(ngModel)]="users.email" hidden/>-->
+<!--            <input type="text" class="form-control" formControlName="address" [(ngModel)]="users.address" hidden/>-->
+<!--            <input type="text" class="form-control" formControlName="gender" [(ngModel)]="users.gender" hidden/>-->
+<!--            <input type="text" class="form-control" formControlName="phoneNumber" [(ngModel)]="users.phoneNumber" hidden/>-->
+<!--            <input type="text" class="form-control" formControlName="birthday" [(ngModel)]="users.birthday" hidden/>-->
+<!--            <input type="text" class="form-control" formControlName="imageUrl" [(ngModel)]="users.imageUrl" hidden/>-->
+<!--            <input type="text" class="form-control" formControlName="note" [(ngModel)]="users.note" hidden/>-->
             <div class="col-2">
               <label for="exampleInputPassword1" class="form-label"
               >Mật khẩu cũ</label
@@ -16,41 +25,44 @@
             </div>
             <div class="col-6">
               <input
-                type="password"
+                type="text"
                 class="form-control"
                 id="exampleInputPassword1"
+                formControlName="oldPass"
               />
             </div>
           </div>
           <div class="mb-3 row">
             <div class="col-2">
-              <label for="exampleInputPassword1" class="form-label"
+              <label for="exampleInputPassword2" class="form-label"
               >Mật khẩu mới</label
               >
             </div>
             <div class="col-6">
               <input
-                type="password"
+                type="text"
                 class="form-control"
-                id="exampleInputPassword1"
+                id="exampleInputPassword2"
+                formControlName="password"
               />
             </div>
           </div>
           <div class="mb-3 row">
             <div class="col-2">
-              <label for="exampleInputPassword1" class="form-label"
+              <label for="exampleInputPassword3" class="form-label"
               >Nhập lại mật khẩu</label
               >
             </div>
             <div class="col-6">
               <input
-                type="password"
+                type="text"
                 class="form-control"
-                id="exampleInputPassword1"
+                id="exampleInputPassword3"
+                formControlName="confirmPassword"
               />
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-danger">Lưu</button>
         </form>
       </div>
 

@@ -56,7 +56,7 @@ export class CartListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const id ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
+    const id ='be2d6163-7979-40fb-a149-dca33bacad1a';
 
     this.loadData(id)
     this.loadEvent();
@@ -105,7 +105,7 @@ export class CartListComponent implements OnInit {
     amount = cart.amount + 1;
     this.cartService.updateQuantity(cart?.cartDetailId,amount,cart ).subscribe((res: any) =>{
       if (cart?.cartDetailId != null) {
-        const id ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
+        const id ='be2d6163-7979-40fb-a149-dca33bacad1a';
         this.loadData(id);
       }
     })
@@ -117,7 +117,7 @@ export class CartListComponent implements OnInit {
     amount = cart.amount - 1;
     this.cartService.updateQuantity(cart?.cartDetailId,amount,cart ).subscribe((res: any) =>{
       if (cart?.cartDetailId != null) {
-        const id ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
+        const id ='be2d6163-7979-40fb-a149-dca33bacad1a';
         this.loadData(id);
       }
     })
@@ -136,7 +136,7 @@ export class CartListComponent implements OnInit {
       if(result?.success){
         this.cartService.deleteCartDetail(cart.cartDetailId).subscribe((respone: any) =>{
           this.toast.success('Xoá thành công sản phẩm khỏi giỏ hàng');
-          const userId ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
+          const userId ='be2d6163-7979-40fb-a149-dca33bacad1a';
           this.loadData(userId);
         });
       }

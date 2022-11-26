@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {IUser, User} from "../../../shared/models/user.model";
+import {FormBuilder} from "@angular/forms";
+import {UserService} from "../../../shared/services/user.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-qluser',
@@ -7,9 +11,46 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QluserComponent implements OnInit {
 
-  constructor() { }
+  users = new User();
+
+  // users : IUser={}
+  userForm = this.fb.group({
+    fullName: this.users.fullName,
+    userName : this.users.userName,
+    email: this.users.email,
+    address: this.users.address,
+    gender: 'MALE',
+    phoneNumber: this.users.phoneNumber,
+    birthday: this.users.birthday,
+    password: this.users.password,
+    confirmPassword: this.users.confirmPassword,
+    imageUrl: this.users.imageUrl,
+    note: this.users.note
+  })
+  constructor(
+    private fb: FormBuilder,
+    private userService : UserService,
+    private toast: ToastrService,
+  ) { }
 
   ngOnInit(): void {
+    this.loadData('be2d6163-7979-40fb-a149-dca33bacad1a')
   }
 
+  loadData (id : String) {
+    this.userService.find(id,true).subscribe((res:any) => {
+      this.users = res.body?.data;
+    })
+  }
+
+  updateUser()  {
+    const id = 'be2d6163-7979-40fb-a149-dca33bacad1a'
+    this.users.confirmPassword = this.users.password
+    this.userService.update(this.users,id).subscribe((res :any)=>{
+      this.users = res.body?.data;
+      this.toast.success('Update thanh cong');
+      console.log(this.users)
+      this.loadData(id)
+    })
+  }
 }
