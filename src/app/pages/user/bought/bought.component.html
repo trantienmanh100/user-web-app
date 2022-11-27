@@ -16,11 +16,11 @@
         </ul>
       </div>
 
-      <div class="order" *ngFor="let order of order">
+      <div class="order" *ngFor="let order of orders">
         <div class="product">
           <div class="product__title">
             <h5>Hàng USA chuẩn Javihey</h5>
-            <p>Chờ xác nhận</p>
+            <p>{{order.status}}</p>
           </div>
           <div class="product__item row" *ngFor="let orderDetail of order.orderDetailDTOList">
             <div class="col-1 image">
@@ -41,10 +41,19 @@
           <div class="total__price">
             <p> Tổng tiền : <span>{{order.total +'đ'}}</span> </p>
           </div>
-          <div class="total__button">
-            <a href="#">Mua lại</a>
-            <a routerLink="refund">Trả Hàng</a>
+          <div *ngIf="order.status === 'CHO_XAC_NHAN'; else elseBlock">
+            <div class="total__button">
+              <a (click)="updateHuyDon(order.id)">Hủy đơn hàng</a>
+
+              <a routerLink="refund">Xem chi tiết</a>
+            </div>
           </div>
+          <ng-template #elseBlock>
+            <div class="total__button">
+              <a (click)="muaLaiDonHang(order.id)">Mua lại</a>
+              <a routerLink="refund">Xem chi tiết</a>
+            </div>
+          </ng-template>
         </div>
       </div>
     </div>

@@ -53,10 +53,11 @@ export class ChangeComponent implements OnInit {
 
     if( this.users.password === this.changeForm.get('oldPass')?.value) {
       if( this.changeForm.value.password === this.changeForm.value.confirmPassword) {
-        this.userService.update(user,id).subscribe((res :any)=>{
+        this.userService.changePass(user,id).subscribe((res :any)=>{
           this.toast.success('Update thanh cong');
           this.changeForm.reset()
           console.log(user)
+          this.loadData(id)
 
         })
       } else {

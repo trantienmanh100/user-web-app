@@ -26,7 +26,13 @@ export class UserService extends AbstractService {
     user: any,
     id: String
   ): Observable<EntityResponseType<IUser>> {
-    return super.put<IUser>(`${this.resourceUrl}/${id}/update`, user );
+    return super.post<IUser>(`${this.resourceUrl}/${id}/update`, user );
+  }
+  changePass(
+    user: IUser,
+    id: String
+  ): Observable<EntityResponseType<IUser>> {
+    return super.post<IUser>(`${this.resourceUrl}/${id}/changePass`, user );
   }
 
   // delete(id: any, loading = false): Observable<EntityResponseType<Void>> {
