@@ -31,10 +31,12 @@ export class PaymentSuccessComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.vnp_TransactionStatus === '00'){
-      const id ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
+      const id ='be2d6163-7979-40fb-a149-dca33bacad1a';
       this.loadDataCart(id);
+      this.createOrder();
 
-      // this.createOrder();
+    } else {
+
     }
   }
 
@@ -83,7 +85,7 @@ export class PaymentSuccessComponent implements OnInit {
       status: StatusEnum.CHO_XAC_NHAN,
       eventId: "2b052354-f0a4-4815-8cc6-fb6c957bfa55",
       address: "NN",
-      userId: "02951d3d-1045-4fa1-ad46-6edeffd04a3d",
+      userId: "be2d6163-7979-40fb-a149-dca33bacad1a",
       total: this.total ,
 
       orderDetailList: this.carts.map((res) => {
@@ -99,7 +101,7 @@ export class PaymentSuccessComponent implements OnInit {
       }),
     };
     this.orderService.createOrder(order).subscribe(() => {
-
+        console.log("thanh cong vcll")
     })
 
   }

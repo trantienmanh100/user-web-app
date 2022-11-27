@@ -56,7 +56,7 @@ export class CartListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const id ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
+    const id ='be2d6163-7979-40fb-a149-dca33bacad1a';
 
     this.loadData(id)
     this.loadEvent();
@@ -105,7 +105,7 @@ export class CartListComponent implements OnInit {
     amount = cart.amount + 1;
     this.cartService.updateQuantity(cart?.cartDetailId,amount,cart ).subscribe((res: any) =>{
       if (cart?.cartDetailId != null) {
-        const id ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
+        const id ='be2d6163-7979-40fb-a149-dca33bacad1a';
         this.loadData(id);
       }
     })
@@ -117,7 +117,7 @@ export class CartListComponent implements OnInit {
     amount = cart.amount - 1;
     this.cartService.updateQuantity(cart?.cartDetailId,amount,cart ).subscribe((res: any) =>{
       if (cart?.cartDetailId != null) {
-        const id ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
+        const id ='be2d6163-7979-40fb-a149-dca33bacad1a';
         this.loadData(id);
       }
     })
@@ -136,7 +136,7 @@ export class CartListComponent implements OnInit {
       if(result?.success){
         this.cartService.deleteCartDetail(cart.cartDetailId).subscribe((respone: any) =>{
           this.toast.success('Xoá thành công sản phẩm khỏi giỏ hàng');
-          const userId ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
+          const userId ='be2d6163-7979-40fb-a149-dca33bacad1a';
           this.loadData(userId);
         });
       }
@@ -168,23 +168,26 @@ export class CartListComponent implements OnInit {
 
   createOrder(): void {
 
-
-    if ( this.pay === PaymentMethod.CARD) {
-      const value = {
-        amount : this.total - (this.total * this.discount/100) +this.shipMoney,
-        backcode: 'NCB',
-        txt_inv_addr1: 'PHU THO',
-        txt_bill_city: 'Thanh Pho Viet Tri',
-        txt_inv_mobile: '0387387993',
-        txt_inv_country: 'VN',
-        txt_inv_email: 'ducd@gmail.com',
-        txt_billing_fullname: 'Hoa Don Cua Hang Toan Huyen',
-        vnp_OrderInfo: 'VND',
+    if (this.pay != null) {
+      if ( this.pay === PaymentMethod.CARD) {
+        const value = {
+          amount : this.total - (this.total * this.discount/100) +this.shipMoney,
+          backcode: 'NCB',
+          txt_inv_addr1: 'PHU THO',
+          txt_bill_city: 'Thanh Pho Viet Tri',
+          txt_inv_mobile: '0387387993',
+          txt_inv_country: 'VN',
+          txt_inv_email: 'ducd@gmail.com',
+          txt_billing_fullname: 'Hoa Don Cua Hang Toan Huyen',
+          vnp_OrderInfo: 'VND',
+        }
+        this.paymentService.payment(value).subscribe((res:any) =>{
+          console.log(res)
+          window.location.assign(res.body.paymentUrl)
+        })
       }
-      this.paymentService.payment(value).subscribe((res:any) =>{
-        console.log(res)
-        window.location.assign(res.body.paymentUrl)
-      })
+    } else {
+      this.toast.error('Hãy chọn phương thức thanh toán')
     }
     // this.orderService.createOrder(order).subscribe(() => {
     //   this.toast.success('Đã đặt hàng thành công');
