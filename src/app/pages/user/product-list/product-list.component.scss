@@ -152,38 +152,7 @@ a:hover {
   margin: 20px 0 20px 0;
 }
 
-/* -----Refine Search  ---- */
 
-.refineSearch__title h3 {
-  font-size: 22px;
-  margin-top: 30px;
-  font-weight: 400;
-}
-
-.refineSearch__image {
-  text-align: center;
-
-}
-
-.refineSearch__image a {
-  padding: 0;
-  display: inline-block;
-  vertical-align: top;
-  margin: 0 0 10px;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 17px;
-  cursor: pointer;
-  color: #000;
-}
-
-.refineSearch__image .image1 a:hover {
-  color: #F3AE7E;
-}
-
-.refineSearch__image .image1 img:hover {
-  border: 1px solid #F3AE7E;
-}
 
 
 /* -----product 1 ---- */
@@ -623,4 +592,36 @@ a:hover {
 
 .side-bar .menu .item .sub-menu a {
   padding-left: 80px;
+}
+/* -----Refine Search  ---- */
+
+.refineSearch__title h3 {
+  font-size: 22px;
+  margin-top: 30px;
+  font-weight: 400;
+}
+
+.refineSearch__image {
+  text-align: center;
+
+}
+
+.refineSearch__image a {
+  padding: 0;
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 0 10px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  cursor: pointer;
+  color: #000;
+}
+
+.refineSearch__image a:hover {
+  color: #F3AE7E;
+}
+
+.refineSearch .refineSearch__image a img:hover {
+  border: 1px solid #F3AE7E;
 }

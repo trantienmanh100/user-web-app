@@ -163,7 +163,6 @@ li {
 }
 
 .slide4 {
-  margin-top: 50px;
   position: relative;
 }
 .slide4 .slide2__text{
@@ -177,40 +176,82 @@ li {
 
 /* -------------product 1 -------- */
 
-.product2__title {
+.product1__title {
   margin: 50px 0 20px 0;
 
 }
 
-.product2__title ul {
+.product1__title ul {
   display: flex;
   padding-left: 0;
 
 }
 
-.product2__title ul li {
+.product1__title ul li a {
+  color: #000;
   padding-right: 60px;
 
 }
 
-.product2__image {
-  margin-top: 20px;
-  display: flex;
-  flex-wrap: wrap;
+.product1__title ul li a:hover {
+  color: #F3AE7E;
+
 }
 
-.product2__image .image1 {
+.product1__image .image1 p {
+  color: #757575;
+}
+//
+.image1 {
+  margin-top: 10px;
+  position: relative;
+  img {
+    border-radius: 3px;
+    opacity: 1;
+    display: block;
+    height: 15rem;
+    transition: .5s ease;
+    backface-visibility: hidden;
+  }
 
-  margin-left: 8px;
+  .middle {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 54%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    a {
+      background-color: white;
+      border-radius: 90px;
+      padding: 0px 5px 0 5px;
+    }
+    a i{
+      opacity: 1;
+    }
+    a:hover{
+      padding: 0px 5px 0 5px;
+      border-radius: 90px;
+      background-color: #CBB28B;
+    }
+  }
+
+  &:hover img {
+    opacity: 0.3;
+  }
+
+  &:hover .middle {
+    opacity: 1;
+  }
 }
 
-
-
-.product2__image .image1 img {
-
-  display: block;
-  max-width: 80%;
-}
 /* --------------- */
 
 .slide__text {
@@ -549,4 +590,78 @@ li {
   color: #cbb28b!important;
   border-bottom: 1px solid #cbb28b;
 }
+/* -----------------Review ---------------- */
+.nav {
+  border: none;
+  margin-top: 15px;
+}
+.nav .nav-link{
+  border: none;
+  padding-left: 10px;
+  margin-right: 50px;
 
+}
+.nav button{
+  color: #000;
+  font-size: 20px;
+  font-weight: 400;
+}
+.nav button:hover{
+  color: #CBB28B;
+  text-decoration: underline;
+
+}
+.tab-pane{
+  font-size: 15px;
+  color: #2f2f30;
+}
+.review .card {
+  margin: 0;
+  margin-bottom: 20px;
+}
+.formReview {
+  font-family: "Fira Sans",sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+}
+.formReview form {
+  position: relative;
+}
+.formReview i{
+  color: red;
+}
+.formReview input{
+  border-radius: 20px;
+}
+.formReview .form-check-input{
+  margin: 0 15px 0 15px;
+}
+.checkboxReview {
+  color: #666666;
+  padding: 0;
+  font-size: 14px;
+  display: flex;
+  margin-left: 20px;
+  position: absolute;
+  left: 50px;
+  top: 2px;
+}
+.button{
+  position: absolute;
+  left: 825px;
+  bottom: -10px;
+  background-color: #CBB28B;
+  padding: 4px 25px 4px 25px;
+  border-radius: 20px;
+  border: 1px solid #CBB28B;
+}
+.button:hover{
+  background-color: #000;
+}
+.form-check {
+  padding: 0;
+  position: relative;
+}
+.middle {
+  color: black;
+}
