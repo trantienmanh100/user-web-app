@@ -32,6 +32,9 @@ export const ROUTER_UTILS = {
     root: 'refund',
     list: 'refund/list',
   },
+  chinhsach: {
+    root: 'chinhsach',
+  },
   change: {
     root: 'change',
   },

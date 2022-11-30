@@ -29,6 +29,7 @@ import { MenuUserComponent } from './shared/components/menu-user/menu-user.compo
 import { QluserComponent } from './pages/user/qluser/qluser.component';
 import { ChangeComponent } from './pages/user/qluser/change/change.component';
 import { PaymentSuccessComponent } from './pages/user/cart-list/payment-success/payment-success.component';
+import { ChinhsachComponent } from './pages/user/chinhsach/chinhsach.component';
 
 const antDesignIcons = AllIcons as {
   [key: string]: IconDefinition;
@@ -52,6 +53,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     QluserComponent,
     ChangeComponent,
     PaymentSuccessComponent,
+    ChinhsachComponent,
   ],
   imports: [
     BrowserModule,

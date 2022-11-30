@@ -10,6 +10,7 @@ import {BoughtComponent} from "./pages/user/bought/bought.component";
 import {ChangeComponent} from "./pages/user/qluser/change/change.component";
 import {QluserComponent} from "./pages/user/qluser/qluser.component";
 import {PaymentSuccessComponent} from "./pages/user/cart-list/payment-success/payment-success.component";
+import {ChinhsachComponent} from "./pages/user/chinhsach/chinhsach.component";
 
 
 const routes: Routes = [
@@ -62,6 +63,10 @@ const routes: Routes = [
   {
     path: ROUTER_UTILS.qlUser.root,
     component: QluserComponent,
+  },
+  {
+    path: ROUTER_UTILS.chinhsach.root,
+    component: ChinhsachComponent,
   },
 ]
 
