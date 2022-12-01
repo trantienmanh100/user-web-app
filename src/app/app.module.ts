@@ -17,11 +17,11 @@ import {ToastrModule, ToastrService} from "ngx-toastr";
 import { CartListComponent } from './pages/user/cart-list/cart-list.component';
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
-import {NZ_I18N, vi_VN} from "ng-zorro-antd/i18n";
+import {NZ_I18N, vi_VN, en_US} from "ng-zorro-antd/i18n";
 import {NZ_ICONS} from "ng-zorro-antd/icon";
 import { IconDefinition } from '@ant-design/icons-angular';
 import * as AllIcons from '@ant-design/icons-angular/icons';
-import {NzModalService} from "ng-zorro-antd/modal";
+import {NzModalModule, NzModalService} from "ng-zorro-antd/modal";
 import {NzSelectModule} from "ng-zorro-antd/select";
 import { RefundComponent } from './pages/user/bought/refund/refund.component';
 import { BoughtComponent } from './pages/user/bought/bought.component';
@@ -30,6 +30,12 @@ import { QluserComponent } from './pages/user/qluser/qluser.component';
 import { ChangeComponent } from './pages/user/qluser/change/change.component';
 import { PaymentSuccessComponent } from './pages/user/cart-list/payment-success/payment-success.component';
 import { ChinhsachComponent } from './pages/user/chinhsach/chinhsach.component';
+import { LoginComponent } from './pages/user/login/login.component';
+import { registerLocaleData } from '@angular/common';
+import en from '@angular/common/locales/en';
+import {NzButtonModule} from "ng-zorro-antd/button";
+
+registerLocaleData(en);
 
 const antDesignIcons = AllIcons as {
   [key: string]: IconDefinition;
@@ -54,6 +60,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     ChangeComponent,
     PaymentSuccessComponent,
     ChinhsachComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,6 +83,8 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
       positionClass: 'toast-top-right'
     }),
     NzSelectModule,
+    NzModalModule,
+    NzButtonModule,
     ReactiveFormsModule,
     //NgbModule,
   ],

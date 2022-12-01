@@ -4,6 +4,7 @@ import {OrderService} from "../../../shared/services/order.service";
 import {IProductOrder, Order, OrderType, PaymentMethod, StatusEnum} from "../../../shared/models/order.model";
 import {ToastrService} from "ngx-toastr";
 
+
 @Component({
   selector: 'app-bought',
   templateUrl: './bought.component.html',
@@ -16,6 +17,7 @@ export class BoughtComponent implements OnInit {
     private router: Router,
     private orderService :OrderService,
     private toast : ToastrService,
+
   ) { }
 
   ngOnInit(): void {
@@ -109,6 +111,11 @@ export class BoughtComponent implements OnInit {
         this.toast.success("Đặt hàng lại thành công")
       })
     })
+  }
+
+  showChiTiet(id : any){
+
+
   }
 
 }

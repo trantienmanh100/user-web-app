@@ -41,6 +41,9 @@ export const ROUTER_UTILS = {
   qlUser: {
     root: 'qlUser',
   },
+  login: {
+    root: 'login',
+  },
   cart: {
     root: 'cart',
     list: 'cart/list',

@@ -1,0 +1,62 @@
+<app-header></app-header>
+<div class="body">
+  <div class="container">
+    <div class="home">
+        <p class="text__login" aria-current="page">Login</p>
+      <button nz-button [nzType]="'primary'" (click)="showModal()"><span>Show Modal</span></button>
+      <nz-modal [(nzVisible)]="isVisible" nzTitle="The first Modal" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+        <ng-container *nzModalContent>
+          <p>Content one</p>
+          <p>Content two</p>
+          <p>Content three</p>
+        </ng-container>
+      </nz-modal>
+    </div>
+    <div class="formLogin">
+      <div class="row">
+        <div class="col-6 formLogin__text ">
+          <div class="high">
+            <p>Người dùng mới</p>
+          </div>
+          <div class="medium">
+            <p>Đăng ký tài khoản</p>
+          </div>
+          <div class="small">
+            <p> Tạo tài khoản, bạn sẽ có thể mua sắm nhanh hơn, cập nhật đơn hàng
+              trạng thái và theo dõi các đơn đặt hàng bạn đã thực hiện trước đó. </p>
+          </div>
+          <div class="button">
+            <a href="">Đăng ký</a>
+          </div>
+        </div>
+        <div class="col-6 formLogin__text ">
+          <div class="high">
+            <p>Đăng nhập</p>
+          </div>
+          <div class="medium">
+            <p>Tôi là khách hàng</p>
+          </div>
+          <div class="content">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Tài khoản</label>
+              <input type="email" placeholder="Tài khoản" class="form-control"
+                     id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label"> Mật khẩu</label>
+              <input type="password" placeholder="Mật khẩu" class="form-control"
+                     id="exampleInputPassword1">
+            </div>
+            <div class="mb-3 ">
+            </div>
+            <div class="button">
+              <a href="">Login</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
