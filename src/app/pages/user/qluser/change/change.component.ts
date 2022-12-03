@@ -24,7 +24,7 @@ export class ChangeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadData('be2d6163-7979-40fb-a149-dca33bacad1a')
+    this.loadData('02951d3d-1045-4fa1-ad46-6edeffd04a3d')
   }
 
   loadData (id : String) {
@@ -34,7 +34,7 @@ export class ChangeComponent implements OnInit {
   }
 
   changePass(){
-    const id = 'be2d6163-7979-40fb-a149-dca33bacad1a'
+    const id = '02951d3d-1045-4fa1-ad46-6edeffd04a3d'
     const user: any  = {
       userName : this.users.userName,
       fullName: this.users.fullName,

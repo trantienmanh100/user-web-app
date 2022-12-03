@@ -56,9 +56,10 @@ export class CartListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const id ='be2d6163-7979-40fb-a149-dca33bacad1a';
+    const id ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
 
     this.loadData(id)
+
     this.loadEvent();
     this.initForm();
   }
@@ -75,15 +76,18 @@ export class CartListComponent implements OnInit {
       if(res && res.body.data !== null){
         this.carts = res.body?.data?.cartDetailResponseList;
         this.total =0;
+        if(this.carts !== null){
         this.carts.forEach((item)=>{
           if(item.price && item.amount) {
             this.total += item.price*item.amount;
           }
         });
-        this.chargeShipping(this.total);
-      }
-      else {
+        }
+
+        if(this.carts === null){
           this.nodata = true;
+        }
+        this.chargeShipping(this.total);
       }
 
     })
@@ -105,7 +109,7 @@ export class CartListComponent implements OnInit {
     amount = cart.amount + 1;
     this.cartService.updateQuantity(cart?.cartDetailId,amount,cart ).subscribe((res: any) =>{
       if (cart?.cartDetailId != null) {
-        const id ='be2d6163-7979-40fb-a149-dca33bacad1a';
+        const id ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
         this.loadData(id);
       }
     })
@@ -117,7 +121,7 @@ export class CartListComponent implements OnInit {
     amount = cart.amount - 1;
     this.cartService.updateQuantity(cart?.cartDetailId,amount,cart ).subscribe((res: any) =>{
       if (cart?.cartDetailId != null) {
-        const id ='be2d6163-7979-40fb-a149-dca33bacad1a';
+        const id ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
         this.loadData(id);
       }
     })
@@ -128,7 +132,7 @@ export class CartListComponent implements OnInit {
       this.translateService,
       'Xoá sản phẩm khỏi giỏ',
       'Bạn có muốn xoá sản phẩm này không',
-      {name: 'a'}
+      {name: 'a'},
       //need fix
     )
     const modal: NzModalRef =this.modalService.create(deleteForm);
@@ -136,7 +140,7 @@ export class CartListComponent implements OnInit {
       if(result?.success){
         this.cartService.deleteCartDetail(cart.cartDetailId).subscribe((respone: any) =>{
           this.toast.success('Xoá thành công sản phẩm khỏi giỏ hàng');
-          const userId ='be2d6163-7979-40fb-a149-dca33bacad1a';
+          const userId ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
           this.loadData(userId);
         });
       }
@@ -170,6 +174,9 @@ export class CartListComponent implements OnInit {
 
     if (this.pay != null) {
       if ( this.pay === PaymentMethod.CARD) {
+        console.log(this.shipMoney)
+        localStorage.setItem('shipMoney', this.shipMoney);
+        localStorage.setItem('online', 'online');
         const value = {
           amount : this.total - (this.total * this.discount/100) +this.shipMoney,
           backcode: 'NCB',
@@ -193,7 +200,7 @@ export class CartListComponent implements OnInit {
     //   this.toast.success('Đã đặt hàng thành công');
     //   // this.cartService.deleteCartDetail(cart.cartDetailId).subscribe((respone: any) =>{
     //   //   this.toast.success('Xoá thành công sản phẩm khỏi giỏ hàng');
-    //   //   const userId ='be2d6163-7979-40fb-a149-dca33bacad1a';
+    //   //   const userId ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
     //   //   this.loadData(userId);
     //   // });
     //   this.carts =[]

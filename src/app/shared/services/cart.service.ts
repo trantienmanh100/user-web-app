@@ -31,6 +31,10 @@ export class CartService extends AbstractService {
     return super.delete<ICart>(`${this.resourceUrl}/${id}`);
   }
 
+  deleteCart(userId:any): Observable<EntityResponseType<ICart>>{
+    return super.delete<ICart>(`${this.resourceUrl}/delete/${userId}`);
+  }
+
   chargeShipping(ship : Ship ) :Observable<any> {
     return this.http.post('https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee', ship,
       { headers: new HttpHeaders().set('Token','47c4a6b7-6337-11ed-b824-262f869eb1a7'),

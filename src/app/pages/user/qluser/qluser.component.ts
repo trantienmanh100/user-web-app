@@ -34,7 +34,7 @@ export class QluserComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadData('be2d6163-7979-40fb-a149-dca33bacad1a')
+    this.loadData('02951d3d-1045-4fa1-ad46-6edeffd04a3d')
   }
 
   loadData (id : String) {
@@ -44,7 +44,7 @@ export class QluserComponent implements OnInit {
   }
 
   updateUser()  {
-    const id = 'be2d6163-7979-40fb-a149-dca33bacad1a'
+    const id = '02951d3d-1045-4fa1-ad46-6edeffd04a3d'
     this.users.confirmPassword = this.users.password
     this.userService.update(this.users,id).subscribe((res :any)=>{
       this.users = res.body?.data;
