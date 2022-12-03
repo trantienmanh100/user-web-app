@@ -126,56 +126,59 @@
             <div class="slide2__image"><img src="assets/images/slide3.png" alt=""></div>
           </div>
         </div>
-        <div class="product1">
-          <div class="product1__title">
-            <ul>
-              <li><a class="nav-link" [routerLink]="''" [routerLinkActive]="'active'">Sản phẩm mới </a></li>
-              <li><a class="nav-link" [routerLink]="'banchay'"   [routerLinkActive]="'active'">Bán chạy </a></li>
-            </ul>
+
+          <!-- --------- review ----------- -->
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
+                    data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
+                    aria-selected="true">Sản phẩm bán chaỵ</button>
+            <button class="nav-link inactive" id="nav-profile-tab" data-bs-toggle="tab"
+                    data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
+                    aria-selected="false">Sản phẩm mới</button>
           </div>
-          <div class="row product1__image">
-            <div class="col-3 image1">
-              <img src="assets/images/small.png" alt="">
-              <span>Diamond Push Pin Earrings</span>
-              <p>$203</p>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active description" id="nav-home" role="tabpanel"
+                 aria-labelledby="nav-home-tab">
+              <div class="product1">
+                <div class="row product1__image">
+                  <div class="col-3 image1" *ngFor="let product of newProducts">
+                    <img [src]="product.productImages ? product.productImages[0].imageUrl : null" (click)="showProductDetail(product)" alt="">
+                    <div class="middle">
+                      <a (click)="showProductDetail(product)"><i class="fas fa-cart-plus"></i></a>
+                      <a (click)="showProductDetail(product)"><i class="fas fa-eye"></i></a>
+                      <a ><i class="far fa-heart"></i></a>
+                      <a><i class="fas fa-layer-group"></i></a>
+
+                    </div>
+                    <div class="image1__content">
+                      <span class="product-name" (click)="showProductDetail(product)">{{product.nameProduct}}</span>
+                      <p>{{product.productSizes ? product.productSizes[0].salePrice : null}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="col-3 image1">
-              <img src="assets/images/small.png" alt="">
-              <span>Diamond Push Pin Earrings</span>
-              <p>$203</p>
+            <div class="tab-pane fade review " id="nav-profile" role="tabpanel"
+                 aria-labelledby="nav-profile-tab"><div class="product1">
+              <div class="row product1__image">
+                <div class="col-3 image1" *ngFor="let product of newProducts">
+                  <img [src]="product.productImages ? product.productImages[0].imageUrl : null" (click)="showProductDetail(product)" alt="">
+                  <div class="middle">
+                    <a (click)="showProductDetail(product)"><i class="fas fa-cart-plus"></i></a>
+                    <a (click)="showProductDetail(product)"><i class="fas fa-eye"></i></a>
+                    <a ><i class="far fa-heart"></i></a>
+                    <a><i class="fas fa-layer-group"></i></a>
+
+                  </div>
+                  <div class="image1__content">
+                    <span class="product-name" (click)="showProductDetail(product)">{{product.nameProduct}}</span>
+                    <p>{{product.productSizes ? product.productSizes[0].salePrice : null}}</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="col-3 image1">
-              <img src="assets/images/small.png" alt="">
-              <span>Diamond Push Pin Earrings</span>
-              <p>$203</p>
-            </div>
-            <div class="col-3 image1">
-              <img src="assets/images/small.png" alt="">
-              <span>Diamond Push Pin Earrings</span>
-              <p>$203</p>
-            </div>
-            <div class="col-3 image1">
-              <img src="assets/images/small.png" alt="">
-              <span>Diamond Push Pin Earrings</span>
-              <p>$203</p>
-            </div>
-            <div class="col-3 image1">
-              <img src="assets/images/small.png" alt="">
-              <span>Diamond Push Pin Earrings</span>
-              <p>$203</p>
-            </div>
-            <div class="col-3 image1">
-              <img src="assets/images/small.png" alt="">
-              <span>Diamond Push Pin Earrings</span>
-              <p>$203</p>
-            </div>
-            <div class="col-3 image1">
-              <img src="assets/images/small.png" alt="">
-              <span>Diamond Push Pin Earrings</span>
-              <p>$203</p>
             </div>
           </div>
-        </div>
         <div class="row slide4">
           <div class="slide2__text">
             <p>New In Our Shop</p>

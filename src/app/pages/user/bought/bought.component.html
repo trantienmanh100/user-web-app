@@ -16,35 +16,44 @@
         </ul>
       </div>
 
-      <div class="order" *ngFor="let order of order">
+      <div class="order" *ngFor="let order of orders">
         <div class="product">
           <div class="product__title">
             <h5>Hàng USA chuẩn Javihey</h5>
-            <p>Chờ xác nhận</p>
+            <p style="color: red;">Đơn hàng:  {{order.status}}</p>
           </div>
           <div class="product__item row" *ngFor="let orderDetail of order.orderDetailDTOList">
-            <div class="col-1 image">
+            <div class="col-md-1 image">
               <img [src]="orderDetail.imageUrl?orderDetail.imageUrl[0] : 'https://i0.wp.com/www.boznoslawoffice.com/wp-content/uploads/2015/09/no_avatar.jpg?fit=512%2C512&ssl=1'" alt="">
             </div>
-            <div class="col-9 info">
+            <div class="col-md-8 info">
               <p>{{orderDetail.nameProduct}}</p>
               <p class="text--small">Size: {{orderDetail.size}} </p>
               <p>{{'x' +orderDetail.quantity}}</p>
             </div>
-            <div class="col-1 price">
-              <p>{{ orderDetail.price  + 'đ' }}</p>
+            <div class="col-md-2 price">
+              <p>{{ orderDetail.price +'' | vnd }}</p>
             </div>
           </div>
           <hr>
         </div>
         <div class="total">
           <div class="total__price">
-            <p> Tổng tiền : <span>{{order.total +'đ'}}</span> </p>
+            <p> Tổng tiền : <span>{{order.total +'' | vnd }}</span> </p>
           </div>
-          <div class="total__button">
-            <a href="#">Mua lại</a>
-            <a routerLink="refund">Trả Hàng</a>
+          <div *ngIf="order.status === 'CHO_XAC_NHAN'; else elseBlock">
+            <div class="total__button">
+              <a (click)="updateHuyDon(order.id)">Hủy đơn hàng</a>
+
+              <a (click)="showChiTiet(order.id)">Xem chi tiết</a>
+            </div>
           </div>
+          <ng-template #elseBlock>
+            <div class="total__button">
+              <a (click)="muaLaiDonHang(order.id)">Mua lại</a>
+              <a (click)="showChiTiet(order.id)">Xem chi tiết</a>
+            </div>
+          </ng-template>
         </div>
       </div>
     </div>

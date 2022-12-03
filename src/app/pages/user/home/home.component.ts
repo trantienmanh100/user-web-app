@@ -43,10 +43,12 @@ export class HomeComponent implements OnInit {
   showProductByCate(cate: ICategory): void {
     this.router.navigate([ROUTER_UTILS.product.root, cate.categoryId, 'cate']);
   }
-
+  showProductDetail(product: IProduct): void {
+    this.router.navigate([ROUTER_UTILS.product.root, product.productId, 'detail']);
+  }
   showNewProduct(): void {
     const request : ProductSearchRequest= {
-      pageSize: 5,
+      pageSize: 4,
       sortBy: "createAt.desc",
     };
     this.productService.search(request).subscribe((res :any) =>{

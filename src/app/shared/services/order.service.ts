@@ -29,13 +29,12 @@ export class OrderService extends AbstractService {
     return super.post<IOrder>(`${this.resourceUrl}`,params);
   }
   updateOrder(
-    id:string,
+    id: String,
     params?: any,
-    loading = true,
   ): Observable<EntityResponseType<IOrder>>{
     return super.post<IOrder>(`${this.resourceUrl}/${id}`,params);
   }
-  showByBought(status: String,
+  showByBought(status: string,
          idUser : string
   ): Observable<EntityResponseType<Order[]>> {
     console.log(status)
