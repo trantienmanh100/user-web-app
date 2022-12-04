@@ -167,8 +167,8 @@ export default class CommonUtil {
         success: false,
       };
     },
-    okText: string = 'action.confirm',
-    cancelText: string = 'action.cancel',
+    okText: string = 'Xác nhận',
+    cancelText: string = 'Hủy',
     center: boolean = true
   ): object {
     return {

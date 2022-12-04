@@ -17,6 +17,8 @@ import {forEach} from "lodash";
 export class HomeComponent implements OnInit {
   categories : Category[]=[];
   newProducts : IProduct[]=[];
+  productTrending : IProduct[]=[];
+
   constructor(
     private categoryService: CategoryService,
     private productService: ProductService,
@@ -26,7 +28,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadDataCategory();
-    this.showNewProduct()
+    this.showNewProduct();
+    this.showProductTrending();
   }
   loadDataCategory(): void {
     this.categoryService.searchCategoriesAutoComplete( true).subscribe(
@@ -64,6 +67,11 @@ export class HomeComponent implements OnInit {
           console.log(product)
         })
       }
+    });
+  }
+  showProductTrending(): void {
+    this.productService.trending().subscribe((res :any) =>{
+        this.productTrending = res.body?.data;
     });
   }
 }

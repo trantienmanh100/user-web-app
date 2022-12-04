@@ -49,6 +49,9 @@ export const ROUTER_UTILS = {
     list: 'cart/list',
     detail: 'cartDetail',
   },
+  book: {
+    root: 'book',
+  },
   guest: {
     root: 'guest',
     list: 'list',
