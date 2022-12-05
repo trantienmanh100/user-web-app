@@ -8,6 +8,9 @@ import {ProductService} from "../../../shared/services/product.service";
 import {ProductSearchRequest} from "../../../shared/models/request/product-search-request.model";
 import {PAGINATION} from "../../../shared/constants/pagination.constants";
 import {forEach} from "lodash";
+import {Cart} from "../../../shared/models/cart.model";
+import {CartService} from "../../../shared/services/cart.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-home',
@@ -22,6 +25,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private categoryService: CategoryService,
     private productService: ProductService,
+    private cartService : CartService,
+    private toast: ToastrService,
     private router : Router,
   ) {
   }
@@ -73,5 +78,25 @@ export class HomeComponent implements OnInit {
     this.productService.trending().subscribe((res :any) =>{
         this.productTrending = res.body?.data;
     });
+  }
+
+  addToCart ( product : any): void {
+    const cart : Cart = {
+      userId : 'be2d6163-7979-40fb-a149-dca33bacad1a',
+      amount : 1,
+      productId : product.productId,
+      sizeId: product.productSizes.map((res:any) =>{
+        const sizeId =res.sizeId;
+        return sizeId;
+      })
+    }
+    console.log(cart)
+    this.cartService.addToCart(cart).subscribe(()=>{
+      this.toast.success('Thêm vào giỏ hàng thành công');
+    },
+    (error: any)=>{
+      this.toast.error('Thêm vào giỏ hàng thất bại');
+    }
+    )
   }
 }
