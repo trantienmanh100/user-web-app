@@ -85,10 +85,7 @@ export class HomeComponent implements OnInit {
       userId : 'be2d6163-7979-40fb-a149-dca33bacad1a',
       amount : 1,
       productId : product.productId,
-      sizeId: product.productSizes.map((res:any) =>{
-        const sizeId =res.sizeId;
-        return sizeId;
-      })
+      sizeId: product.productSizes[0].sizeId
     }
     console.log(cart)
     this.cartService.addToCart(cart).subscribe(()=>{

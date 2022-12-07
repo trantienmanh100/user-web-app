@@ -97,40 +97,33 @@
           </div>
         </div>
 
-        <div class="card">
-          <div class="card-header">
-            <img src="./../../../assets/images/3.png" alt="">
-            Bán chạy
+        <div class="border accordion accordion-flush mt-3" id="">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne">
+              <div class="item">
+                <a class="sub-btn"
+                ><i class="fas fa-table"></i>Bán chạy nhất<i
+                  class="fas fa-angle-right dropdown"
+                ></i
+                ></a>
+                <div class="card-body sub-menu">
+                  <div class="row" *ngFor="let product of productTrending">
+                    <div class="card-title col-5 card1__image ">
+                      <div class="img-hover-zoom--brightness">
+                        <img [src]="product.currentImg"
+                             (mouseover)="product.currentImg =product.firstImg"
+                             (mouseout)="product.currentImg= product.firstImg">
+                      </div>
+                    </div>
+                    <div class="col-7">
+                      <p class="card-text product-name">{{product.nameProduct}}</p>
+                      <p class="money">{{product.productSizes ? (product.productSizes[0]?.salePrice + '' | vnd) : ''}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </h2>
           </div>
-          <div class="row card-body ">
-            <div class="card-title col-5 card1__image "><img src="./../../../assets/images/icon11.jpg" alt=""></div>
-            <div class="col-7">
-              <p class="card-text ">Gold Croissant Hoop Earrings</p>
-              <p>$19.00</p>
-            </div>
-          </div>
-          <div class="row card-body ">
-            <div class="card-title col-5 card1__image "><img src="./../../../assets/images/icon11.jpg" alt=""></div>
-            <div class="col-7">
-              <p class="card-text ">Gold Croissant Hoop Earrings</p>
-              <p>$19.00</p>
-            </div>
-          </div>
-          <div class="row card-body ">
-            <div class="card-title col-5 card1__image "><img src="./../../../assets/images/icon2.jpg" alt=""></div>
-            <div class="col-7">
-              <p class="card-text ">Gold Croissant Hoop Earrings</p>
-              <p>$19.00</p>
-            </div>
-          </div>
-          <div class="row card-body ">
-            <div class="card-title col-5 card1__image "><img src="./../../../assets/images/icon3.jpg" alt=""></div>
-            <div class="col-7">
-              <p class="card-text ">Gold Croissant Hoop Earrings</p>
-              <p>$19.00</p>
-            </div>
-          </div>
-
         </div>
       </div>
       <div class="col-9 body__article">

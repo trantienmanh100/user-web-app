@@ -14,8 +14,8 @@ import {CategoryService} from "../../../shared/services/category.service";
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit {
-  newProducts : IProduct[]=[];
   products: Product[] = [];
+  productTrending : IProduct[]=[];
   productSearchRequest: IProductSearchRequest = {
     pageIndex: PAGINATION.PAGE_DEFAULT,
     pageSize: PAGINATION.SIZE_DEFAULT,
@@ -42,7 +42,7 @@ export class ProductListComponent implements OnInit {
   ngOnInit(): void {
     this.loadCategory(),
     // this.loadData(this.pageNumber, this.pageSize);
-    this.showNewProduct()
+    this.showProductTrending()
     this.loadDataByCategory(this.categoryId)
   }
 
@@ -79,24 +79,9 @@ export class ProductListComponent implements OnInit {
     });
   }
 
-  showNewProduct(): void {
-    const request : ProductSearchRequest= {
-      pageSize: 4,
-      sortBy: "createAt.desc",
-    };
-    this.productService.search(request).subscribe((res :any) =>{
-      if(res){
-        this.newProducts = res.body?.data;
-        this.newProducts.forEach((product:IProduct)=>{
-          // @ts-ignore
-          product.currentImg = product.productImages[0].imageUrl;
-          // @ts-ignore
-          product.secondImg =product.productImages[1].imageUrl;
-          // @ts-ignore
-          product.firstImg =product.productImages[0].imageUrl;
-          console.log(product)
-        })
-      }
+  showProductTrending(): void {
+    this.productService.trending().subscribe((res :any) =>{
+      this.productTrending = res.body?.data;
     });
   }
 

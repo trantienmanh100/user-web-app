@@ -86,14 +86,17 @@ a:hover {
   padding-left: 50px;
 }
 .header__account .row img{
-  width: 15px;
+  width: 18px;
+  height: 18px;
 }
 .header__account .ac {
   padding-left: 60px;
 }
 .header__account .row a{
   color: black;
-  font-size: 15px;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
 }
 .header__account .row a:hover{
   color: #F3AE7E;

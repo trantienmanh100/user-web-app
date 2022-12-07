@@ -28,6 +28,7 @@ export class ProductDetailComponent implements OnInit {
   productDetail : IProduct = {}
   totalQuantity =0;
   form: FormGroup = new FormGroup({});
+  input_quantity= 1;
   constructor(
     private productService : ProductService,
     private router: ActivatedRoute,
@@ -73,17 +74,23 @@ export class ProductDetailComponent implements OnInit {
   }
 
   addToCart(): void {
+    let quantity: any = this.size.quantity +''
     const cart :Cart = {
       //needFix
       userId : '02951d3d-1045-4fa1-ad46-6edeffd04a3d',
-      amount : 1,
+      amount : this.input_quantity,
       productId :this.productId,
       sizeId: this.size.sizeId
     }
+
     this.isChosseRadio2 =false;
     if (this.checkedRadio(this.size)){
       this.isChosseRadio2=true;
       this.toast.error('Vui lòng chọn size trước!')
+      return
+    }
+    if(this.input_quantity > quantity) {
+      this.toast.error("Sản phẩm không đủ")
     }else {
       this.cartService.addToCart(cart).subscribe(()=>{
         this.toast.success('Thêm vào giỏ hàng thành công');
