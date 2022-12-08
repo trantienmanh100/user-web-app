@@ -5,7 +5,7 @@ import {IProductSearchRequest, ProductSearchRequest} from "../../../shared/model
 import {ProductService} from "../../../shared/services/product.service";
 import {ROUTER_UTILS} from "../../../shared/utils/router.utils";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Category} from "../../../shared/models/category.model";
+import {Category, ICategory} from "../../../shared/models/category.model";
 import {CategoryService} from "../../../shared/services/category.service";
 
 @Component({
@@ -21,8 +21,8 @@ export class ProductListComponent implements OnInit {
     pageSize: PAGINATION.SIZE_DEFAULT,
   };
   categories: Category[] = [];
-  categoryId = '';
-
+  categoryId? : string;
+  categoryById : ICategory= {};
   pageNumber = PAGINATION.PAGE_DEFAULT;
   pageSize = PAGINATION.SIZE_DEFAULT;
   total = 0;
@@ -40,10 +40,18 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadNameCate(),
     this.loadCategory(),
     // this.loadData(this.pageNumber, this.pageSize);
     this.showProductTrending()
     this.loadDataByCategory(this.categoryId)
+  }
+
+  loadNameCate(){
+    this.categoryService.findByCategoryId(this.categoryId+'').subscribe((res:any) => {
+      this.categoryById = res.body?.data;
+      console.log(this.categoryById)
+    })
   }
 
   loadCategory():void {
@@ -71,7 +79,6 @@ export class ProductListComponent implements OnInit {
   loadDataByCategory(categoryId?: string) {
     this.products = [];
     this.productSearchRequest.categoryId = categoryId;
-    console.log(categoryId)
     this.productService.search(this.productSearchRequest).subscribe((response: any) => {
         this.products = response.body?.data;
         this.total = response.body.page.total;

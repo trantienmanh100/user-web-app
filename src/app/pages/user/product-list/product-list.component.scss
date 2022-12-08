@@ -602,13 +602,17 @@ a:hover {
 
 .refineSearch__title h3 {
   font-size: 22px;
-  margin-top: 30px;
+  margin-top: 10px;
   font-weight: 400;
 }
 
 .refineSearch__image {
   text-align: center;
-
+}
+.refineSearch__image-first {
+  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .refineSearch__image a {

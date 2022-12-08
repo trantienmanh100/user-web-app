@@ -128,40 +128,51 @@
       </div>
       <div class="col-9 body__article">
 
-        <div  id="header-carousel" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active" style="height: 410px;">
-              <img class="img-fluid" src="assets/images/banner2.jpg" alt="Image">
-              <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                <div class="p-3" style="max-width: 700px;">
-                  <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
-                  <h3 class="display-4 text-white font-weight-semi-bold mb-4">Fashionable Dress</h3>
-                  <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
+        <div *ngIf="categoryId == ''; else elseBlock">
+          <div  id="header-carousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active" style="height: 410px;">
+                <img class="img-fluid" src="assets/images/banner2.jpg" alt="Image">
+                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                  <div class="p-3" style="max-width: 700px;">
+                    <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
+                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">Fashionable Dress</h3>
+                    <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item" style="height: 410px;">
+                <img class="img-fluid" src="assets/images/banner1.jpg" alt="Image">
+                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                  <div class="p-3" style="max-width: 700px;">
+                    <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
+                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">Reasonable Price</h3>
+                    <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="carousel-item" style="height: 410px;">
-              <img class="img-fluid" src="assets/images/banner1.jpg" alt="Image">
-              <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                <div class="p-3" style="max-width: 700px;">
-                  <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
-                  <h3 class="display-4 text-white font-weight-semi-bold mb-4">Reasonable Price</h3>
-                  <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
-                </div>
+            <a class="carousel-control-prev" href="#header-carousel" data-slide="prev">
+              <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                <span class="carousel-control-prev-icon mb-n2"></span>
               </div>
+            </a>
+            <a class="carousel-control-next" href="#header-carousel" data-slide="next">
+              <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                <span class="carousel-control-next-icon mb-n2"></span>
+              </div>
+            </a>
+          </div>
+        </div>
+        <ng-template #elseBlock>
+          <div class="row refineSearch__image refineSearch__image-first">
+            <div class="col-xs-3 col-sm-2 col-md-3 col-lg-2 col-xl-2 " >
+              <a><img src="./../../../assets/images/daychuyen.jpg" alt=""></a>
+              <a>{{categoryById.name}}</a>
             </div>
           </div>
-          <a class="carousel-control-prev" href="#header-carousel" data-slide="prev">
-            <div class="btn btn-dark" style="width: 45px; height: 45px;">
-              <span class="carousel-control-prev-icon mb-n2"></span>
-            </div>
-          </a>
-          <a class="carousel-control-next" href="#header-carousel" data-slide="next">
-            <div class="btn btn-dark" style="width: 45px; height: 45px;">
-              <span class="carousel-control-next-icon mb-n2"></span>
-            </div>
-          </a>
-        </div>
+        </ng-template>
+
         <div class="refineSearch">
           <div class="refineSearch__title">
             <h3>Tìm kiếm</h3>
@@ -248,7 +259,7 @@
             </div>
           </div>
           <div class="pagination-wrapper cat-content">
-            <div class="col-sm-6 text-left page-result">Showing 1 to 12 of 19 (2 Pages)</div>
+            <div class="col-sm-6 text-left page-result">Hiển thị 1 đến 12 trên 19 (2 trang)</div>
             <div class="col-sm-6 text-right page">
               <div class="pagination">
                 <a href="#">&laquo;</a>

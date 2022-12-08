@@ -15,7 +15,7 @@
                 ></a>
                 <div class="sub-menu">
                   <div *ngFor="let cate of categories">
-                    <a (click)="showProductByCate(cate)" class="sub-item">{{cate.name}}</a>
+                    <a (click)="showProductByCate(cate.categoryId)" class="sub-item">{{cate.name}}</a>
                   </div>
                 </div>
               </div>
@@ -33,7 +33,7 @@
                 ></a>
                 <div class="card-body sub-menu">
                   <div class="card-title card1__image "><img src="assets/images/medium1.jpg" alt=""></div>
-                  <p class="product-name">Gold Croissant Hoop Earrings</p>
+                  <p class="product-name">Bông tai Vàng trắng 10K đính đá ECZ</p>
                   <p class="product-name">$19.00</p>
                 </div>
               </div>
@@ -71,7 +71,7 @@
         <div class="wedding">
           <div class="wedding__image"></div>
           <div class="wedding__text">
-            <span>Wedding Ring</span>
+            <span>Nhẫn cưới</span>
           </div>
         </div>
         <div class="border accordion accordion-flush active" id="accordionFlushExample">
@@ -111,17 +111,17 @@
         <div class="row slide23">
           <div class="col-6 slide2">
             <div class="slide2__text">
-              <p>2022 Collection</p>
-              <h4>New Earings</h4>
-              <li> <a> SHOP NOW</a> </li>
+              <p>2022 Bộ sưu tập</p>
+              <h4>Bông tai mới</h4>
+              <li> <a> Mua ngay</a> </li>
             </div>
             <div class="slide2__image"><img src="assets/images/slide2.png" alt=""></div>
           </div>
           <div class="col-6 slide2">
             <div class="slide2__text">
-              <p>New Design</p>
-              <h4>Bracelet</h4>
-              <li> <a> SHOP NOW</a> </li>
+              <p>Thiết kế mới</p>
+              <h4>Vòng đeo tay</h4>
+              <li> <a> Mua ngay</a> </li>
             </div>
             <div class="slide2__image"><img src="assets/images/slide3.png" alt=""></div>
           </div>
@@ -181,68 +181,65 @@
           </div>
         <div class="row slide4">
           <div class="slide2__text">
-            <p>New In Our Shop</p>
-            <h1>Buy Amadeus Jewellery</h1>
-            <li> <a> SHOP NOW</a> </li>
+            <p>Sản phẩm mới trong cửa hàng của chúng tôi</p>
+            <h1>Mua đồ trang sức Amadeus</h1>
+            <li> <a> Mua ngay</a> </li>
           </div>
           <div class="slide4__image"> <img src="assets/images/slide4.png" alt=""></div>
         </div>
-        <div class="product1">
-          <div class="product1__title">
-            <ul>
-              <li><a href="">All Jewel</a></li>
-              <li><a href="">Chains </a></li>
-              <li><a href="">Earrings </a></li>
-              <li><a href="">Necklaces </a></li>
+        <div class="nav nav-tabs" id="nav-tab2" role="tablist">
+          <button class="nav-link inactive" id="nav-profile-tab2" data-bs-toggle="tab"
+                  data-bs-target="#nav-profile1" type="button" role="tab" aria-controls="nav-profile"
+                  aria-selected="false" (click)="loadDataByCategoryAndProduct()">Tất cả</button>
+          <button class="nav-link inactive" id="nav-profile-tab2" data-bs-toggle="tab"
+                  data-bs-target="#nav-profile1" type="button" role="tab" aria-controls="nav-profile"
+                  aria-selected="false" *ngFor="let cate of categories" (click)="loadDataByCategoryAndProduct(cate.categoryId)">{{cate.name}}</button>
+        </div>
+        <div class="tab-content" id="nav-tabContent2">
+          <div  id="nav-profile1" role="tabpanel"
+               aria-labelledby="nav-profile-tab"><div class="product1">
+            <div class="row product1__image">
+              <div class="col-3 image1" *ngFor="let product of products">
+                <img [src]="product.productImages ? product.productImages[0].imageUrl : null" (click)="showProductDetail(product)" alt="">
+                <div class="middle">
+                  <a (click)="addToCart(product)" title="Add to cart"><i class="fas fa-cart-plus"></i></a>
+                  <a (click)="showProductDetail(product)" title="Xem chi tiết"><i class="fas fa-eye"></i></a>
+                  <a title="Yêu thích"><i class="far fa-heart"></i></a>
+                  <a ><i class="fas fa-layer-group"></i></a>
 
-            </ul>
+                </div>
+                <div class="image1__content">
+                  <span class="product-name" (click)="showProductDetail(product)">{{product.nameProduct}}</span>
+                  <p>{{product.productSizes ? product.productSizes[0].salePrice : null + '' | vnd}}</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="row product1__image">
-            <div class="col-3 image1">
-              <img src="assets/images/small.png" alt="">
-              <span>Diamond Push Pin Earrings</span>
-              <p>$203</p>
-            </div>
-            <div class="col-3 image1">
-              <img src="assets/images/small.png" alt="">
-              <span>Diamond Push Pin Earrings</span>
-              <p>$203</p>
-            </div>
-            <div class="col-3 image1">
-              <img src="assets/images/small.png" alt="">
-              <span>Diamond Push Pin Earrings</span>
-              <p>$203</p>
-            </div>
-            <div class="col-3 image1">
-              <img src="assets/images/small.png" alt="">
-              <span>Diamond Push Pin Earrings</span>
-              <p>$203</p>
-            </div>
-
           </div>
         </div>
+
         <div class="blog">
           <div class="blog__title">
             <ul>
-              <li><a href="">From the Blogs</a></li>
+              <li><a href="">Tin tức</a></li>
 
             </ul>
           </div>
           <div class="row blog__image">
             <div class="col-4 blog1">
               <img src="assets/images/blog1.jpg" alt="">
-              <span>Date : 26 May, 2022</span>
-              <p>Suspendisse posuere, diam in bibendum lobortis</p>
+              <span>Ngày : 26 tháng 5, 2020</span>
+              <p>Năm 2020, Design studio đã ra mắt thương hiệu</p>
             </div>
             <div class="col-4 blog1">
               <img src="assets/images/blog2.jpg" alt="">
-              <span>Date : 26 May, 2022</span>
-              <p>Suspendisse posuere, diam in bibendum lobortis</p>
+              <span>Date : 29 May, 2019</span>
+              <p>Năm 2019, Asprey London đã ra mắt thương hiệu</p>
             </div>
             <div class="col-4 blog1">
               <img src="assets/images/blog3.jpg" alt="">
-              <span>Date : 26 May, 2022</span>
-              <p>Suspendisse posuere, diam in bibendum lobortis</p>
+              <span>Date : 06 May, 2022</span>
+              <p>Năm 2022, Announhka đã ra mắt thương hiệu</p>
             </div>
             <div class="border"></div>
           </div>
