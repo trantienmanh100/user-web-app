@@ -39,6 +39,8 @@ import {NzGridModule} from "ng-zorro-antd/grid";
 import {NzFormModule} from "ng-zorro-antd/form";
 import {NzInputModule} from "ng-zorro-antd/input";
 import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
+import {PaginationComponent} from "./shared/components/pagination/pagination.component";
+import {NzDropDownModule} from "ng-zorro-antd/dropdown";
 
 registerLocaleData(en);
 
@@ -67,6 +69,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     ChinhsachComponent,
     LoginComponent,
     BookComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,
@@ -96,6 +99,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     NzFormModule,
     NzInputModule,
     NzDatePickerModule,
+    NzDropDownModule,
     //NgbModule,
   ],
   providers: [

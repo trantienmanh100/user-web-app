@@ -7,6 +7,7 @@ import {ROUTER_UTILS} from "../../../shared/utils/router.utils";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Category, ICategory} from "../../../shared/models/category.model";
 import {CategoryService} from "../../../shared/services/category.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-product-list',
@@ -23,11 +24,12 @@ export class ProductListComponent implements OnInit {
   categories: Category[] = [];
   categoryId? : string;
   categoryById : ICategory= {};
-  pageNumber = PAGINATION.PAGE_DEFAULT;
+  pageIndex = PAGINATION.PAGE_DEFAULT;
   pageSize = PAGINATION.SIZE_DEFAULT;
   total = 0;
 
   constructor(
+    private translateService: TranslateService,
     private productService: ProductService,
     private categoryService: CategoryService,
     private router: Router,
@@ -43,7 +45,7 @@ export class ProductListComponent implements OnInit {
     this.loadNameCate(),
     this.loadCategory(),
     // this.loadData(this.pageNumber, this.pageSize);
-    this.showProductTrending()
+   // this.showProductTrending()
     this.loadDataByCategory(this.categoryId)
   }
 
@@ -94,5 +96,12 @@ export class ProductListComponent implements OnInit {
 
   showProductDetail(product: IProduct): void {
     this.router.navigate([ROUTER_UTILS.product.root, product.productId, 'detail']);
+  }
+
+  onQuerySearch(params: any): void {
+    const { pageIndex, pageSize } = params;
+    this.pageIndex = pageIndex;
+    this.pageSize = pageSize;
+    this.loadData(this.pageIndex, this.pageSize);
   }
 }

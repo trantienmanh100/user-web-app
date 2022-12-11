@@ -3,8 +3,8 @@ export interface IProductSearchRequest {
   vendorId?: string;
   startPrice?: number;
   endPrice?: number;
-  pageIndex?: number;
-  pageSize?: number;
+  pageIndex?: any;
+  pageSize?: any;
   sortBy?: string;
   keyword?: string;
   categoryId?: string;
@@ -19,8 +19,8 @@ export class ProductSearchRequest implements IProductSearchRequest {
     public  vendorId?: string,
     public startPrice?: number,
     public  endPrice?: number,
-    public pageIndex?: number,
-    public  pageSize?: number,
+    public pageIndex?: any,
+    public  pageSize?: any,
     public sortBy?: string,
     public  keyword?: string,
     public  categoryId?: string,
