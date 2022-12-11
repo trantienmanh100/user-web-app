@@ -57,9 +57,13 @@ li {
   left: 50px;
 
 }
-.slide2 .slide2__text li{
-  text-decoration: underline;
-
+.slide2 .slide2__text li {
+  margin-top: 20px;
+  a{
+    padding: 10px 20px;
+    background-color: #F3AE7E;
+    border-radius: 20px;
+  }
 }
 .accordion-body div input {
   margin-right: 10px;
@@ -171,6 +175,14 @@ li {
   top: 70px;
   left: 50px;
 
+  li {
+    margin-top: 20px;
+    a {
+      padding: 10px 20px;
+      background-color: #F3AE7E;
+      border-radius: 20px;
+    }
+  }
 }
 
 
@@ -588,7 +600,6 @@ li {
 }
 .active{
   color: #cbb28b!important;
-  border-bottom: 1px solid #cbb28b;
 }
 /* -----------------Review ---------------- */
 .nav {
@@ -664,4 +675,12 @@ li {
 }
 .middle {
   color: black;
+}
+.image1__content {
+  text-align: center;
+
+  .product-name {
+    color: black;
+    font-size: 20px;
+  }
 }

@@ -42,6 +42,10 @@ export class ProductService extends AbstractService {
     return super.delete<IProduct>(`${this.resourceUrl}/${id}`);
   }
 
+  trending(): Observable<EntityResponseType<any>> {
+    return super.get<IProduct>(`${this.resourceUrl}/trending`);
+  }
+
   sortAndPaginateProducts(
     params: ProductSearchRequest,
     products: IProduct[]

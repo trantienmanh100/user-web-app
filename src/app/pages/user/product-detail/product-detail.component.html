@@ -8,7 +8,7 @@
             <h2 class="accordion-header" id="flush-headingOne">
               <div class="item">
                 <a class="sub-btn"
-                ><i class="fas fa-table"></i>All Category<i
+                ><i class="fas fa-table"></i>Tất cả thể loại<i
                   class="fas fa-angle-right dropdown"
                 ></i
                 ></a>
@@ -24,7 +24,7 @@
         <div class="card ">
           <div class="card-header">
             <img src="./../../../assets/images/3.png" alt="">
-            Refine Search
+            Tìm kiếm
           </div>
           <div class="accordion" id="accordionPanelsStayOpenExample">
             <div class="accordion-item">
@@ -32,23 +32,23 @@
                 <button class="accordion-button collapsed" type="button"
                         data-bs-toggle="collapse" data-bs-target="#collapseThree"
                         aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
-                  Color
+                  Màu
                 </button>
               </div>
               <div id="collapseThree" class="accordion-collapse collapse show"
                    aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                 <div class="accordion-body pt-0 grid-container">
                   <div>
-                    <input type="checkbox" class="check-box"> Yellow
+                    <input type="checkbox" class="check-box"> Vàng
                   </div>
                   <div>
-                    <input type="checkbox" class="check-box"> White
+                    <input type="checkbox" class="check-box"> Trắng
                   </div>
                   <div>
-                    <input type="checkbox" class="check-box"> Red
+                    <input type="checkbox" class="check-box"> Đỏ
                   </div>
                   <div>
-                    <input type="checkbox" class="check-box"> Blue
+                    <input type="checkbox" class="check-box"> Xanh
                   </div>
 
                 </div>
@@ -59,7 +59,7 @@
                 <button class="accordion-button collapsed" type="button"
                         data-bs-toggle="collapse" data-bs-target="#collapseThree1"
                         aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                  Price
+                  Giá
                 </button>
               </div>
               <div id="collapseThree1" class="accordion-collapse collapse show"
@@ -86,7 +86,7 @@
                 <button class="accordion-button collapsed" type="button"
                         data-bs-toggle="collapse" data-bs-target="#collapseThree2"
                         aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                  Size
+                  Kích thước
                 </button>
               </div>
               <div id="collapseThree2" class="accordion-collapse collapse show"
@@ -109,7 +109,7 @@
               </div>
             </div>
             <div class="button__search ">
-              <a href="#">REFIRE SEARCH</a>
+              <a href="#">Tìm kiếm thể loại</a>
             </div>
           </div>
         </div>
@@ -117,7 +117,7 @@
         <div class="card">
           <div class="card-header">
             <img src="assets/images/3.png" alt="">
-            New Products
+            Sản phẩm mới
           </div>
           <div class="row card-body ">
             <div class="card-title col-5 card1__image "><img src="assets/images/icon11.jpg" alt=""></div>
@@ -153,7 +153,7 @@
         <div class="card">
           <div class="card-header">
             <img src="assets/images/3.png" alt="">
-            Best Sellers
+            Sản phẩm bán chạy
           </div>
           <div class="row card-body ">
             <div class="card-title col-5 card1__image "><img src="assets/images/icon11.jpg" alt=""></div>
@@ -252,17 +252,16 @@
             <div id="product">
               <div class="form-group cart">
                 <label class="control-label qty" for="input-quantity">Số lượng</label>
-                <input type="number" name="quantity" min="1" value="1" size="2" max ="{{size.quantity}}" id="input-quantity"
+                <input type="number" name="quantity" [(ngModel)]="input_quantity" min="1" value="1" size="2" max="{{size.quantity}}" id="input-quantity"
                        class="form-quantity">
-                <a type="" id="button-cart" data-loading-text="Loading..." class="btn"(click)="addToCart()" >ADD TO
-                  CART</a>
-                <span> - OR - </span>
+                <a type="" id="button-cart" data-loading-text="Loading..." class="btn"(click)="addToCart()" >Thêm giỏ hàng</a>
+                <span> - Hoặc - </span>
                 <div class="product__btn-group">
 
                   <a type="" class="wishlist" href="" title="Add to Wish List">
-                    <i class="far fa-heart"></i>Add to Wish List</a>
+                    <i class="far fa-heart"></i>Yêu thích</a>
                   <a type="" class="compare" href="" title="Compare this Product"><i
-                    class="	fas fa-balance-scale"></i>Compare this Product</a>
+                    class="	fas fa-balance-scale"></i></a>
                 </div>
                 <hr>
 
@@ -309,73 +308,127 @@
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
           <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
                   data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
-                  aria-selected="true">Description</button>
+                  aria-selected="true">Mô tả</button>
           <button class="nav-link inactive" id="nav-profile-tab" data-bs-toggle="tab"
                   data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
-                  aria-selected="false">Review</button>
+                  aria-selected="false">Đánh giá</button>
         </div>
         <br>
         <div class="tab-content" id="nav-tabContent">
           <div class="tab-pane fade show active description" id="nav-home" role="tabpanel"
                aria-labelledby="nav-home-tab">
-            <p>Imagine the advantages of going big without slowing down. The big 19" 941BW monitor
-              combines wide aspect ratio with fast pixel response time, for bigger images, more room
-              to work and crisp motion. In addition, the exclusive MagicBright 2, MagicColor and
-              MagicTune technologies help deliver the ideal image in every situation, while sleek,
-              narrow bezels and adjustable stands deliver style just the way you want it. With the
-              Samsung 941BW widescreen analog/digital LCD monitor, it's not hard to imagine.</p>
+            <p>Thương hiệu:
+              Lancaster;
+
+              Độ chịu nước:
+
+              Độ dày vỏ máy:
+              11.7mm;
+
+              Loại mặt kính:
+
+              Chất liệu dây:
+
+              Chất liệu dây:
+              Dây Kim LoạiDây Kim Loại Lưới;
+
+              Chất liệu vỏ:
+              Vỏ Thép Cao Cấp Không Gỉ 316L;
+
+              Màu sắc mặt:
+
+              Kích thước mặt:
+              35 - 40mm;
+
+              Kích thước dây:
+              18mm;
+
+              Loại máy đồng hồ:
+              Quartz;
+
+              Độ chịu nước:
+              50m;
+
+              Xuất xứ bộ máy:
+              Nhật Bản;
+
+              Xuất Xứ Thương Hiệu:
+              Ý;
+
+              Lắp ráp tại:
+              Trung Quốc;
+
+              Loại mặt kính:
+              Kính khoángKính Khoáng Cứng;
+
+              Hình dạng mặt:
+              Tròn;
+
+              Màu sắc dây:
+
+              Số Kim:
+              3 Kim;
+
+              Đá Gắn Kèm Đồng Hồ:
+              Không gắn đá;
+
+              Chứng nhận Chronometer:
+              Không;
+
+              Chức năng chính:
+              Lịch;
+
+              Giới tính:
+              Nữ;
+            </p>
           </div>
           <div class="tab-pane fade review " id="nav-profile" role="tabpanel"
                aria-labelledby="nav-profile-tab">
             <div class="card">
               <div class="card-header">
-                Jessica
+                Trần tiến mạnh
               </div>
               <div class="card-body">
-                <p class="card-text">Best price I could get for the battery purchased for my BMW
-                  630I. Looks to be OEM. Best of all next day delivery so really recommend t
-                  Battery Megastore. </p>
+                <p class="card-text">Tôi đánh giá sản phẩm rất bền và chất lượng ! </p>
               </div>
             </div>
             <div class="card">
               <div class="card-header">
-                Jessica
+                Đỗ Đức Toàn
               </div>
               <div class="card-body">
-                <p class="card-text">Best price I could get for the battery purchased for my BMW
-                  630I. Looks to be OEM. Best of all next day delivery so really recommend t
-                  Battery Megastore. </p>
+                <p class="card-text">Sản phẩm tuyệt ! </p>
               </div>
             </div>
             <div class="formReview">
               <form >
-                <p>Write a review</p>
+                <p>Viết đánh giá</p>
                 <div class="mb-3">
                   <i>*</i>
-                  <label for="exampleInputEmail1" class="form-label">Your Name </label>
+                  <label for="exampleInputEmail1" class="form-label">Họ và tên </label>
                   <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
 
                 </div>
                 <div class="mb-3">
                   <i>*</i>
-                  <label for="exampleInputPassword1" class="form-label">Your Review</label>
+                  <label for="exampleInputPassword1" class="form-label">Đánh giá</label>
                   <textarea name="" id="exampleInputPassword1" style="width: 100%; height: 59px;" class="textarea form-control" rows="5" ></textarea>
                 </div>
                 <div class="mb-3 form-check">
                   <i>*</i>
                   <label class="form-check-label" >Rating</label>
                   <div class="checkboxReview">
-                    <label >Bad</label>
+                    <label>Tệ</label>
                     <input class="form-check-input" type="radio" name="flexRadioDefault" >
                     <input class="form-check-input" type="radio" name="flexRadioDefault" checked>
                     <input class="form-check-input" type="radio" name="flexRadioDefault" checked>
                     <input class="form-check-input" type="radio" name="flexRadioDefault" checked>
                     <input class="form-check-input" type="radio" name="flexRadioDefault" checked>
-                    <label >Good</label>
+                    <label >Tuyệt</label>
 
                   </div>
                 </div>
-                <a href="" class="btn btn-primary button">Submit</a>
+                <a href="" class="btn btn-primary button">Đánh giá</a>
               </form>
 
             </div>
@@ -384,7 +437,7 @@
         <div class="product1">
           <div class="product1__title">
             <ul>
-              <li><a href="">Related Products</a></li>
+              <li><a href="">Sản phẩm liên quan</a></li>
             </ul>
           </div>
           <div class="row product1__image">

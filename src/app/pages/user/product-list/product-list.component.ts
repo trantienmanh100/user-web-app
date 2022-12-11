@@ -5,7 +5,7 @@ import {IProductSearchRequest, ProductSearchRequest} from "../../../shared/model
 import {ProductService} from "../../../shared/services/product.service";
 import {ROUTER_UTILS} from "../../../shared/utils/router.utils";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Category} from "../../../shared/models/category.model";
+import {Category, ICategory} from "../../../shared/models/category.model";
 import {CategoryService} from "../../../shared/services/category.service";
 
 @Component({
@@ -14,15 +14,15 @@ import {CategoryService} from "../../../shared/services/category.service";
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit {
-  newProducts : IProduct[]=[];
   products: Product[] = [];
+  productTrending : IProduct[]=[];
   productSearchRequest: IProductSearchRequest = {
     pageIndex: PAGINATION.PAGE_DEFAULT,
     pageSize: PAGINATION.SIZE_DEFAULT,
   };
   categories: Category[] = [];
-  categoryId = '';
-
+  categoryId? : string;
+  categoryById : ICategory= {};
   pageNumber = PAGINATION.PAGE_DEFAULT;
   pageSize = PAGINATION.SIZE_DEFAULT;
   total = 0;
@@ -40,10 +40,18 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadNameCate(),
     this.loadCategory(),
     // this.loadData(this.pageNumber, this.pageSize);
-    this.showNewProduct()
+    this.showProductTrending()
     this.loadDataByCategory(this.categoryId)
+  }
+
+  loadNameCate(){
+    this.categoryService.findByCategoryId(this.categoryId+'').subscribe((res:any) => {
+      this.categoryById = res.body?.data;
+      console.log(this.categoryById)
+    })
   }
 
   loadCategory():void {
@@ -71,7 +79,6 @@ export class ProductListComponent implements OnInit {
   loadDataByCategory(categoryId?: string) {
     this.products = [];
     this.productSearchRequest.categoryId = categoryId;
-    console.log(categoryId)
     this.productService.search(this.productSearchRequest).subscribe((response: any) => {
         this.products = response.body?.data;
         this.total = response.body.page.total;
@@ -79,24 +86,9 @@ export class ProductListComponent implements OnInit {
     });
   }
 
-  showNewProduct(): void {
-    const request : ProductSearchRequest= {
-      pageSize: 4,
-      sortBy: "createAt.desc",
-    };
-    this.productService.search(request).subscribe((res :any) =>{
-      if(res){
-        this.newProducts = res.body?.data;
-        this.newProducts.forEach((product:IProduct)=>{
-          // @ts-ignore
-          product.currentImg = product.productImages[0].imageUrl;
-          // @ts-ignore
-          product.secondImg =product.productImages[1].imageUrl;
-          // @ts-ignore
-          product.firstImg =product.productImages[0].imageUrl;
-          console.log(product)
-        })
-      }
+  showProductTrending(): void {
+    this.productService.trending().subscribe((res :any) =>{
+      this.productTrending = res.body?.data;
     });
   }
 

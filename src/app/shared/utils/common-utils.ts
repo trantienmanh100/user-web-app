@@ -167,8 +167,8 @@ export default class CommonUtil {
         success: false,
       };
     },
-    okText: string = 'Xoá',
-    cancelText: string = 'Huỷ',
+    okText: string = 'Xác nhận',
+    cancelText: string = 'Hủy',
     center: boolean = true
   ): object {
     return {
