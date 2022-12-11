@@ -16,6 +16,7 @@ import {OrderService} from "../../../shared/services/order.service";
 import {PaymentService} from "../../../shared/services/payment.service";
 import {ActivatedRoute, Router, RouterModule} from "@angular/router";
 import {Location} from '@angular/common';
+import {ROUTER_UTILS} from "../../../shared/utils/router.utils";
 
 
 @Component({
@@ -40,6 +41,11 @@ export class CartListComponent implements OnInit {
   thanhtien = 0;
   total = 0;
   productId ?: string = '';
+  checkbox: boolean= false;
+  //checkbox
+  array:any = []
+  tempArrray: any= []
+  newArray :any =[]
   constructor(
     private fb: FormBuilder,
     private cartService :CartService,
@@ -74,6 +80,7 @@ export class CartListComponent implements OnInit {
     this.cartService.search(id, true).subscribe((res :any)=>{
       if(res && res.body.data !== null){
         this.carts = res.body?.data?.cartDetailResponseList;
+        // this.array = res.body?.data?.cartDetailResponseList;
         this.total =0;
         this.carts.forEach((item)=>{
           if(item.price && item.amount) {
@@ -167,8 +174,6 @@ export class CartListComponent implements OnInit {
   }
 
   createOrder(): void {
-
-
     if ( this.pay === PaymentMethod.CARD) {
       const value = {
         amount : this.total - (this.total * this.discount/100) +this.shipMoney,
@@ -196,5 +201,53 @@ export class CartListComponent implements OnInit {
     //   this.carts =[]
     // })
     // console.log(this.carts)
+  }
+
+  calendar(): void {
+    const isData = localStorage.getItem('session');
+    if(isData == null) {
+      const newArr = []
+      for(let i = 0 ; i < this.array.length; i++){
+        newArr.push(this.array[i])
+      }
+      localStorage.setItem('session',JSON.stringify(newArr))
+    } else {
+      const oldArr  = JSON.parse(isData)
+      for(let i = 0 ; i < this.array.length; i++){
+        oldArr.push(this.array[i])
+      }
+      localStorage.setItem('session',JSON.stringify(oldArr))
+    }
+    this.router.navigate([ROUTER_UTILS.book.root]);
+  }
+
+
+  loadCheckbox(event: any, id : ICartDetail) :void {
+    if(event.target.checked){
+      this.tempArrray = this.carts.filter((e:any) => e.cartDetailId == event.target.value)
+      this.array = [];
+      this.newArray.push(this.tempArrray)
+      for (let i =0 ; i< this.newArray.length ; i++){
+        var firstArray = this.newArray[i];
+        for( let i = 0 ; i< firstArray.length; i++){
+          var obj = firstArray[i];
+          this.array.push(obj);
+          console.log(this.array)
+        }
+      }
+    } else {
+      this.tempArrray = this.array.filter((e:any) => e.cartDetailId != event.target.value)
+      this.newArray =[]
+      this.array = []
+      this.newArray.push(this.tempArrray)
+      for (let i =0 ; i< this.newArray.length ; i++){
+        var firstArray = this.newArray[i];
+        for( let i = 0 ; i< firstArray.length; i++){
+          var obj = firstArray[i];
+          this.array.push(obj);
+          console.log(this.array)
+        }
+      }
+    }
   }
 }

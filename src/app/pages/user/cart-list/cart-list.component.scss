@@ -25,8 +25,9 @@ li {
   text-align: center;
 }
 .shopping-summery tbody tr {
-  border-bottom: 1px solid #E2BEA8;
-  margin-top: 20px;
+  &:not(:last-child) {
+    border-color:#E2BEA8;
+  }
 }
 .shopping-summery tbody tr img {
   border-radius: 0;
@@ -70,7 +71,6 @@ li {
 }
 .shopping-cart .table td {
   vertical-align: middle;
-  border-top: 1px solid #eee;
   padding: 30px;
 }
 .shopping-summery tbody .price {

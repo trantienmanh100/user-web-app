@@ -8,6 +8,7 @@
         <table class="table shopping-summery">
           <thead>
           <tr class="main-hading">
+            <th>Chọn</th>
             <th>Hình ảnh</th>
             <th>Sản phẩm</th>
             <th>Kích thước</th>
@@ -19,6 +20,8 @@
           </thead>
           <tbody>
           <tr *ngFor="let cart of carts">
+            <td> <input type="checkbox" value={{cart.cartDetailId}} (change)="loadCheckbox($event, cart)"/></td>
+<!--            <app-book [listProduct] = "array"></app-book>-->
             <td class="image" data-title="No"><img [src]="cart.image" alt="#"></td>
             <td class="product-des" data-title="Description">
               <p class="product-name"><a href="#"></a></p>
@@ -120,11 +123,12 @@
                   <li>Tổng tiền<span>{{total +'' | vnd}}</span></li>
                   <li>Phí vận chuyển<span>{{this.shipMoney+'' | vnd}}</span></li>
                   <li>Giảm giá: <span class="fw-bold">{{this.discount + '%'}}</span></li>
-                  <li class="last">You Pay<span>{{this.total - (this.total * this.discount/100) +this.shipMoney +'' | vnd}}</span></li>
+                  <li class="last">Tiền phải trả<span>{{this.total - (this.total * this.discount/100) +this.shipMoney +'' | vnd}}</span></li>
                 </ul>
                 <div class="button5">
                   <a (click)="createOrder()" class="btn">Checkout</a>
-                  <a href="#" class="btn">Continue shopping</a>
+                  <a (click)="calendar()" class="btn">Đặt lịch hẹn</a>
+                  <a href="#" class="btn">Tiếp tục mua</a>
                 </div>
               </div>
             </div>

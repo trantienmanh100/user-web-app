@@ -1,0 +1,77 @@
+<app-header></app-header>
+<div class="container">
+  <form [formGroup]="validateForm" (ngSubmit)="submitForm()" style="text-align: center">
+    <h2>Đặt lịch lấy sản phẩm tại cửa hàng</h2>
+    <p>Bạn hãy điền đầy đủ thông tin để đặt lịch hẹn nhé</p>
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="userName"> Họ và tên</nz-form-label>
+      <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Họ và tên trống">
+        <input nz-input formControlName="userName" id="userName" type="text" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="phoneNumber"> Số điện thoại</nz-form-label>
+      <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Số điện thoại trống">
+        <input nz-input formControlName="phoneNumber" id="phoneNumber" type="text" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="email"> Email</nz-form-label>
+      <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Email trống">
+        <input nz-input formControlName="email" id="email" type="text" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="date">Ngày hẹn</nz-form-label>
+      <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Ngày hẹn trống">
+        <input nz-input formControlName="time" id="time" type="date"  />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="note">Ghi chú</nz-form-label>
+      <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Ghi chú trống ">
+        <input nz-input formControlName="note" id="note" type="text" />
+      </nz-form-control>
+    </nz-form-item>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table shopping-summery">
+          <thead>
+          <tr class="main-hading">
+            <th>Hình ảnh</th>
+            <th>Tên sản phẩm</th>
+            <th>Code</th>
+            <th>Kích thước</th>
+            <th class="text-center">Giá</th>
+            <th class="text-center"><i class="fa-solid fa-trash"></i></th>
+          </tr>
+          </thead>
+          <tbody >
+          <tr *ngFor="let cart of listProduct" style="vertical-align: baseline">
+            <!--            <app-book [listProduct] = "array"></app-book>-->
+            <td class="image" data-title="No"><img [src]="cart.image" alt="#"></td>
+            <td class="product-des" data-title="Description">
+              <p class="product-name"><a href="#"></a></p>
+              {{cart.productName}}
+            </td>
+            <td>
+              <p class="product-des">{{cart.code}}</p>
+            </td>
+            <td>{{cart.sizeName}}</td>
+            <td class="price" data-title="Price"><span>{{cart.price+'' | vnd}}</span></td>
+            <td class="remove" data-title="Remove"><a (click)="delete(cart.cartDetailId)" ><i style="color:red;" class="fa-solid fa-trash"></i></a></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <nz-form-item nz-row class="register-area">
+      <nz-form-control >
+        <button nz-button nzType="primary" style="display: flex; align-items: center; margin: auto; padding: 20px 50px; background: #F3AE7E; border-radius: 20px; border: 1px solid #F3AE7E">Đặt lịch</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <app-footer></app-footer>
+
+</div>

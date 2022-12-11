@@ -34,7 +34,7 @@ import { LoginComponent } from './pages/user/login/login.component';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import {NzButtonModule} from "ng-zorro-antd/button";
-import { BookComponent } from './pages/user/book/book.component';
+import { BookComponent } from './pages/user/cart-list/book/book.component';
 import {NzGridModule} from "ng-zorro-antd/grid";
 import {NzFormModule} from "ng-zorro-antd/form";
 import {NzInputModule} from "ng-zorro-antd/input";

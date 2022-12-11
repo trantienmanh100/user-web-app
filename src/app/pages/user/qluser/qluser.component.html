@@ -25,6 +25,17 @@
             <label class="col-md-3">Email</label>
             <div class="col-md-6">
               <input type="text" class="form-control" name="email" formControlName="email" [(ngModel)]="users.email" />
+<!--              <div *ngIf="f.email.invalid && (f.email.dirty || f.email.touched)">  &lt;!&ndash; dirty: có thay đổi trong angular&ndash;&gt;-->
+<!--                <div *ngIf="f.email.errors">-->
+<!--                  <div *ngIf="f.email.errors.required">-->
+<!--                    <small>Email không được để trống</small>-->
+<!--                  </div>-->
+<!--                  <div *ngIf="f.email.errors.email">-->
+<!--                    <small>Email không đúng định dạng</small>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+
             </div>
           </div>
           <div class="row mt-3 mb-3">
@@ -63,7 +74,7 @@
           <div class="row mb-3">
             <div class="col-md-3"></div>
             <div class="col-md-3">
-              <button type="submit" class="btn btn-danger">Lưu</button>
+              <button type="submit" class="btn btn-danger" [disabled]="!userForm.valid">Lưu</button>
             </div>
           </div>
 
