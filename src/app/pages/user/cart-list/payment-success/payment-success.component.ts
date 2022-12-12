@@ -16,7 +16,6 @@ export class PaymentSuccessComponent implements OnInit {
   carts: ICartDetail[] = [];
   total = 0;
   ship: Ship ={};
-  shipMoney : any;
   constructor(
     private activatedRoute: ActivatedRoute,
     private cartService :CartService,
@@ -31,10 +30,8 @@ export class PaymentSuccessComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.vnp_TransactionStatus === '00'){
-      const id ='be2d6163-7979-40fb-a149-dca33bacad1a';
+      const id ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
       this.loadDataCart(id);
-
-      // this.createOrder();
     }
   }
 
@@ -48,33 +45,26 @@ export class PaymentSuccessComponent implements OnInit {
             this.total += item.price*item.amount;
           }
         });
-        console.log(this.total)
-        this.chargeShipping(this.total);
       }
-      console.log(this.shipMoney)
-      console.log(this.total)
-      this.createOrder();
+
+      const ship =Number (localStorage.getItem('shipMoney'))  ;
+      this.total += ship
+      if(localStorage.getItem('online') === 'online'){
+        this.createOrder();
+        localStorage.removeItem('online');
+        localStorage.removeItem('shipMoney');
+        const userId ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
+        // this.cartService.deleteCart(userId).subscribe((res :any) => {
+        //
+        // });
+        // console.log(this.carts)
+      }
     })
 
   }
 
-  chargeShipping(total: number) {
-    this.ship.service_id = 53320;
-    this.ship.insurance_value = total;
-    this.ship.from_district_id =3440;
-    this.ship.to_district_id = 1542;
-    this.ship.to_ward_code = "1B1517";
-    this.ship.height=10;
-    this.ship.length=10;
-    this.ship.weight = 1000;
-    this.ship.width =10;
-    this.cartService.chargeShipping(this.ship).subscribe((respone) =>{
-      this.shipMoney = respone.data.total;
-    })
-  }
 
   createOrder() : void{
-    console.log(this.carts)
     const order = {
       customerMoney: 1,
       paymentMethod: PaymentMethod.CARD,
@@ -83,7 +73,7 @@ export class PaymentSuccessComponent implements OnInit {
       status: StatusEnum.CHO_XAC_NHAN,
       eventId: "2b052354-f0a4-4815-8cc6-fb6c957bfa55",
       address: "NN",
-      userId: "be2d6163-7979-40fb-a149-dca33bacad1a",
+      userId: "02951d3d-1045-4fa1-ad46-6edeffd04a3d",
       total: this.total ,
 
       orderDetailList: this.carts.map((res) => {

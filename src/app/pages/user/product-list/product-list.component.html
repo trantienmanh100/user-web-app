@@ -204,41 +204,6 @@
         <div class="sort">
           <div class="row sortAll">
             <div class="col-6 sort1 sort__title">Sản phẩm ({{this.total}})</div>
-            <div class="col-6 sort1">
-              <div class="row sort-by-wrapper">
-                <div class="col-7 text-right sort-by">
-                  <div class="row">
-                    <div class="col-4">
-                      <label class="sort__title" >Sắp xếp </label>
-                    </div>
-                    <div class="col-8">
-                      <select class="form-select" aria-label="Default select example">
-                        <option selected>A - Z</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                      </select>
-                    </div>
-                  </div>
-
-                </div>
-                <div class="col-5 text-right sort">
-                  <div class="row">
-                    <div class="col-3">
-                      <label class="sort__title" >Show </label>
-                    </div>
-                    <div class="col-7">
-                      <select class="form-select" aria-label="Default select example">
-                        <option selected> 10</option>
-                        <option value="1">20</option>
-                        <option value="2">50</option>
-                        <option value="3">100</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
           <div class="product1">
             <div class="row product1__image">
@@ -258,21 +223,12 @@
               </div>
             </div>
           </div>
-          <div class="pagination-wrapper cat-content">
-            <div class="col-sm-6 text-left page-result">Hiển thị 1 đến 12 trên 19 (2 trang)</div>
-            <div class="col-sm-6 text-right page">
-              <div class="pagination">
-                <a href="#">&laquo;</a>
-                <a href="#" class="active">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <a href="#">6</a>
-                <a href="#">&raquo;</a>
-              </div>
-            </div>
-          </div>
+          <jewelry-pagination
+            [pageIndex]="productSearchRequest.pageIndex"
+            [pageSize]="productSearchRequest.pageSize"
+            [total]="total"
+            (onChange)="onQuerySearch($event)">
+          </jewelry-pagination>
         </div>
       </div>
     </div>

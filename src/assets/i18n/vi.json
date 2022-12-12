@@ -1,0 +1,10 @@
+{
+  "common": {
+    "show" : "Hiển thị"
+  },
+
+  "action": {
+    "cancel": "Huỷ",
+    "confirm": "Xoá"
+  }
+}
