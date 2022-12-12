@@ -39,6 +39,8 @@ import {NzGridModule} from "ng-zorro-antd/grid";
 import {NzFormModule} from "ng-zorro-antd/form";
 import {NzInputModule} from "ng-zorro-antd/input";
 import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
+import { NgxWebstorageModule } from 'ngx-webstorage';
+
 
 registerLocaleData(en);
 
@@ -76,6 +78,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     AppRoutingModule,
     NzRateModule,
     FormsModule,
+    NgxWebstorageModule.forRoot(),
     PipeModule,
     TranslateModule.forRoot({
       loader: {

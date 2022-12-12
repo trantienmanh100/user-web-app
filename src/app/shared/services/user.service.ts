@@ -45,6 +45,15 @@ export class UserService extends AbstractService {
   findCustomer( ): Observable<EntityResponseType<IUser[]>> {
     return super.get<IUser[]>(`${this.resourceUrl}/customer`);
   }
+  findByUserName(
+    params:any,
+    loading = false
+  ): Observable<EntityResponseType<IUser>> {
+    return super.get<IUser  >(
+      `${this.resourceUrl}/findByUsername`,
+      { params}
+    );
+  }
 
   // changePassword(
   //   userId: any,
