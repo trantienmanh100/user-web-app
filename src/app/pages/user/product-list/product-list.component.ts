@@ -8,6 +8,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Category, ICategory} from "../../../shared/models/category.model";
 import {CategoryService} from "../../../shared/services/category.service";
 import {TranslateService} from "@ngx-translate/core";
+import {Cart} from "../../../shared/models/cart.model";
 
 @Component({
   selector: 'app-product-list',

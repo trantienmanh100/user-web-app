@@ -8,11 +8,11 @@ import {CartListComponent} from "./pages/user/cart-list/cart-list.component";
 import {RefundComponent} from "./pages/user/bought/refund/refund.component";
 import {BoughtComponent} from "./pages/user/bought/bought.component";
 import {ChangeComponent} from "./pages/user/qluser/change/change.component";
-import {QluserComponent} from "./pages/user/qluser/qluser.component";
 import {PaymentSuccessComponent} from "./pages/user/cart-list/payment-success/payment-success.component";
 import {ChinhsachComponent} from "./pages/user/chinhsach/chinhsach.component";
 import {LoginComponent} from "./pages/user/login/login.component";
 import {BookComponent} from "./pages/user/cart-list/book/book.component";
+import {QLUserComponent} from "./pages/user/qluser/qluser.component";
 
 
 const routes: Routes = [
@@ -64,7 +64,7 @@ const routes: Routes = [
   },
   {
     path: ROUTER_UTILS.qlUser.root,
-    component: QluserComponent,
+    component: QLUserComponent,
   },
   {
     path: ROUTER_UTILS.chinhsach.root,

@@ -80,6 +80,7 @@ export class ProductDetailComponent implements OnInit {
   addToCart(): void {
     let quantity: any = this.size.quantity +''
     const id = this.localStorage.retrieve("profile").userId;
+
     const cart :Cart = {
       //needFix
       userId : id,
@@ -96,6 +97,9 @@ export class ProductDetailComponent implements OnInit {
     }
     if(this.input_quantity > quantity) {
       this.toast.error("Sản phẩm không đủ")
+    }
+    else if(this.input_quantity<0){
+      this.toast.error('Số lượng sản phẩm phải lớn hơn 0')
     }else {
       this.cartService.addToCart(cart).subscribe(()=>{
         this.toast.success('Thêm vào giỏ hàng thành công');
