@@ -26,7 +26,7 @@ import {NzSelectModule} from "ng-zorro-antd/select";
 import { RefundComponent } from './pages/user/bought/refund/refund.component';
 import { BoughtComponent } from './pages/user/bought/bought.component';
 import { MenuUserComponent } from './shared/components/menu-user/menu-user.component';
-import { QluserComponent } from './pages/user/qluser/qluser.component';
+import {QLUserComponent} from './pages/user/qluser/qluser.component';
 import { ChangeComponent } from './pages/user/qluser/change/change.component';
 import { PaymentSuccessComponent } from './pages/user/cart-list/payment-success/payment-success.component';
 import { ChinhsachComponent } from './pages/user/chinhsach/chinhsach.component';
@@ -34,13 +34,14 @@ import { LoginComponent } from './pages/user/login/login.component';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import {NzButtonModule} from "ng-zorro-antd/button";
-import { BookComponent } from './pages/user/book/book.component';
 import {NzGridModule} from "ng-zorro-antd/grid";
 import {NzFormModule} from "ng-zorro-antd/form";
 import {NzInputModule} from "ng-zorro-antd/input";
 import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
+import { NgxWebstorageModule } from 'ngx-webstorage';
 import {PaginationComponent} from "./shared/components/pagination/pagination.component";
 import {NzDropDownModule} from "ng-zorro-antd/dropdown";
+import {BookComponent} from "./pages/user/cart-list/book/book.component";
 
 registerLocaleData(en);
 
@@ -63,7 +64,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     BoughtComponent,
     CartListComponent,
     MenuUserComponent,
-    QluserComponent,
+    QLUserComponent,
     ChangeComponent,
     PaymentSuccessComponent,
     ChinhsachComponent,
@@ -79,6 +80,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     AppRoutingModule,
     NzRateModule,
     FormsModule,
+    NgxWebstorageModule.forRoot(),
     PipeModule,
     TranslateModule.forRoot({
       loader: {

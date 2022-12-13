@@ -152,7 +152,7 @@
                     </div>
                     <div class="image1__content">
                       <span class="product-name" (click)="showProductDetail(product)">{{product.nameProduct}}</span>
-                      <p>{{product.productSizes ? product.productSizes[0].salePrice : null}}</p>
+                      <p>{{product.productSizes ? (product.productSizes[0]?.salePrice + '' | vnd) : ''}}</p>
                     </div>
                   </div>
                 </div>
@@ -172,7 +172,8 @@
                   </div>
                   <div class="image1__content">
                     <span class="product-name" (click)="showProductDetail(product)">{{product.nameProduct}}</span>
-                    <p>{{product.productSizes ? product.productSizes[0].salePrice : null + '' | vnd}}</p>
+                    <p>{{product.productSizes ? (product.productSizes[0]?.salePrice + '' | vnd) : ''}}</p>
+
                   </div>
                 </div>
               </div>
@@ -210,7 +211,7 @@
                 </div>
                 <div class="image1__content">
                   <span class="product-name" (click)="showProductDetail(product)">{{product.nameProduct}}</span>
-                  <p>{{product.productSizes ? product.productSizes[0].salePrice : null + '' | vnd}}</p>
+                  <p>{{product.productSizes ? (product.productSizes[0]?.salePrice + '' | vnd) : ''}}</p>
                 </div>
               </div>
             </div>

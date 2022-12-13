@@ -9,6 +9,7 @@ import {Cart} from "../../../shared/models/cart.model";
 import {CartService} from "../../../shared/services/cart.service";
 import {Category} from "../../../shared/models/category.model";
 import {CategoryService} from "../../../shared/services/category.service";
+import {LocalStorageService} from "ngx-webstorage";
 
 @Component({
   selector: 'app-product-detail',
@@ -35,6 +36,7 @@ export class ProductDetailComponent implements OnInit {
     private toast: ToastrService,
     private categoryService: CategoryService,
     private cartService : CartService,
+    private localStorage : LocalStorageService
   ) {
     this.router.paramMap.subscribe((res) => {
       this.productId = res.get('id') || '';
@@ -62,6 +64,8 @@ export class ProductDetailComponent implements OnInit {
   loadData(id :string): void {
     this.productService.detail(id).subscribe((respone: any)=> {
       this.productDetail =respone.body?.data;
+      console.log(respone)
+      console.log(this.productDetail)
       // @ts-ignore
       this.imageUrl = this.productDetail.productImages[0]?.imageUrl;
       // @ts-ignore
@@ -75,9 +79,10 @@ export class ProductDetailComponent implements OnInit {
 
   addToCart(): void {
     let quantity: any = this.size.quantity +''
+    const id = this.localStorage.retrieve("profile").userId;
     const cart :Cart = {
       //needFix
-      userId : '02951d3d-1045-4fa1-ad46-6edeffd04a3d',
+      userId : id,
       amount : this.input_quantity,
       productId :this.productId,
       sizeId: this.size.sizeId

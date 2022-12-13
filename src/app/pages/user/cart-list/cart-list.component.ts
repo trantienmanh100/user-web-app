@@ -16,6 +16,8 @@ import {OrderService} from "../../../shared/services/order.service";
 import {PaymentService} from "../../../shared/services/payment.service";
 import {ActivatedRoute, Router, RouterModule} from "@angular/router";
 import {Location} from '@angular/common';
+import {ROUTER_UTILS} from "../../../shared/utils/router.utils";
+import {LocalStorageService} from "ngx-webstorage";
 
 
 @Component({
@@ -40,6 +42,11 @@ export class CartListComponent implements OnInit {
   thanhtien = 0;
   total = 0;
   productId ?: string = '';
+  checkbox: boolean= false;
+  //checkbox
+  array:any = []
+  tempArrray: any= []
+  newArray :any =[]
   constructor(
     private fb: FormBuilder,
     private cartService :CartService,
@@ -51,15 +58,14 @@ export class CartListComponent implements OnInit {
     private eventService : EventService,
     private paymentService : PaymentService,
     private router : Router,
-    private location: Location
+    private location: Location,
+    private localStorage: LocalStorageService,
 
   ) { }
 
   ngOnInit(): void {
-    const id ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
-
-    this.loadData(id)
-
+    const userId = this.localStorage.retrieve("profile").userId;
+    this.loadData(userId)
     this.loadEvent();
     this.initForm();
   }
@@ -109,8 +115,8 @@ export class CartListComponent implements OnInit {
     amount = cart.amount + 1;
     this.cartService.updateQuantity(cart?.cartDetailId,amount,cart ).subscribe((res: any) =>{
       if (cart?.cartDetailId != null) {
-        const id ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
-        this.loadData(id);
+        const userId = this.localStorage.retrieve("profile").userId;
+        this.loadData(userId);
       }
     })
   }
@@ -121,8 +127,8 @@ export class CartListComponent implements OnInit {
     amount = cart.amount - 1;
     this.cartService.updateQuantity(cart?.cartDetailId,amount,cart ).subscribe((res: any) =>{
       if (cart?.cartDetailId != null) {
-        const id ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
-        this.loadData(id);
+        const userId = this.localStorage.retrieve("profile").userId;
+        this.loadData(userId);
       }
     })
   }
@@ -132,7 +138,7 @@ export class CartListComponent implements OnInit {
       this.translateService,
       'Xoá sản phẩm khỏi giỏ',
       'Bạn có muốn xoá sản phẩm này không',
-      {name: 'a'},
+      {name: 'a'}
       //need fix
     )
     const modal: NzModalRef =this.modalService.create(deleteForm);
@@ -140,7 +146,7 @@ export class CartListComponent implements OnInit {
       if(result?.success){
         this.cartService.deleteCartDetail(cart.cartDetailId).subscribe((respone: any) =>{
           this.toast.success('Xoá thành công sản phẩm khỏi giỏ hàng');
-          const userId ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
+          const userId = this.localStorage.retrieve("profile").userId;
           this.loadData(userId);
         });
       }
@@ -189,22 +195,59 @@ export class CartListComponent implements OnInit {
           vnp_OrderInfo: 'VND',
         }
         this.paymentService.payment(value).subscribe((res:any) =>{
-          console.log(res)
           window.location.assign(res.body.paymentUrl)
         })
       }
     } else {
       this.toast.error('Hãy chọn phương thức thanh toán')
     }
-    // this.orderService.createOrder(order).subscribe(() => {
-    //   this.toast.success('Đã đặt hàng thành công');
-    //   // this.cartService.deleteCartDetail(cart.cartDetailId).subscribe((respone: any) =>{
-    //   //   this.toast.success('Xoá thành công sản phẩm khỏi giỏ hàng');
-    //   //   const userId ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
-    //   //   this.loadData(userId);
-    //   // });
-    //   this.carts =[]
-    // })
-    // console.log(this.carts)
+  }
+
+  calendar(): void {
+    const isData = localStorage.getItem('session');
+    if(isData == null) {
+      const newArr = []
+      for(let i = 0 ; i < this.array.length; i++){
+        newArr.push(this.array[i])
+      }
+      localStorage.setItem('session',JSON.stringify(newArr))
+    } else {
+      const oldArr  = JSON.parse(isData)
+      for(let i = 0 ; i < this.array.length; i++){
+        oldArr.push(this.array[i])
+      }
+      localStorage.setItem('session',JSON.stringify(oldArr))
+    }
+    this.router.navigate([ROUTER_UTILS.book.root]);
+  }
+
+
+  loadCheckbox(event: any, id : ICartDetail) :void {
+    if(event.target.checked){
+      this.tempArrray = this.carts.filter((e:any) => e.cartDetailId == event.target.value)
+      this.array = [];
+      this.newArray.push(this.tempArrray)
+      for (let i =0 ; i< this.newArray.length ; i++){
+        var firstArray = this.newArray[i];
+        for( let i = 0 ; i< firstArray.length; i++){
+          var obj = firstArray[i];
+          this.array.push(obj);
+          console.log(this.array)
+        }
+      }
+    } else {
+      this.tempArrray = this.array.filter((e:any) => e.cartDetailId != event.target.value)
+      this.newArray =[]
+      this.array = []
+      this.newArray.push(this.tempArrray)
+      for (let i =0 ; i< this.newArray.length ; i++){
+        var firstArray = this.newArray[i];
+        for( let i = 0 ; i< firstArray.length; i++){
+          var obj = firstArray[i];
+          this.array.push(obj);
+          console.log(this.array)
+        }
+      }
+    }
   }
 }

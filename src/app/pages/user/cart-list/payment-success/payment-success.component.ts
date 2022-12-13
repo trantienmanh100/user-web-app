@@ -5,6 +5,7 @@ import {CartService} from "../../../../shared/services/cart.service";
 import {ICartDetail} from "../../../../shared/models/cart-detail.model";
 import {Ship} from "../../../../shared/models/ship.model";
 import {OrderService} from "../../../../shared/services/order.service";
+import {LocalStorageService} from "ngx-webstorage";
 
 @Component({
   selector: 'app-payment-success',
@@ -20,6 +21,7 @@ export class PaymentSuccessComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private cartService :CartService,
     private orderService :OrderService,
+    private localStorage: LocalStorageService,
   ) {
     this.activatedRoute.queryParams.subscribe(params => {
       this.vnp_TransactionStatus= params['vnp_TransactionStatus'];
@@ -30,8 +32,8 @@ export class PaymentSuccessComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.vnp_TransactionStatus === '00'){
-      const id ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
-      this.loadDataCart(id);
+      const userId = this.localStorage.retrieve("profile").userId;
+      this.loadDataCart(userId);
     }
   }
 
@@ -53,7 +55,7 @@ export class PaymentSuccessComponent implements OnInit {
         this.createOrder();
         localStorage.removeItem('online');
         localStorage.removeItem('shipMoney');
-        const userId ='02951d3d-1045-4fa1-ad46-6edeffd04a3d';
+        const userId = this.localStorage.retrieve("profile").userId;
         // this.cartService.deleteCart(userId).subscribe((res :any) => {
         //
         // });
@@ -65,15 +67,17 @@ export class PaymentSuccessComponent implements OnInit {
 
 
   createOrder() : void{
+    const id = this.localStorage.retrieve("profile").userId;
+    const ship =Number (localStorage.getItem('shipMoney'))  ;
     const order = {
       customerMoney: 1,
       paymentMethod: PaymentMethod.CARD,
-      transportFee: 1,
+      transportFee: ship,
       purchaseType: OrderType.ONLINE,
       status: StatusEnum.CHO_XAC_NHAN,
       eventId: "2b052354-f0a4-4815-8cc6-fb6c957bfa55",
       address: "NN",
-      userId: "02951d3d-1045-4fa1-ad46-6edeffd04a3d",
+      userId: id,
       total: this.total ,
 
       orderDetailList: this.carts.map((res) => {

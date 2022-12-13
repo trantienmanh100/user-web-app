@@ -11,6 +11,7 @@ import {forEach} from "lodash";
 import {Cart} from "../../../shared/models/cart.model";
 import {CartService} from "../../../shared/services/cart.service";
 import {ToastrService} from "ngx-toastr";
+import { LocalStorageService } from 'ngx-webstorage';
 
 @Component({
   selector: 'app-home',
@@ -33,10 +34,12 @@ export class HomeComponent implements OnInit {
     private cartService : CartService,
     private toast: ToastrService,
     private router : Router,
+    private localStorage:LocalStorageService
   ) {
   }
 
   ngOnInit(): void {
+
     this.loadDataCategory();
     this.loadDataByCategoryAndProduct()
     this.showNewProduct();
@@ -99,8 +102,9 @@ export class HomeComponent implements OnInit {
   }
 
   addToCart ( product : any): void {
+    const id = this.localStorage.retrieve("profile").userId;
     const cart : Cart = {
-      userId : 'be2d6163-7979-40fb-a149-dca33bacad1a',
+      userId : id,
       amount : 1,
       productId : product.productId,
       sizeId: product.productSizes[0].sizeId

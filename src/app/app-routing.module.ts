@@ -12,7 +12,7 @@ import {QluserComponent} from "./pages/user/qluser/qluser.component";
 import {PaymentSuccessComponent} from "./pages/user/cart-list/payment-success/payment-success.component";
 import {ChinhsachComponent} from "./pages/user/chinhsach/chinhsach.component";
 import {LoginComponent} from "./pages/user/login/login.component";
-import {BookComponent} from "./pages/user/book/book.component";
+import {BookComponent} from "./pages/user/cart-list/book/book.component";
 
 
 const routes: Routes = [

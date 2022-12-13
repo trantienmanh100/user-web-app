@@ -30,6 +30,7 @@
           </div>
         </div>
         <div class="col-6 formLogin__text ">
+          <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
           <div class="high">
             <p>Đăng nhập</p>
           </div>
@@ -39,21 +40,34 @@
           <div class="content">
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Tài khoản</label>
-              <input type="email" placeholder="Tài khoản" class="form-control"
+              <input type="email" placeholder="Tài khoản" formControlName="userName" class="form-control"
                      id="exampleInputEmail1" aria-describedby="emailHelp">
+                     <ng-container *ngIf="loginForm.get('userName')?.touched || loginForm.get('userName')?.dirty">
+                      <span class="text-danger" *ngIf="loginForm.get('userName')?.hasError('required')">
+                        <small>{{ 'Tài khoản không để trống'}}</small>
+                      </span>
+                    </ng-container>
             </div>
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label"> Mật khẩu</label>
-              <input type="password" placeholder="Mật khẩu" class="form-control"
+              <input type="password" placeholder="Mật khẩu" formControlName="password" class="form-control"
                      id="exampleInputPassword1">
+                     <ng-container *ngIf="loginForm.get('password')?.touched || loginForm.get('password')?.dirty">
+                      <span class="text-danger" *ngIf="loginForm.get('password')?.hasError('required')">
+                        <small>{{ 'Mật khẩu không để trống' }}</small>
+                      </span>
+                    </ng-container>
             </div>
             <div class="mb-3 ">
             </div>
-            <div class="button">
-              <a href="">Login</a>
+            <div class="">
+              <button id="button"
+              [disabled]="this.loginForm.invalid">
+               {{ 'Đăng nhập' }}
+             </button>
             </div>
           </div>
-
+        </form>
         </div>
       </div>
     </div>

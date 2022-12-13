@@ -7,6 +7,7 @@ import CommonUtil from "../../../shared/utils/common-utils";
 import {TranslateService} from "@ngx-translate/core";
 import {NzModalRef, NzModalService} from "ng-zorro-antd/modal";
 import {result} from "lodash";
+import {LocalStorageService} from "ngx-webstorage";
 
 
 @Component({
@@ -17,12 +18,14 @@ import {result} from "lodash";
 export class BoughtComponent implements OnInit {
   orders: Order[] = [];
   status = '';
+  userId = this.localStorage.retrieve("profile").userId;
   constructor(
     private router: Router,
     private orderService :OrderService,
     private toast : ToastrService,
     private translateService: TranslateService,
     private modalService: NzModalService,
+    private localStorage : LocalStorageService
 
   ) { }
 
@@ -32,45 +35,39 @@ export class BoughtComponent implements OnInit {
 
   showAll(): void {
     this.status= '';
-    const idUser = '02951d3d-1045-4fa1-ad46-6edeffd04a3d'
-    this.orderService.showByBought(this.status,idUser).subscribe((res :any) => {
+    this.orderService.showByBought(this.status,this.userId).subscribe((res :any) => {
       this.orders = res.body?.data;
     })
   }
 
   showWaitConfirm(): void {
      this.status= 'CHO_XAC_NHAN'
-    const idUser = '02951d3d-1045-4fa1-ad46-6edeffd04a3d'
-    this.orderService.showByBought(this.status,idUser).subscribe((res :any) => {
+    this.orderService.showByBought(this.status,this.userId).subscribe((res :any) => {
       this.orders = res.body?.data;
     })
   }
 
   showConfirmed(): void {
     this.status= 'XAC_NHAN'
-    const idUser = '02951d3d-1045-4fa1-ad46-6edeffd04a3d'
-    this.orderService.showByBought(this.status,idUser).subscribe((res :any) => {
+    this.orderService.showByBought(this.status,this.userId).subscribe((res :any) => {
       this.orders = res.body?.data;
     })
   }
   showDelivering(): void {
     this.status= 'DANG_GIAO'
-    const idUser = '02951d3d-1045-4fa1-ad46-6edeffd04a3d'
-    this.orderService.showByBought(this.status,idUser).subscribe((res :any) => {
+    this.orderService.showByBought(this.status,this.userId).subscribe((res :any) => {
       this.orders = res.body?.data;
     })
   }
   showDelivered(): void {
     this.status= 'DA_GIAO'
-    const idUser = '02951d3d-1045-4fa1-ad46-6edeffd04a3d'
-    this.orderService.showByBought(this.status,idUser).subscribe((res :any) => {
+    this.orderService.showByBought(this.status,this.userId).subscribe((res :any) => {
       this.orders = res.body?.data;
     })
   }
   showCancel(): void {
     this.status= 'HUY'
-    const idUser = '02951d3d-1045-4fa1-ad46-6edeffd04a3d'
-    this.orderService.showByBought(this.status,idUser).subscribe((res :any) => {
+    this.orderService.showByBought(this.status,this.userId).subscribe((res :any) => {
       this.orders = res.body?.data;
     })
   }
