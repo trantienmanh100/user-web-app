@@ -13,6 +13,7 @@ import {PaymentSuccessComponent} from "./pages/user/cart-list/payment-success/pa
 import {ChinhsachComponent} from "./pages/user/chinhsach/chinhsach.component";
 import {LoginComponent} from "./pages/user/login/login.component";
 import {BookComponent} from "./pages/user/cart-list/book/book.component";
+import {RegisterComponent} from "./pages/user/register/register.component";
 
 
 const routes: Routes = [
@@ -77,6 +78,10 @@ const routes: Routes = [
   {
     path: ROUTER_UTILS.book.root,
     component: BookComponent,
+  },
+  {
+    path: ROUTER_UTILS.register.root,
+    component: RegisterComponent,
   },
 ]
 

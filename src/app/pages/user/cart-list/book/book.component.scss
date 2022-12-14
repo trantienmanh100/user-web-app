@@ -275,3 +275,23 @@ li {
 /*======================================
    End Shopping Cart CSS
 ========================================*/
+.width {
+  display: flex;
+  align-items: center;
+
+  .input {
+    width: 350px;
+  }
+
+
+  label {
+    display: flex;
+    align-items: center;
+  }
+  .red {
+    font-size: 18px;
+    color: red;
+  }
+}
+
+

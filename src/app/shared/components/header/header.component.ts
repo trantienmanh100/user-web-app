@@ -20,6 +20,22 @@ export class HeaderComponent implements OnInit {
     this.router.navigate([ROUTER_UTILS.bought.list]);
   }
 
+  showUser(): void {
+    this.router.navigate([ROUTER_UTILS.qlUser.root]);
+  }
+
+  showLogin(): void {
+    this.router.navigate([ROUTER_UTILS.login.root]);
+  }
+
+  showRegister(): void {
+    this.router.navigate([ROUTER_UTILS.register.root]);
+  }
+
+  showDangxuat(): void {
+    alert("Dang xuat")
+  }
+
   showCart(): void {
     this.router.navigate([ROUTER_UTILS.cart.list]);
   }

@@ -39,6 +39,8 @@ import {NzGridModule} from "ng-zorro-antd/grid";
 import {NzFormModule} from "ng-zorro-antd/form";
 import {NzInputModule} from "ng-zorro-antd/input";
 import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
+import { RegisterComponent } from './pages/user/register/register.component';
+import {NzRadioModule} from "ng-zorro-antd/radio";
 
 registerLocaleData(en);
 
@@ -67,37 +69,39 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     ChinhsachComponent,
     LoginComponent,
     BookComponent,
+    RegisterComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    AppRoutingModule,
-    NzRateModule,
-    FormsModule,
-    PipeModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
-      useDefaultLang: true,
-    }),
-    ToastrModule.forRoot({
-      positionClass: 'toast-top-right'
-    }),
-    NzSelectModule,
-    NzModalModule,
-    NzButtonModule,
-    ReactiveFormsModule,
-    NzGridModule,
-    NzFormModule,
-    NzInputModule,
-    NzDatePickerModule,
-    //NgbModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        AppRoutingModule,
+        NzRateModule,
+        FormsModule,
+        PipeModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient],
+            },
+            useDefaultLang: true,
+        }),
+        ToastrModule.forRoot({
+            positionClass: 'toast-top-right'
+        }),
+        NzSelectModule,
+        NzModalModule,
+        NzButtonModule,
+        ReactiveFormsModule,
+        NzGridModule,
+        NzFormModule,
+        NzInputModule,
+        NzDatePickerModule,
+        NzRadioModule,
+        //NgbModule,
+    ],
   providers: [
     NzModalService,
     ToastrService,

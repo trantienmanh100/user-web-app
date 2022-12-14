@@ -422,3 +422,21 @@ margin-right: 5px;
   background: #262627;
   display: none;
 }
+.width {
+  display: flex;
+  align-items: center;
+
+  .input {
+    width: 350px;
+  }
+
+
+  label {
+    display: flex;
+    align-items: center;
+  }
+  .red {
+    font-size: 18px;
+    color: red;
+  }
+}
