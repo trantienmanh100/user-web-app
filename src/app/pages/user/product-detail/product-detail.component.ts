@@ -10,6 +10,7 @@ import {CartService} from "../../../shared/services/cart.service";
 import {Category} from "../../../shared/models/category.model";
 import {CategoryService} from "../../../shared/services/category.service";
 import {LocalStorageService} from "ngx-webstorage";
+import {ICategorySearchRequest} from "../../../shared/models/request/category-search-request.model";
 
 @Component({
   selector: 'app-product-detail',
@@ -44,16 +45,18 @@ export class ProductDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadDataCategory();
+    this.loadDataCategory('');
     this.loadData(this.productId);
   }
 
-  loadDataCategory(): void {
-    this.categoryService.searchCategoriesAutoComplete( true).subscribe(
+  loadDataCategory(keyword: any,loading = false): void {
+    const options = {
+      keyword
+    };
+    this.categoryService.searchCategoriesAutoComplete( options, true).subscribe(
       (response: any) => {
         const data = response?.body?.data;
         this.categories = data;
-        console.log(this.categories)
       },
       (error: any) => {
         this.categories = [];

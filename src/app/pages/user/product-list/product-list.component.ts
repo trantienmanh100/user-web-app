@@ -9,6 +9,11 @@ import {Category, ICategory} from "../../../shared/models/category.model";
 import {CategoryService} from "../../../shared/services/category.service";
 import {TranslateService} from "@ngx-translate/core";
 import {Cart} from "../../../shared/models/cart.model";
+import {Accessory, IAccessory} from "../../../shared/models/accesory.model";
+import {AccessoryService} from "../../../shared/services/accessory.service";
+import {AccessorySearchRequest} from "../../../shared/models/request/accessory-search-request.model";
+import {Size} from "../../../shared/models/size.model";
+import {SizeService} from "../../../shared/services/size.service";
 
 @Component({
   selector: 'app-product-list',
@@ -17,6 +22,8 @@ import {Cart} from "../../../shared/models/cart.model";
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
+  size : Size[] =[];
+  accessories : Accessory [] = [];
   productTrending : IProduct[]=[];
   productSearchRequest: IProductSearchRequest = {
     pageIndex: PAGINATION.PAGE_DEFAULT,
@@ -33,8 +40,10 @@ export class ProductListComponent implements OnInit {
     private translateService: TranslateService,
     private productService: ProductService,
     private categoryService: CategoryService,
+    private accessoryService : AccessoryService,
     private router: Router,
     private Activeroute: ActivatedRoute,
+    private sizeService: SizeService
 
   ) {
     this.Activeroute.paramMap.subscribe((res) => {
@@ -43,12 +52,28 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadAccessory(),
+    this.loadSize();
     this.loadNameCate(),
     this.loadCategory(),
     // this.loadData(this.pageNumber, this.pageSize);
    // this.showProductTrending()
     this.loadDataByCategory(this.categoryId)
+
   }
+  loadAccessory(){
+    const params : AccessorySearchRequest = {
+    }
+    this.accessoryService.search(params).subscribe((res:any) => {
+      this.accessories = res.body?.data;
+    })
+  }
+  loadSize(){
+    this.sizeService.autoComplete(true).subscribe((res:any) => {
+      this.size = res.body.data;
+    })
+  }
+
 
   loadNameCate(){
     this.categoryService.findByCategoryId(this.categoryId+'').subscribe((res:any) => {
@@ -85,7 +110,6 @@ export class ProductListComponent implements OnInit {
     this.productService.search(this.productSearchRequest).subscribe((response: any) => {
         this.products = response.body?.data;
         this.total = response.body.page.total;
-
     });
   }
 
@@ -104,5 +128,8 @@ export class ProductListComponent implements OnInit {
     this.pageIndex = pageIndex;
     this.pageSize = pageSize;
     this.loadData(this.pageIndex, this.pageSize);
+  }
+
+  search() {
   }
 }

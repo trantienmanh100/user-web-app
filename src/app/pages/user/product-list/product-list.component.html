@@ -21,17 +21,9 @@
               <div id="collapseThree" class="accordion-collapse collapse show"
                    aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                 <div class="accordion-body pt-0 grid-container">
-                  <div>
-                    <input type="checkbox" class="check-box"> Vàng 24k
-                  </div>
-                  <div>
-                    <input type="checkbox" class="check-box"> Bạc
-                  </div>
-                  <div>
-                    <input type="checkbox" class="check-box"> Kim cương
-                  </div>
-                  <div>
-                    <input type="checkbox" class="check-box"> Vàng 10k
+                  <div *ngFor="let accessory of accessories">
+                    <input type="checkbox" class="check-box" >
+                    {{accessory.name}}
                   </div>
 
                 </div>
@@ -49,16 +41,16 @@
                    aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                 <div class="accordion-body pt-0 grid-container">
                   <div>
-                    <input type="checkbox" class="check-box"> $50.00 - $200.000
+                    <input type="checkbox" class="check-box"> 0đ - 1.000.000đ
                   </div>
                   <div>
-                    <input type="checkbox" class="check-box"> $201.000 - $500.00
+                    <input type="checkbox" class="check-box"> 1.000.000đ - 5.000.000đ
                   </div>
                   <div>
-                    <input type="checkbox" class="check-box"> $501.00 - $800.00
+                    <input type="checkbox" class="check-box"> 5.000.000đ - 10.000.000đ
                   </div>
                   <div>
-                    <input type="checkbox" class="check-box"> $801.000 - $1000.00
+                    <input type="checkbox" class="check-box"> 10.000.000đ - 20.000.000đ
                   </div>
 
                 </div>
@@ -75,19 +67,9 @@
               <div id="collapseThree2" class="accordion-collapse collapse show"
                    aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                 <div class="accordion-body pt-0 grid-container">
-                  <div>
-                    <input type="checkbox" class="check-box"> XL
+                  <div *ngFor="let s of size">
+                    <input type="checkbox" class="check-box"> {{s.size}}
                   </div>
-                  <div>
-                    <input type="checkbox" class="check-box"> L
-                  </div>
-                  <div>
-                    <input type="checkbox" class="check-box"> M
-                  </div>
-                  <div>
-                    <input type="checkbox" class="check-box"> S
-                  </div>
-
                 </div>
               </div>
             </div>
@@ -179,14 +161,14 @@
           </div>
           <div class="row refineSearch__image">
             <div class="col-xs-3 col-sm-2 col-md-3 col-lg-2 col-xl-2 " >
-              <a (click)="loadDataByCategory()"><img src="./../../../assets/images/daychuyen.jpg" alt=""></a>
-              <a (click)="loadDataByCategory()">All</a>
+              <button class="button-cate" (click)="loadDataByCategory()">All</button>
             </div>
 
             <div class="col-xs-3 col-sm-2 col-md-3 col-lg-2 col-xl-2 " *ngFor="let cate of categories">
-              <a (click)="loadDataByCategory(cate.categoryId)"><img src="./../../../assets/images/daychuyen.jpg" alt=""></a>
-              <a (click)="loadDataByCategory(cate.categoryId)">{{cate.name}}</a>
+              <button class="button-cate" (click)="loadDataByCategory(cate.categoryId)">{{cate.name}}</button>
             </div>
+
+
             <!--        <div class="col-xs-3 col-sm-2 col-md-3 col-lg-2 col-xl-2 image1">-->
             <!--          <a href=""><img src="./../../../assets/images/Matdaychuyen.jpg" alt=""></a>-->
             <!--          <a href="">Pendants</a>-->
