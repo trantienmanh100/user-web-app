@@ -1,4 +1,4 @@
-<app-header></app-header>
+ng-container<app-header></app-header>
 <!-- Shopping Cart -->
 <div class="shopping-cart section">
   <div class="container" *ngIf="nodata ==false ;else nodata1">
@@ -58,34 +58,110 @@
       <div class="col-12">
         <!-- Total Amount -->
         <div class="total-amount">
-          <div class="row">
-            <div class="col-lg-12 col-md-5">
-              <div class="left">
-                <div class="coupon">
-                  <form [formGroup]="form" action="#" target="_blank">
-                    <nz-select
-                      formControlName="eventId"
-                      nzAllowClear
-                      [nzPlaceHolder]="'Mã giảm giá'"
-                      (ngModelChange)="getTotal($event)"
-                      nzBorderless
-                    >
-                      <ng-container *ngFor="let event of events"                       style="border: none;"
-                      >
-                        <nz-option
-                          [nzValue]="event.eventId"
-                          [nzLabel]="event.name + ' - ' + 'Giảm ' + event.discount + '%'"
-                        ></nz-option>
-                      </ng-container>
-                    </nz-select>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
+         
           <div class="row ">
             <div class="col-lg-8 col-md-5 col-12">
-              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <div class="row">
+               
+                  <div class="left">
+                    <div class="coupon">
+                      <form [formGroup]="form" action="#" target="_blank">
+                        <div class="col-lg-12 col-md-5">
+                        <nz-select
+                          formControlName="eventId"
+                          nzAllowClear
+                          [nzPlaceHolder]="'Mã giảm giá'"
+                          (ngModelChange)="getTotal($event)"
+                          nzBorderless
+                        >
+                          <ng-container *ngFor="let event of events"                       style="border: none;"
+                          >
+                            <nz-option
+                              [nzValue]="event.eventId"
+                              [nzLabel]="event.name + ' - ' + 'Giảm ' + event.discount + '%'"
+                            ></nz-option>
+                          </ng-container>
+                        </nz-select>
+                      </div>
+                      <div class="row">
+                        <div class="col-4 mb-2">
+                           
+                          <nz-select
+                            formControlName="ward"
+                            nzBorderless
+                            removeOptionTitle
+                            (ngModelChange)="chargeShippingWard()"
+                            nzPlaceHolder="{{
+                              'Phường,Xã'
+                            }}"
+                          >
+                            <nz-option
+                              *ngFor="let item of this.ward"
+                              [nzLabel]="item.WardName"
+                              [nzValue]="item.WardCode"
+                            >
+                              
+                            </nz-option>
+                          </nz-select>
+                        </div>
+                          <div class="col-4 mb-2">
+                           
+                            <nz-select
+                              formControlName="district"
+                             removeOptionTitle
+                              nzBorderless
+                              (ngModelChange)="getWard($event)"
+                              nzPlaceHolder="{{
+                                'Quận,Huyện'
+                              }}"
+                            >
+                              <nz-option
+                                *ngFor="let item of this.distrist"
+                                [nzLabel]="item.DistrictName"
+                                [nzValue]="item.DistrictID"
+                              >
+                              
+                              </nz-option>
+                            </nz-select>
+                          
+                          </div>
+                        
+                          <div class="col-4 mb-2">
+                            <nz-select
+                            nzBorderless
+                              formControlName="province"
+                              (ngModelChange)="this.getDistrist($event)"
+                              nzPlaceHolder="{{
+                               'Tỉnh,Thành phố'
+                              }}"
+                            >
+                           
+                            <ng-container *ngFor="let item of province">
+                              <nz-option   [nzLabel]="item.ProvinceName"
+                              [nzValue]="item.ProvinceID"></nz-option>
+                            </ng-container>
+                          </nz-select>
+                          </div>
+                      <div class="col-lg-12 col-md-5">
+                        <textarea nz-input cols="30" rows="5"formControlName="addressDetail"></textarea>
+                        <ng-container
+                        *ngIf="form.get('addressDetail')?.touched || form.get('addressDetail')?.dirty"
+                      >
+                        <span
+                          class="text-danger"
+                          *ngIf="form.get('addressDetail')?.hasError('addressDetail')"
+                        >
+                          Địa chỉ chi tiết không để trống
+                        </span>
+                      </ng-container>
+                        </div>
+                    </div>
+                      </form>
+                    </div>
+                  </div>
+               
+              </div>
+              <div class="nav nav-tabs mt-3" id="nav-tab" role="tablist">
                 <p>Phương thức thanh toán </p>
 <!--                <div class="form-check">-->
 <!--                  <input class="form-check-input" type="radio" name="pay" id="flexRadioDefault1" [value] ="PaymentMethod.CARD" [(ngModel)]="pay">-->
@@ -126,7 +202,7 @@
                   <li class="last">Tiền phải trả<span>{{this.total - (this.total * this.discount/100) +this.shipMoney +'' | vnd}}</span></li>
                 </ul>
                 <div class="button5">
-                  <a (click)="createOrder()" class="btn">Checkout</a>
+                  <a (click)="createOrder()" class="btn" >Checkout</a>
                   <a (click)="calendar()" class="btn">Đặt lịch hẹn</a>
                   <a href="#" class="btn">Tiếp tục mua</a>
                 </div>
