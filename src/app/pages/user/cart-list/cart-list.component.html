@@ -1,4 +1,4 @@
-ng-container<app-header></app-header>
+<app-header></app-header>
 <!-- Shopping Cart -->
 <div class="shopping-cart section">
   <div class="container" *ngIf="nodata ==false ;else nodata1">
@@ -58,11 +58,11 @@ ng-container<app-header></app-header>
       <div class="col-12">
         <!-- Total Amount -->
         <div class="total-amount">
-         
+
           <div class="row ">
             <div class="col-lg-8 col-md-5 col-12">
               <div class="row">
-               
+
                   <div class="left">
                     <div class="coupon">
                       <form [formGroup]="form" action="#" target="_blank">
@@ -85,7 +85,7 @@ ng-container<app-header></app-header>
                       </div>
                       <div class="row">
                         <div class="col-4 mb-2">
-                           
+
                           <nz-select
                             formControlName="ward"
                             nzBorderless
@@ -100,12 +100,12 @@ ng-container<app-header></app-header>
                               [nzLabel]="item.WardName"
                               [nzValue]="item.WardCode"
                             >
-                              
+
                             </nz-option>
                           </nz-select>
                         </div>
                           <div class="col-4 mb-2">
-                           
+
                             <nz-select
                               formControlName="district"
                              removeOptionTitle
@@ -120,12 +120,12 @@ ng-container<app-header></app-header>
                                 [nzLabel]="item.DistrictName"
                                 [nzValue]="item.DistrictID"
                               >
-                              
+
                               </nz-option>
                             </nz-select>
-                          
+
                           </div>
-                        
+
                           <div class="col-4 mb-2">
                             <nz-select
                             nzBorderless
@@ -135,7 +135,7 @@ ng-container<app-header></app-header>
                                'Tỉnh,Thành phố'
                               }}"
                             >
-                           
+
                             <ng-container *ngFor="let item of province">
                               <nz-option   [nzLabel]="item.ProvinceName"
                               [nzValue]="item.ProvinceID"></nz-option>
@@ -143,7 +143,7 @@ ng-container<app-header></app-header>
                           </nz-select>
                           </div>
                       <div class="col-lg-12 col-md-5">
-                        <textarea nz-input cols="30" rows="5"formControlName="addressDetail"></textarea>
+                        <textarea nz-input cols="30" rows="5"formControlName="addressDetail" placeholder="Địa chỉ chi tiết"></textarea>
                         <ng-container
                         *ngIf="form.get('addressDetail')?.touched || form.get('addressDetail')?.dirty"
                       >
@@ -159,22 +159,10 @@ ng-container<app-header></app-header>
                       </form>
                     </div>
                   </div>
-               
+
               </div>
               <div class="nav nav-tabs mt-3" id="nav-tab" role="tablist">
                 <p>Phương thức thanh toán </p>
-<!--                <div class="form-check">-->
-<!--                  <input class="form-check-input" type="radio" name="pay" id="flexRadioDefault1" [value] ="PaymentMethod.CARD" [(ngModel)]="pay">-->
-<!--                  <label class="form-check-label" for="flexRadioDefault1">-->
-<!--                    Thanh toán qua thẻ-->
-<!--                  </label>-->
-<!--                </div>-->
-<!--                <div class="form-check">-->
-<!--                  <input class="form-check-input" type="radio" name="pay" id="flexRadioDefault2" [value] ="PaymentMethod.MONEY" [(ngModel)]="pay">-->
-<!--                  <label class="form-check-label" for="flexRadioDefault2" value="OFF">-->
-<!--                    Thanh toán khi nhận hàng-->
-<!--                  </label>-->
-<!--                </div>-->
                 <div class="radio-tile-group">
                   <div class="input-container">
                     <input id="walk" class="radio-button" type="radio"  name="pay" [value] ="PaymentMethod.CARD" [(ngModel)]="pay"/>
@@ -190,14 +178,17 @@ ng-container<app-header></app-header>
                   </div>
                 </div>
               </div>
-              <br>
-
+              <div class="infor-ghn">
+                <img src="assets/images/logo_ghn.jpg" class="logo_partner">
+                <img src="assets/images/Logo-VNPAYQR-update.png" class="logo_partner">
+              </div>
             </div>
+
             <div class="col-lg-4 col-md-7 col-12 thanhtoan">
               <div class="right">
                 <ul>
                   <li>Tổng tiền<span>{{total +'' | vnd}}</span></li>
-                  <li>Phí vận chuyển<span>{{this.shipMoney+'' | vnd}}</span></li>
+                  <li>Phí vận chuyển (GHN)<span>{{this.shipMoney+'' | vnd}}</span></li>
                   <li>Giảm giá: <span class="fw-bold">{{this.discount + '%'}}</span></li>
                   <li class="last">Tiền phải trả<span>{{this.total - (this.total * this.discount/100) +this.shipMoney +'' | vnd}}</span></li>
                 </ul>

@@ -84,7 +84,7 @@ export class CartListComponent implements OnInit {
   }
 
   private initForm() {
-    this.addresses = this.localStorage.retrieve("profile").address?.split(", ") as string[]; 
+    this.addresses = this.localStorage.retrieve("profile").address?.split(", ") as string[];
     let addressDetail = '';
    if( this.addresses ){
     this.addresses .forEach((data,index) =>{
@@ -139,7 +139,7 @@ export class CartListComponent implements OnInit {
         if(this.carts === null){
           this.nodata = true;
         }
-        
+
       }
 
     })
@@ -160,13 +160,13 @@ export class CartListComponent implements OnInit {
   }
   getWard(districtId:number){
     this.countryService.ward(districtId).subscribe((res:any) =>{
-       this.ward = res.data; 
-       this.form.get('ward')?.setValue(this.getCodeWard(this.addresses  ?   this.addresses [ this.addresses .length - 3] : '' ))    
+       this.ward = res.data;
+       this.form.get('ward')?.setValue(this.getCodeWard(this.addresses  ?   this.addresses [ this.addresses .length - 3] : '' ))
        this.chargeShipping(this.total)
-      
-     
+
+
       })
-   
+
   }
   getStringWard(){
     const ward = this.form.get('ward')?.value;
@@ -222,9 +222,9 @@ export class CartListComponent implements OnInit {
     this.province.forEach((data) => {
       if(data.ProvinceName === param){
         data2 =  data.ProvinceID;
-        this.getDistrist(data2);  
+        this.getDistrist(data2);
         const code =  this.getCodeDistrcit(this.form.get("district")?.value);
-      
+
       }
     });
     return data2;
@@ -232,7 +232,7 @@ export class CartListComponent implements OnInit {
   chargeShippingWard(){
     console.log(this.form.value);
     this.chargeShipping(this.total);
-    
+
   }
   intoMoney (price ?: number, amount?: number) :any{
     // @ts-ignore
@@ -274,6 +274,7 @@ export class CartListComponent implements OnInit {
     const modal: NzModalRef =this.modalService.create(deleteForm);
     modal.afterClose.subscribe((result: {success: boolean; data: any}) =>{
       if(result?.success){
+        console.log(cart.cartDetailId)
         this.cartService.deleteCartDetail(cart.cartDetailId).subscribe((respone: any) =>{
           this.toast.success('Xoá thành công sản phẩm khỏi giỏ hàng');
           const userId = this.localStorage.retrieve("profile").userId;
@@ -313,10 +314,10 @@ export class CartListComponent implements OnInit {
           this.cartService.chargeShipping(this.ship).subscribe((respone) =>{
            this.shipMoney = respone.data.total;
          })
-          
-          
+
+
     })
- 
+
   }
 
   createOrder(): void {
