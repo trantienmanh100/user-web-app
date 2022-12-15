@@ -15,12 +15,12 @@ export class UserService extends AbstractService {
     super(http);
   }
 
-  // findAll(loading = false): Observable<EntityResponseType> {
-  //   return this.http
-  //     .get<IBaseResponse>(`${this.resourceUrl}`, {
-  //       observe: 'response', headers: CommonUtil.headers(loading)
-  //     });
-  // }
+
+  create(
+    user: any
+  ): Observable<EntityResponseType<IUser>> {
+    return super.post<IUser>(`${this.resourceUrl}`, user );
+  }
 
   update(
     user: any,

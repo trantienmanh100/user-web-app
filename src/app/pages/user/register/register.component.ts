@@ -4,6 +4,8 @@ import {ToastrService} from "ngx-toastr";
 import {CategoryService} from "../../../shared/services/category.service";
 import {CartService} from "../../../shared/services/cart.service";
 import {ApoimentService} from "../../../shared/services/apoiment.service";
+import {UserService} from "../../../shared/services/user.service";
+import {Router, RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-register',
@@ -15,23 +17,38 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private toast: ToastrService,
+    private userService : UserService,
     private fb: UntypedFormBuilder,
+    private router: Router,
+
   ) { }
 
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       userName: ['', [Validators.required]],
+      fullName : ['',[Validators.required]],
       phoneNumber: ['', [Validators.required, Validators.maxLength(11)]],
-      email: ['', [Validators.email,Validators.required]],
-      time: ['', [Validators.required]],
-      sizeId : ['',[Validators.required]],
-      note: ['', [ Validators.required]],
-      status: "WAIT_CONFIRM",
+      email: ['', [ Validators.required]],
+      gender: ['', [ Validators.required]],
+      birthday: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      confirmPassword: ['', [Validators.email,Validators.required]],
+      role: "CUSTOMER",
+      cccd: " ",
+      address: ['', [ Validators.required]],
+
     });
   }
 
   Dangky():void {
-    alert('tâ')
+    console.log(this.validateForm.value)
+    this.userService.create(this.validateForm.value).subscribe((res: any) => {
+      this.toast.success("Đăng ký thành công")
+      this.router.navigate(['/login']);
+    },
+      (error: any)=> {
+      this.toast.error(error)
+      })
   }
 
 }
