@@ -9,7 +9,7 @@ import {NzModalRef, NzModalService} from "ng-zorro-antd/modal";
 import {IEvent} from "../../../shared/models/event.model";
 import {EventService} from "../../../shared/services/event.service";
 import {ICartDetail} from "../../../shared/models/cart-detail.model";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {Ship} from "../../../shared/models/ship.model";
 import {IProductOrder, OrderType, PaymentMethod, StatusEnum} from "../../../shared/models/order.model";
 import {OrderService} from "../../../shared/services/order.service";
@@ -18,6 +18,7 @@ import {ActivatedRoute, Router, RouterModule} from "@angular/router";
 import {Location} from '@angular/common';
 import {ROUTER_UTILS} from "../../../shared/utils/router.utils";
 import {LocalStorageService} from "ngx-webstorage";
+import { CountryService } from 'src/app/shared/services/country.service';
 
 
 @Component({
@@ -46,7 +47,14 @@ export class CartListComponent implements OnInit {
   //checkbox
   array:any = []
   tempArrray: any= []
-  newArray :any =[]
+  newArray :any =[];
+  province:any[] = [];
+  distrist:any[] = [];
+  ward:any[] = [];
+  idDistrict:number = -1;
+  idWard:number = -1;
+  addresses:string[] = [];
+  isFirst = false;
   constructor(
     private fb: FormBuilder,
     private cartService :CartService,
@@ -60,10 +68,15 @@ export class CartListComponent implements OnInit {
     private router : Router,
     private location: Location,
     private localStorage: LocalStorageService,
+    private countryService:CountryService
 
   ) { }
 
   ngOnInit(): void {
+    this.countryService.province().subscribe((res:any)=>{
+      this.province = res.data;
+      this.initForm();
+    })
     const userId = this.localStorage.retrieve("profile").userId;
     this.loadData(userId)
     this.loadEvent();
@@ -71,8 +84,41 @@ export class CartListComponent implements OnInit {
   }
 
   private initForm() {
+    this.addresses = this.localStorage.retrieve("profile").address?.split(", ") as string[]; 
+    let addressDetail = '';
+   if( this.addresses ){
+    this.addresses .forEach((data,index) =>{
+      if(index <  this.addresses .length-3 ) {
+         addressDetail = addressDetail + data;
+      }
+    })
+   }
     this.form = this.fb.group({
       eventId: [null],
+      province: [
+        this.getCodeProvince( this.addresses  ?   this.addresses [ this.addresses .length - 1] : '' ) ,
+        [
+          Validators.required,
+        ],
+      ],
+      district: [
+        '',
+        [
+          Validators.required,
+        ],
+      ],
+      ward: [
+        '',
+        [
+          Validators.required,
+        ],
+      ],
+      addressDetail: [
+        addressDetail,
+        [
+          Validators.required,
+        ],
+      ],
     });
     this.form.get('total')?.setValue(0);
   }
@@ -93,7 +139,7 @@ export class CartListComponent implements OnInit {
         if(this.carts === null){
           this.nodata = true;
         }
-        this.chargeShipping(this.total);
+        
       }
 
     })
@@ -103,7 +149,91 @@ export class CartListComponent implements OnInit {
       this.events = res.body?.data;
     });
   }
-
+  getDistrist(provinceID:number){
+    const params = {
+      province_id:provinceID
+    }
+    this.countryService.distrist(params).subscribe((res:any) =>{
+      this.distrist = res.data;
+      this.form.get('district')?.setValue(this.getCodeDistrcit(this.addresses  ?   this.addresses [ this.addresses .length - 2] : '' ))
+    })
+  }
+  getWard(districtId:number){
+    this.countryService.ward(districtId).subscribe((res:any) =>{
+       this.ward = res.data; 
+       this.form.get('ward')?.setValue(this.getCodeWard(this.addresses  ?   this.addresses [ this.addresses .length - 3] : '' ))    
+       this.chargeShipping(this.total)
+      
+     
+      })
+   
+  }
+  getStringWard(){
+    const ward = this.form.get('ward')?.value;
+    let data2 = '';
+    this.ward.forEach((data) => {
+      const w= data.WardCode as string;
+      if(w === ward){
+        data2 =  data.WardName;
+      }
+    });
+    return data2;
+  }
+  getCodeWard(param:string):string{
+    let data2 = '';
+    this.ward.forEach((data) => {
+      if(data.WardName === param){
+        data2 =  data.WardCode;
+      }
+    });
+    return data2;
+  }
+  getStringDistrcit():string{
+    const district = this.form.get('district')?.value;
+    let data2 = '';
+    this.distrist.forEach((data) => {
+      if(data.DistrictID === district){
+        data2 =  data.DistrictName;
+      }
+    });
+    return data2;
+  }
+  getCodeDistrcit(param:string):number{
+    let data2 = -1;
+    this.distrist.forEach((data) => {
+      if(data.DistrictName === param){
+        data2 =  data.DistrictID;
+      }
+    });
+    return data2;
+  }
+  getStringpProvince():string{
+    const province = this.form.get('province')?.value;
+    let data2 = '';
+    this.province.forEach((data) => {
+      if(data.ProvinceID === province){
+        data2 =  data.ProvinceName;
+      }
+    });
+    return data2;
+  }
+  getCodeProvince(param:string):number{
+    let data2 = -1;
+    this.province.forEach((data) => {
+      if(data.ProvinceName === param){
+        data2 =  data.ProvinceID;
+        this.getDistrist(data2);  
+        const code =  this.getCodeDistrcit(this.form.get("district")?.value);
+      
+      }
+    });
+    return data2;
+  }
+  chargeShippingWard(){
+    console.log(this.form.value);
+    this.chargeShipping(this.total);
+    
+  }
   intoMoney (price ?: number, amount?: number) :any{
     // @ts-ignore
     return price * amount ;
@@ -162,18 +292,31 @@ export class CartListComponent implements OnInit {
   }
 
   chargeShipping(total: number) {
-     this.ship.service_id = 53320;
-     this.ship.insurance_value = total;
-     this.ship.from_district_id =3440;
-     this.ship.to_district_id = 1542;
-     this.ship.to_ward_code = "1B1517";
-     this.ship.height=10;
-     this.ship.length=10;
-     this.ship.weight = 1000;
-     this.ship.width =10;
-     this.cartService.chargeShipping(this.ship).subscribe((respone) =>{
-      this.shipMoney = respone.data.total;
+    const district = this.form.get('district')?.value as number;
+    const ward = this.form.get('ward')?.value;
+    const param = {
+      shop_id:3445621,
+      from_district:2268,
+      to_district:district
+  }
+    this.cartService.getServiceShipping(param).subscribe((res:any)=>{
+          const data = res.data;
+          this.ship.service_id = data ? data[0].service_id : 53322;
+          this.ship.insurance_value=total;
+          this.ship.from_district_id =2268;
+          this.ship.to_district_id =district as number ;
+          this.ship.to_ward_code= ward +'' ;
+          this.ship.height=10;
+          this.ship.length=10;
+          this.ship.weight = 1000;
+          this.ship.width =10;
+          this.cartService.chargeShipping(this.ship).subscribe((respone) =>{
+           this.shipMoney = respone.data.total;
+         })
+          
+          
     })
+ 
   }
 
   createOrder(): void {
