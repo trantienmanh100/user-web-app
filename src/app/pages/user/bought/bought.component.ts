@@ -96,53 +96,73 @@ export class BoughtComponent implements OnInit {
     })
   }
 
+  // muaLaiDonHang(id : any) {
+  //   const muaLai =CommonUtil.modalConfirm(
+  //     this.translateService,
+  //     'Mua lại đơn hàng',
+  //     'Bạn có muốn mua lại đơn hàng này không',
+  //     {name: 'a'}
+  //   )
+  //   const modal: NzModalRef =this.modalService.create(muaLai);
+  //   modal.afterClose.subscribe((result:{success: boolean; data: any}) =>{
+  //     if(result?.success){
+  //       this.orderService.findOne(id).subscribe((res:any)=> {
+  //         console.log(res.body?.data)
+  //         const Doncu = res.body?.data
+  //         const order = {
+  //           customerMoney: 1,
+  //           paymentMethod: PaymentMethod.CARD,
+  //           transportFee: 1,
+  //           purchaseType: OrderType.ONLINE,
+  //           status: StatusEnum.CHO_XAC_NHAN,
+  //           eventId: Doncu.eventId,
+  //           address: Doncu.address,
+  //           userId: Doncu.userId,
+  //           total: Doncu.total,
+  //           orderDetailList: Doncu.orderDetailDTOList.map((res:any) => {
+  //             const price = res.price as number;
+  //             const productDetail: IProductOrder = {
+  //               productId: res.productId,
+  //               quantity: res.quantity,
+  //               price: res.price,
+  //               sizeId: res.sizeId,
+  //               total: ((res.amount as number) * price) as number,
+  //             };
+  //             return productDetail;
+  //           }),
+  //         };
+  //         console.log(Doncu)
+  //         this.orderService.createOrder(order).subscribe(() => {
+  //           this.toast.success("Đặt hàng lại thành công")
+  //         })
+  //       })
+  //     }
+  //   }
+  //   )
+  // }
+
   muaLaiDonHang(id : any) {
-    const muaLai =CommonUtil.modalConfirm(
-      this.translateService,
-      'Mua lại đơn hàng',
-      'Bạn có muốn mua lại đơn hàng này không',
-      {name: 'a'}
-    )
-    const modal: NzModalRef =this.modalService.create(muaLai);
-    modal.afterClose.subscribe((result:{success: boolean; data: any}) =>{
-      if(result?.success){
-        this.orderService.findOne(id).subscribe((res:any)=> {
-          console.log(res.body?.data)
-          const Doncu = res.body?.data
-          const order = {
-            customerMoney: 1,
-            paymentMethod: PaymentMethod.CARD,
-            transportFee: 1,
-            purchaseType: OrderType.ONLINE,
-            status: StatusEnum.CHO_XAC_NHAN,
-            eventId: Doncu.eventId,
-            address: Doncu.address,
-            userId: Doncu.userId,
-            total: Doncu.total,
-            orderDetailList: Doncu.orderDetailDTOList.map((res:any) => {
-              const price = res.price as number;
-              const productDetail: IProductOrder = {
-                productId: res.productId,
-                quantity: res.quantity,
-                price: res.price,
-                sizeId: res.sizeId,
-                total: ((res.amount as number) * price) as number,
-              };
-              return productDetail;
-            }),
+    this.orderService.findOne(id).subscribe((res:any)=> {
+      const Doncu = res.body?.data
+      const order = {
+        orderDetailList: Doncu.orderDetailDTOList.map((res:any) => {
+          const price = res.price as number;
+          const productDetail: IProductOrder = {
+            productId: res.productId,
+            quantity: res.quantity,
+            price: res.price,
+            sizeId: res.sizeId,
+            total: ((res.amount as number) * price) as number,
           };
-          console.log(Doncu)
-          this.orderService.createOrder(order).subscribe(() => {
-            this.toast.success("Đặt hàng lại thành công")
-          })
-        })
-      }
+          return productDetail;
+        }),
+      };
+      localStorage.setItem("muaLai", JSON.stringify(order))
+      this.router.navigate(['/cart/list'])
     })
   }
 
   showChiTiet(id : any){
-
-
   }
 
 }

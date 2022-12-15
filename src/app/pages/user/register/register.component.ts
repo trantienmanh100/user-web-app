@@ -41,14 +41,16 @@ export class RegisterComponent implements OnInit {
   }
 
   Dangky():void {
-    console.log(this.validateForm.value)
-    this.userService.create(this.validateForm.value).subscribe((res: any) => {
-      this.toast.success("Đăng ký thành công")
-      this.router.navigate(['/login']);
-    },
-      (error: any)=> {
-      this.toast.error(error)
-      })
+    if(this.validateForm.value.password === this.validateForm.value.confirmPassword) {
+      this.userService.create(this.validateForm.value).subscribe((res: any) => {
+          this.toast.success("Đăng ký thành công")
+          this.router.navigate(['/login']);
+        },
+        (error: any)=> {
+          this.toast.error(error)
+        })
+    } else  {
+      this.toast.error('Mật khẩu không khớp')
+    }
   }
-
 }
