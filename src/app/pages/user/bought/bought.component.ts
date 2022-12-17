@@ -7,6 +7,9 @@ import CommonUtil from "../../../shared/utils/common-utils";
 import {TranslateService} from "@ngx-translate/core";
 import {NzModalRef, NzModalService} from "ng-zorro-antd/modal";
 import {result} from "lodash";
+import {CartService} from "../../../shared/services/cart.service";
+import {Cart} from "../../../shared/models/cart.model";
+import {ROUTER_UTILS} from "../../../shared/utils/router.utils";
 
 
 @Component({
@@ -23,6 +26,8 @@ export class BoughtComponent implements OnInit {
     private toast : ToastrService,
     private translateService: TranslateService,
     private modalService: NzModalService,
+    private cartService : CartService,
+
 
   ) { }
 
@@ -146,23 +151,23 @@ export class BoughtComponent implements OnInit {
       const Doncu = res.body?.data
       const order = {
         orderDetailList: Doncu.orderDetailDTOList.map((res:any) => {
-          const price = res.price as number;
-          const productDetail: IProductOrder = {
-            productId: res.productId,
-            quantity: res.quantity,
-            price: res.price,
-            sizeId: res.sizeId,
-            total: ((res.amount as number) * price) as number,
+          const productDetail: Cart = {
+            userId : 'be2d6163-7979-40fb-a149-dca33bacad1a',
+            amount :res.quantity,
+            productId :res.productId,
+            sizeId: res.sizeId
           };
-          return productDetail;
+          this.cartService.addToCart(productDetail).subscribe(()=>{
+            this.router.navigate(['/cart/list'])
+
+          })
         }),
       };
-      localStorage.setItem("muaLai", JSON.stringify(order))
-      this.router.navigate(['/cart/list'])
     })
   }
 
   showChiTiet(id : any){
+    this.router.navigate([ROUTER_UTILS.detail.root,id,'detail'])
   }
 
 }

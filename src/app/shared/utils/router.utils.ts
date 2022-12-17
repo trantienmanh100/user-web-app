@@ -52,6 +52,11 @@ export const ROUTER_UTILS = {
   book: {
     root: 'book',
   },
+  detail: {
+    root: 'order',
+    list: 'order/:id/detail',
+
+  },
   register: {
     root: 'register',
   },

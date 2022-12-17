@@ -41,6 +41,7 @@ import {NzInputModule} from "ng-zorro-antd/input";
 import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
 import { RegisterComponent } from './pages/user/register/register.component';
 import {NzRadioModule} from "ng-zorro-antd/radio";
+import { DetailComponent } from './pages/user/bought/detail/detail.component';
 
 registerLocaleData(en);
 
@@ -70,6 +71,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     LoginComponent,
     BookComponent,
     RegisterComponent,
+    DetailComponent,
   ],
     imports: [
         BrowserModule,

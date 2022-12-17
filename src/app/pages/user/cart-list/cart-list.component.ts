@@ -65,13 +65,6 @@ export class CartListComponent implements OnInit {
 
   ngOnInit(): void {
     const id ='be2d6163-7979-40fb-a149-dca33bacad1a';
-    const loda = localStorage.getItem('muaLai')
-    if(loda != null) {
-      const s  = JSON.parse(loda)
-      for(let i = 0 ; i < s.orderDetailList.length; i++){
-        this.ListProductOrder = s.orderDetailList[i].productId
-      }
-    }
 
     this.loadData(id)
     this.loadEvent();

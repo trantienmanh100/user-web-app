@@ -1,0 +1,78 @@
+<app-header></app-header>
+<div class="container">
+  <!-- Shopping Cart -->
+  <div class="shopping-cart section">
+    <div class="container">
+      <div class="title" style="margin-bottom: 50px; clear: both">
+        <a [routerLink]="'/bought/list'" style=""><img src="../../../../../assets/images/pst-prod-prev.svg" alt="" style="height: 20px; width:20px; float: left;margin-left: 50px"></a>
+        <h2 style="text-align: center;"> Thông tin chi tiết đơn hàng</h2>
+      </div>
+      <div class="row" style="padding: 0 50px;"  >
+        <div class="col-md-8">
+
+          <div class="data">
+            <p>Địa chỉ giao hàng: </p>
+            <p class="data_item">{{ orders.address}}</p>
+          </div>
+
+          <div class="data">
+            <p>Phương thức thanh toán: </p>
+            <ng-container *ngIf="orders.paymentMethod == 'CARD' else elsePay">
+              <p class="data_item">{{ 'Thẻ tín dụng '}}</p>
+            </ng-container>
+            <ng-template #elsePay>
+              <p class="data_item">{{ 'Khi nhận hàng '}}</p>
+
+            </ng-template>
+
+          </div>
+        </div>
+        <div class="col-md-4">
+
+          <div class="data">
+            <p>Mã đơn hàng: </p>
+            <p class="data_item code">{{ orders.orderCode}}</p>
+          </div>
+
+          <div class="data">
+            <p>Tổng tiền: </p>
+            <p class="data_item total">{{ orders.total +'' | vnd}}</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <!-- Shopping Summery -->
+          <table class="table shopping-summery" style="text-align: center">
+            <thead>
+            <tr class="main-hading">
+              <th>Hình ảnh</th>
+              <th>Sản phẩm</th>
+              <th>Kích thước</th>
+              <th class="text-center">Giá</th>
+              <th class="text-center">Số lượng</th>
+              <th class="text-center">Thành tiền</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor=" let product of orders.orderDetailDTOList">
+              <td class="image" data-title="No"><img  [src]="product.imageUrl" alt="#"></td>
+              <td class="product-des" data-title="Description">
+                <p class="product-name"><a href="#"></a></p>
+                {{product.nameProduct}}
+              </td>
+              <td><span>{{product.size}}</span></td>
+              <td class="price" data-title="Price"><span>{{ product.price}}</span></td>
+              <td>{{product.quantity}}</td>
+              <td class="total-amount" data-title="Total"><span>{{intoMoney(product.price,product.quantity)}}</span></td>
+            </tr>
+            </tbody>
+          </table>
+          <!--/ End Shopping Summery -->
+        </div>
+      </div>
+    </div>
+  </div>
+<app-footer></app-footer>
+</div>

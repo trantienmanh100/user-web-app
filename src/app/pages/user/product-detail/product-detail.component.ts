@@ -93,7 +93,7 @@ export class ProductDetailComponent implements OnInit {
     let quantity: any = this.size.quantity +''
     const cart :Cart = {
       //needFix
-      userId : '02951d3d-1045-4fa1-ad46-6edeffd04a3d',
+      userId : 'be2d6163-7979-40fb-a149-dca33bacad1a',
       amount : this.input_quantity,
       productId :this.productId,
       sizeId: this.size.sizeId

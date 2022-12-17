@@ -14,6 +14,7 @@ import {ChinhsachComponent} from "./pages/user/chinhsach/chinhsach.component";
 import {LoginComponent} from "./pages/user/login/login.component";
 import {BookComponent} from "./pages/user/cart-list/book/book.component";
 import {RegisterComponent} from "./pages/user/register/register.component";
+import {DetailComponent} from "./pages/user/bought/detail/detail.component";
 
 
 const routes: Routes = [
@@ -82,6 +83,10 @@ const routes: Routes = [
   {
     path: ROUTER_UTILS.register.root,
     component: RegisterComponent,
+  },
+  {
+    path: ROUTER_UTILS.detail.list,
+    component: DetailComponent,
   },
 ]
 
