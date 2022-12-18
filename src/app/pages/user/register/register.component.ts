@@ -32,25 +32,49 @@ export class RegisterComponent implements OnInit {
       gender: ['', [ Validators.required]],
       birthday: ['', [Validators.required]],
       password: ['', [Validators.required]],
-      confirmPassword: ['', [Validators.email,Validators.required]],
+      confirmPassword: ['', [Validators.required]],
       role: "CUSTOMER",
-      cccd: " ",
+      cccd: [' '],
       address: ['', [ Validators.required]],
-
     });
   }
 
   Dangky():void {
-    if(this.validateForm.value.password === this.validateForm.value.confirmPassword) {
-      this.userService.create(this.validateForm.value).subscribe((res: any) => {
-          this.toast.success("Đăng ký thành công")
-          this.router.navigate(['/login']);
-        },
-        (error: any)=> {
-          this.toast.error(error)
+    this.userService.findCustomer().subscribe((res: any) => {
+      const checkUser:[] = res.body?.data
+      if(checkUser.length == 0) {
+        if (this.validateForm.value.password === this.validateForm.value.confirmPassword) {
+          this.userService.create(this.validateForm.value).subscribe((res: any) => {
+              this.toast.success("Đăng ký thành công")
+              this.router.navigate(['/login']);
+            },
+          )
+        } else {
+          this.toast.error("'Mật khẩu không khớp")
+        }
+      } else {
+        checkUser.map((res:any) => {
+          if(res.userName == this.validateForm.value.userName.trim()) {
+            this.toast.error("Tên đăng nhập đã tồn tại")
+            return;
+          } else if ( res.phoneNumber == this.validateForm.value.phoneNumber.trim()){
+            this.toast.error("Số điện thoại đã tồn tại")
+            return;
+          } else if (res.email == this.validateForm.value.email.trim()){
+            this.toast.error("Email đã tồn tại")
+            return;
+          }  else if (this.validateForm.value.password === this.validateForm.value.confirmPassword) {
+            this.userService.create(this.validateForm.value).subscribe((res: any) => {
+                this.toast.success("Đăng ký thành công")
+                this.router.navigate(['/login']);
+              },
+            )
+          } else {
+            this.toast.error('Mật khẩu không khớp')
+          }
         })
-    } else  {
-      this.toast.error('Mật khẩu không khớp')
-    }
+      }
+
+    })
   }
 }

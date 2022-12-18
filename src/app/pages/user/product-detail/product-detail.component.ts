@@ -56,8 +56,8 @@ export class ProductDetailComponent implements OnInit {
       email: ['', [Validators.email,Validators.required]],
       time: ['', [Validators.required]],
       productId : this.productId,
-      sizeId : ['',[Validators.required]],
-      note: ['', [ Validators.required]],
+      sizeId :  this.size.sizeId,
+      note: [null, [ Validators.required]],
       status: "WAIT_CONFIRM",
     });
   }
@@ -123,7 +123,17 @@ export class ProductDetailComponent implements OnInit {
 
   isVisible = false;
   showModal(): void {
-    this.isVisible = true;
+    let quantity: any = this.size.quantity +''
+    if (this.checkedRadio(this.size)){
+      this.isChosseRadio2=true;
+      this.toast.error('Vui lòng chọn size trước!')
+      return
+    } else
+    if(this.input_quantity > quantity) {
+      this.toast.error("Sản phẩm không đủ")
+    } else {
+      this.isVisible = true;
+    }
   }
 
   handleOk(): void {
@@ -137,10 +147,12 @@ export class ProductDetailComponent implements OnInit {
   }
 
   datLichHen(): void {
-    console.log(this.validateForm.value)
-    this.apoimentService.addToCalendar(this.validateForm.value).subscribe((res:any) => {
-      this.toast.success("Đặt lịch thành công")
-    })
+    let quantity: any = this.size.quantity +''
+      this.apoimentService.addToCalendar(this.validateForm.value).subscribe((res:any) => {
+        this.toast.success("Đặt lịch thành công")
+      })
+
+
   }
   onChange(result: Date): void {
     console.log('Selected Time: ', result);
