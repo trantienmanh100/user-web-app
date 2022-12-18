@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import {Category, ICategory} from "../../../shared/models/category.model";
+import {Component, OnInit} from '@angular/core';
+import {Category} from "../../../shared/models/category.model";
 import {CategoryService} from "../../../shared/services/category.service";
-import {IProduct, Product} from "../../../shared/models/product.model";
+import {IProduct} from "../../../shared/models/product.model";
 import {ROUTER_UTILS} from "../../../shared/utils/router.utils";
 import {Router} from "@angular/router";
 import {ProductService} from "../../../shared/services/product.service";
-import {IProductSearchRequest, ProductSearchRequest} from "../../../shared/models/request/product-search-request.model";
+import {
+  IProductSearchRequest,
+  ProductSearchRequest,
+  ProductStatus
+} from "../../../shared/models/request/product-search-request.model";
 import {PAGINATION} from "../../../shared/constants/pagination.constants";
-import {forEach} from "lodash";
 import {Cart} from "../../../shared/models/cart.model";
 import {CartService} from "../../../shared/services/cart.service";
 import {ToastrService} from "ngx-toastr";
-import { LocalStorageService } from 'ngx-webstorage';
+import {LocalStorageService} from 'ngx-webstorage';
 
 @Component({
   selector: 'app-home',
@@ -48,6 +51,7 @@ export class HomeComponent implements OnInit {
 
   loadDataByCategoryAndProduct(categoryId?: string) {
     this.productSearchRequest.categoryId = categoryId;
+    this.productSearchRequest.status = ProductStatus.ACTIVE;
     this.productService.search(this.productSearchRequest).subscribe((response: any) => {
       this.products = response.body?.data;
     });

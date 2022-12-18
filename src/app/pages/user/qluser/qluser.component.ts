@@ -54,7 +54,7 @@ export class QLUserComponent implements OnInit {
     this.users.confirmPassword = this.users.password
     this.userService.update(this.users,id).subscribe((res :any)=>{
       this.users = res.body?.data;
-      this.toast.success('Update thanh cong');
+      this.toast.success('Cập nhật thông tin thành công');
       console.log(this.users)
       this.loadData(id)
     })

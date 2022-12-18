@@ -55,7 +55,6 @@ export class CartListComponent implements OnInit {
   idWard:number = -1;
   addresses:string[] = [];
   isFirst = false;
-  newArray :any =[]
 
   ListProductOrder: any[] =[]
   constructor(
@@ -344,7 +343,10 @@ export class CartListComponent implements OnInit {
         this.paymentService.payment(value).subscribe((res:any) =>{
           window.location.assign(res.body.paymentUrl)
         })
+      } else if( this.pay === PaymentMethod.MONEY){
+
       }
+
     } else {
       this.toast.error('Hãy chọn phương thức thanh toán')
     }
@@ -396,5 +398,36 @@ export class CartListComponent implements OnInit {
         }
       }
     }
+  }
+
+  createOrderPayMoney() : void{
+    const id = this.localStorage.retrieve("profile").userId;
+    const order = {
+      customerMoney: 1,
+      paymentMethod: PaymentMethod.MONEY,
+      transportFee: this.shipMoney,
+      purchaseType: OrderType.ONLINE,
+      status: StatusEnum.CHO_XAC_NHAN,
+      eventId: this.eventId,
+      address: this.localStorage.retrieve("profile").address,
+      userId: id,
+      total: this.total ,
+
+      orderDetailList: this.carts.map((res) => {
+        const price = res.price as number;
+        const productDetail: IProductOrder = {
+          productId: res.productId,
+          quantity: res.amount,
+          price: res.price,
+          sizeId: res.sizeId,
+          total: ((res.amount as number) * price) as number,
+        };
+        return productDetail;
+      }),
+    };
+    this.orderService.createOrder(order).subscribe(() => {
+
+    })
+
   }
 }

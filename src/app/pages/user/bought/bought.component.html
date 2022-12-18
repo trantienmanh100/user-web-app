@@ -15,8 +15,8 @@
           <li><a (click)="showCancel()" >Đã hủy</a></li>
         </ul>
       </div>
-
-      <div class="order" *ngFor="let order of orders">
+      <div *ngIf="nodata ==false ;else nodata1">
+      <div class="order" *ngFor="let order of orders" >
         <div class="product">
           <div class="product__title">
             <h5>Hàng USA chuẩn Javihey</h5>
@@ -55,7 +55,14 @@
           </ng-template>
         </div>
       </div>
+      </div>
     </div>
   </div>
+  <ng-template #nodata1>
+    <div class="order-empty">
+      <img class="img-empty" src="assets/images/order-empty.png">
+      <span>Không có đơn hàng nào</span>
+    </div>
+  </ng-template>
   <app-footer></app-footer>
 </div>

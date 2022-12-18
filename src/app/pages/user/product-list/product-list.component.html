@@ -9,7 +9,7 @@
             class="fas fa-angle-right dropdown" style="position: absolute;top: 27px;left: 90%;"
           ></i
           ></a>
-          <div class="accordion" id="accordionPanelsStayOpenExample">
+          <div class="accordion" id="accordionPanelsStayOpenExample" [formGroup]="form">
             <div class="accordion-item">
               <div class="accordion-header">
                 <button class="accordion-button collapsed" type="button"
@@ -22,7 +22,7 @@
                    aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                 <div class="accordion-body pt-0 grid-container">
                   <div *ngFor="let accessory of accessories">
-                    <input type="checkbox" class="check-box" >
+                    <input type="checkbox" class="check-box" formControlName="accessoryId" >
                     {{accessory.name}}
                   </div>
 
@@ -41,16 +41,16 @@
                    aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                 <div class="accordion-body pt-0 grid-container">
                   <div>
-                    <input type="checkbox" class="check-box"> 0đ - 1.000.000đ
+                    <input type="radio" name="check-box" > 0đ - 1.000.000đ
                   </div>
                   <div>
-                    <input type="checkbox" class="check-box"> 1.000.000đ - 5.000.000đ
+                    <input type="radio"  name="check-box" > 1.000.000đ - 5.000.000đ
                   </div>
                   <div>
-                    <input type="checkbox" class="check-box"> 5.000.000đ - 10.000.000đ
+                    <input type="radio"  name="check-box" > 5.000.000đ - 10.000.000đ
                   </div>
                   <div>
-                    <input type="checkbox" class="check-box"> 10.000.000đ - 20.000.000đ
+                    <input type="radio" name="check-box" > 10.000.000đ - 20.000.000đ
                   </div>
 
                 </div>
@@ -74,7 +74,7 @@
               </div>
             </div>
             <div class="button__search ">
-              <a href="#">Tìm kiếm</a>
+              <a (click)="search()">Tìm kiếm</a>
             </div>
           </div>
         </div>
@@ -111,40 +111,29 @@
       <div class="col-9 body__article">
 
         <div *ngIf="categoryId == ''; else elseBlock">
-          <div  id="header-carousel" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-              <div class="carousel-item active" style="height: 410px;">
-                <img class="img-fluid" src="assets/images/banner2.jpg" alt="Image">
-                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                  <div class="p-3" style="max-width: 700px;">
-                    <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
-                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">Fashionable Dress</h3>
-                    <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
-                  </div>
-                </div>
-              </div>
-              <div class="carousel-item" style="height: 410px;">
-                <img class="img-fluid" src="assets/images/banner1.jpg" alt="Image">
-                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                  <div class="p-3" style="max-width: 700px;">
-                    <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
-                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">Reasonable Price</h3>
-                    <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <a class="carousel-control-prev" href="#header-carousel" data-slide="prev">
-              <div class="btn btn-dark" style="width: 45px; height: 45px;">
-                <span class="carousel-control-prev-icon mb-n2"></span>
-              </div>
-            </a>
-            <a class="carousel-control-next" href="#header-carousel" data-slide="next">
-              <div class="btn btn-dark" style="width: 45px; height: 45px;">
-                <span class="carousel-control-next-icon mb-n2"></span>
-              </div>
-            </a>
-          </div>
+          <mdb-carousel [controls]="true" [indicators]="true" [animation]="'fade'">
+            <mdb-carousel-item >
+              <img
+                src="assets/images/blog3.jpg"
+                class="d-block w-100 images-slider"
+                alt="..."
+              />
+            </mdb-carousel-item>
+            <mdb-carousel-item>
+              <img
+                src="assets/images/banner1.jpg"
+                class="d-block w-100 images-slider"
+                alt="..."
+              />
+            </mdb-carousel-item>
+            <mdb-carousel-item>
+              <img
+                src="https://mdbootstrap.com/img/Photos/Slides/img%20(23).webp"
+                class="d-block w-100 images-slider images-slider"
+                alt="..."
+              />
+            </mdb-carousel-item>
+          </mdb-carousel>
         </div>
         <ng-template #elseBlock>
           <div class="row refineSearch__image refineSearch__image-first">

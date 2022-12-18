@@ -48,11 +48,11 @@
             <label class="col-md-3">Giới tính</label>
             <div class="col-md-6">
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" formControlName="gender" value="MALE" [(ngModel)]="users.gender">
+                <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" formControlName="gender" value="MALE" [(ngModel)]="users.gender">
                 <label class="form-check-label" for="inlineRadio1">Nam</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" formControlName="gender" value="FEMALE" [(ngModel)]="users.gender">
+                <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" formControlName="gender" value="FEMALE" [(ngModel)]="users.gender">
                 <label class="form-check-label" for="inlineRadio2">Nữ</label>
               </div>
             </div>
@@ -88,7 +88,7 @@
               Upload
               <input type="file" name="file" formControlName="imageUrl" [(ngModel)]="users.imageUrl" />
             </div>
-            <p>Dung lượng tối đa 1mb</p>
+            <p>Dung lượng tối đa 5mb</p>
           </div>
         </div>
 

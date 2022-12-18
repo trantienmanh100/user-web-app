@@ -76,7 +76,7 @@ export class PaymentSuccessComponent implements OnInit {
       purchaseType: OrderType.ONLINE,
       status: StatusEnum.CHO_XAC_NHAN,
       eventId: "2b052354-f0a4-4815-8cc6-fb6c957bfa55",
-      address: "NN",
+      address: this.localStorage.retrieve("profile").address,
       userId: id,
       total: this.total ,
 

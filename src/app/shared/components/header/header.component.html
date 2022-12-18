@@ -30,10 +30,10 @@
           <div class="col-md-12 mx-auto">
             <div class="input-group">
               <input class="form-control border-end-0 border" type="search" placeholder="Tìm kiếm"
-                     id="example-search-input">
+                    [(ngModel)]="keywordSearch">
               <span class="input-group-append">
                                     <button class="btn btn-outline-secondary bg-white border-start-0  border ms-n5"
-                                            type="button">
+                                            type="button"  (click)="search()">
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </span>
@@ -46,12 +46,12 @@
           <div class="col-6 ac">
 
             <div class="dropdown">
-              <a class="dropbtn" (click)="showBought()"><img src="assets/images/account.svg" alt="" class="icon">Tài khoản</a>
+              <a class="dropbtn" ><img src="assets/images/account.svg" alt="" class="icon">Tài khoản</a>
               <div class="dropdown-content">
-                <a (click)="showUser()">Thông tin cá nhân</a>
-                <a (click)="showLogin()">Đăng nhập</a>
-                <a (click)="showRegister()">Đăng ký</a>
-                <a (click)="showDangxuat()">Đăng xuất</a>
+                <a (click)="showUser() " *ngIf="isLogin">Thông tin cá nhân</a>
+                <a (click)="showLogin()"*ngIf="!isLogin">Đăng nhập</a>
+                <a (click)="showRegister()"*ngIf="!isLogin">Đăng ký</a>
+                <a (click)="logout() " *ngIf="isLogin">Đăng xuất</a>
               </div>
             </div>
           </div>

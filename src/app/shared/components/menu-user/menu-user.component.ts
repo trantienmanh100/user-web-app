@@ -3,6 +3,8 @@ import {ROUTER_UTILS} from "../../utils/router.utils";
 import {Router} from "@angular/router";
 import {Order} from "../../models/order.model";
 import {OrderService} from "../../services/order.service";
+import {LocalStorageService} from "ngx-webstorage";
+import {IUser} from "../../models/user.model";
 
 @Component({
   selector: 'app-menu-user',
@@ -11,13 +13,17 @@ import {OrderService} from "../../services/order.service";
 })
 export class MenuUserComponent implements OnInit {
   order: Order[] = [];
+  user : IUser = {}
 
   constructor(
     private router: Router,
     private orderService :OrderService,
+    private localStorage :LocalStorageService,
   ) { }
 
   ngOnInit(): void {
+    this.user = this.localStorage.retrieve("profile");
+    console.log(this.user)
   }
   qlAccount():void {
     this.router.navigate([ROUTER_UTILS.qlUser.root])

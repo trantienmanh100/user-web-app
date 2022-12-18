@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnChanges, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {OrderService} from "../../../shared/services/order.service";
 import {IProductOrder, Order, OrderType, PaymentMethod, StatusEnum} from "../../../shared/models/order.model";
@@ -19,6 +19,7 @@ import {ROUTER_UTILS} from "../../../shared/utils/router.utils";
   styleUrls: ['./bought.component.scss']
 })
 export class BoughtComponent implements OnInit {
+  nodata = false;
   orders: Order[] = [];
   status = '';
   userId = this.localStorage.retrieve("profile").userId;
@@ -42,6 +43,9 @@ export class BoughtComponent implements OnInit {
     this.orderService.showByBought(this.status,this.userId).subscribe((res :any) => {
       this.orders = res.body?.data;
     })
+    if(this.orders.length === 0){
+      this.nodata =true;
+    }
   }
 
   showWaitConfirm(): void {
@@ -49,6 +53,7 @@ export class BoughtComponent implements OnInit {
     this.orderService.showByBought(this.status,this.userId).subscribe((res :any) => {
       this.orders = res.body?.data;
     })
+
   }
 
   showConfirmed(): void {
@@ -103,7 +108,7 @@ export class BoughtComponent implements OnInit {
       const order = {
         orderDetailList: Doncu.orderDetailDTOList.map((res:any) => {
           const productDetail: Cart = {
-            userId : 'be2d6163-7979-40fb-a149-dca33bacad1a',
+            userId : this.userId,
             amount :res.quantity,
             productId :res.productId,
             sizeId: res.sizeId

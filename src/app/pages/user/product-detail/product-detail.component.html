@@ -189,12 +189,11 @@
         <div class="row">
           <div class="col-6 body__article--image">
             <img [src]="imageUrl" alt="" class="image--big">
-            <div class="image__small">
+            <div class="image__small" >
               <span class="pre"> <img src="assets/images/pst-prod-prev.svg" alt=""></span>
-              <img src="assets/images/icon11.jpg" alt="">
-              <img src="assets/images/icon2.jpg" alt="">
-              <img src="assets/images/icon3.jpg" alt="">
-              <img src="assets/images/icon4.jpg" alt="">
+              <div class="images-pro"*ngFor="let image of productImages">
+              <img [src]="image.imageUrl" class="image-size" alt="">
+              </div>
               <span class="pre"> <img src="assets/images/pst-prod-next.svg" alt=""></span>
             </div>
 
@@ -321,13 +320,13 @@
 
                   </ng-container>
                 </nz-modal>
-                <div class="product__btn-group">
+<!--                <div class="product__btn-group">-->
 
-                  <a type="" class="wishlist" href="" title="Add to Wish List">
-                    <i class="far fa-heart"></i>Yêu thích</a>
-                  <a type="" class="compare" href="" title="Compare this Product"><i
-                    class="	fas fa-balance-scale"></i>So sánh sản phẩm</a>
-                </div>
+<!--                  <a type="" class="wishlist" href="" title="Add to Wish List">-->
+<!--                    <i class="far fa-heart"></i>Yêu thích</a>-->
+<!--                  <a type="" class="compare" href="" title="Compare this Product"><i-->
+<!--                    class="	fas fa-balance-scale"></i>So sánh sản phẩm</a>-->
+<!--                </div>-->
                 <hr>
 
                 <div class="addthis_toolbox addthis_default_style"

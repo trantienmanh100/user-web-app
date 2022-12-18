@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from "../../../shared/services/product.service";
 import {IProduct} from "../../../shared/models/product.model";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ISize, ISizeProduct} from "../../../shared/models/size.model";
 import {FormGroup, UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
@@ -12,6 +12,8 @@ import {CategoryService} from "../../../shared/services/category.service";
 import {LocalStorageService} from "ngx-webstorage";
 import {ICategorySearchRequest} from "../../../shared/models/request/category-search-request.model";
 import {ApoimentService} from "../../../shared/services/apoiment.service";
+import {ROUTER_UTILS} from "../../../shared/utils/router.utils";
+import {IProductImage, ProductImage} from "../../../shared/models/product-image.model";
 
 @Component({
   selector: 'app-product-detail',
@@ -19,6 +21,7 @@ import {ApoimentService} from "../../../shared/services/apoiment.service";
   styleUrls: ['./product-detail.component.scss']
 })
 export class ProductDetailComponent implements OnInit {
+  isLogin = false;
   isChosseRadio =false;
   isChosseRadio2 =false;
   lengthSize =0;
@@ -33,10 +36,12 @@ export class ProductDetailComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   input_quantity= 1;
   validateForm!: UntypedFormGroup;
+  productImages: ProductImage[] | undefined = [];
 
   constructor(
     private productService : ProductService,
     private router: ActivatedRoute,
+    private router2 : Router,
     private toast: ToastrService,
     private categoryService: CategoryService,
     private cartService : CartService,
@@ -51,6 +56,9 @@ export class ProductDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.localStorage.retrieve("username")){
+      this.isLogin =true;
+    }
     this.loadDataCategory();
     this.loadData(this.productId);
     this.validateForm = this.fb.group({
@@ -81,6 +89,8 @@ export class ProductDetailComponent implements OnInit {
   loadData(id :string): void {
     this.productService.detail(id).subscribe((respone: any)=> {
       this.productDetail =respone.body?.data;
+      console.log(this.productDetail)
+      this.productImages =this.productDetail?.productImages;
       // @ts-ignore
       this.imageUrl = this.productDetail.productImages[0]?.imageUrl;
       // @ts-ignore
@@ -93,6 +103,10 @@ export class ProductDetailComponent implements OnInit {
   }
 
   addToCart(): void {
+    if(!this.isLogin){
+      this.router2.navigate([ROUTER_UTILS.login.root]);
+      this.toast.success("Bạn phải đăng nhập trước")
+    }
     let quantity: any = this.size.quantity +''
     const id = this.localStorage.retrieve("profile").userId;
 

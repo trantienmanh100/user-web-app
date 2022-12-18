@@ -1,6 +1,6 @@
 <div class="user">
   <img src="../../../../../assets/images/User.jpg" alt="" style="height: 40px; width:40px;">
-  <p class="nameuser">Do Duc Toan</p>
+  <p class="nameuser">{{user.fullName}}</p>
 </div>
 <hr>
 <div class="userManager">
@@ -15,10 +15,6 @@
   <div class="userManager__notify flex">
     <img src="../../../../../assets/images/change.png" alt="">
     <p><a (click)="change()">Đổi mật khẩu</a></p>
-  </div>
-  <div class="userManager__voucher flex">
-    <img src="../../../../../assets/images/voucher.png" alt="">
-    <p><a href="">Voucher</a></p>
   </div>
 
 </div>
