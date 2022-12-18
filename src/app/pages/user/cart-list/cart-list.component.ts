@@ -55,6 +55,9 @@ export class CartListComponent implements OnInit {
   idWard:number = -1;
   addresses:string[] = [];
   isFirst = false;
+  newArray :any =[]
+
+  ListProductOrder: any[] =[]
   constructor(
     private fb: FormBuilder,
     private cartService :CartService,

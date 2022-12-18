@@ -42,6 +42,9 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import {PaginationComponent} from "./shared/components/pagination/pagination.component";
 import {NzDropDownModule} from "ng-zorro-antd/dropdown";
 import {BookComponent} from "./pages/user/cart-list/book/book.component";
+import { RegisterComponent } from './pages/user/register/register.component';
+import {NzRadioModule} from "ng-zorro-antd/radio";
+import { DetailComponent } from './pages/user/bought/detail/detail.component';
 
 registerLocaleData(en);
 
@@ -71,6 +74,8 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     LoginComponent,
     BookComponent,
     PaginationComponent
+    RegisterComponent,
+    DetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -104,6 +109,37 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     NzDropDownModule,
     //NgbModule,
   ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        AppRoutingModule,
+        NzRateModule,
+        FormsModule,
+        PipeModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient],
+            },
+            useDefaultLang: true,
+        }),
+        ToastrModule.forRoot({
+            positionClass: 'toast-top-right'
+        }),
+        NzSelectModule,
+        NzModalModule,
+        NzButtonModule,
+        ReactiveFormsModule,
+        NzGridModule,
+        NzFormModule,
+        NzInputModule,
+        NzDatePickerModule,
+        NzRadioModule,
+        //NgbModule,
+    ],
   providers: [
     NzModalService,
     ToastrService,

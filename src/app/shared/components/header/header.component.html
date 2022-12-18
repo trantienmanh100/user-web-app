@@ -9,7 +9,6 @@
           <li><a [routerLink]="'/chinhsach'" data-hover="Chính sách">Chính sách</a></li>
           <li><a href="#" data-hover="Dịch vụ">Dịch vụ</a></li>
           <li><a [routerLink]="'/product/list'" data-hover="Sản phẩm">Sản phẩm</a></li>
-          <li><a [routerLink]="'/book'" data-hover="Đặt lịch">Đặt lịch</a></li>
 
         </ul>
       </nav>
@@ -46,7 +45,15 @@
         <div class="row">
           <div class="col-6 ac">
 
-            <a (click)="showBought()"><img src="assets/images/account.svg" alt="" class="icon">Tài khoản</a>
+            <div class="dropdown">
+              <a class="dropbtn" (click)="showBought()"><img src="assets/images/account.svg" alt="" class="icon">Tài khoản</a>
+              <div class="dropdown-content">
+                <a (click)="showUser()">Thông tin cá nhân</a>
+                <a (click)="showLogin()">Đăng nhập</a>
+                <a (click)="showRegister()">Đăng ký</a>
+                <a (click)="showDangxuat()">Đăng xuất</a>
+              </div>
+            </div>
           </div>
           <div class="col-6 lineDoc">
             <a (click)="showCart()"> <img src="assets/images/header-cart.svg" alt="" class="icon"> Giỏ hàng</a>

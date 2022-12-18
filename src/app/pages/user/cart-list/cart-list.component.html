@@ -8,7 +8,6 @@
         <table class="table shopping-summery">
           <thead>
           <tr class="main-hading">
-            <th>Chọn</th>
             <th>Hình ảnh</th>
             <th>Sản phẩm</th>
             <th>Kích thước</th>
@@ -20,7 +19,6 @@
           </thead>
           <tbody>
           <tr *ngFor="let cart of carts">
-            <td> <input type="checkbox" value={{cart.cartDetailId}} (change)="loadCheckbox($event, cart)"/></td>
 <!--            <app-book [listProduct] = "array"></app-book>-->
             <td class="image" data-title="No"><img [src]="cart.image" alt="#"></td>
             <td class="product-des" data-title="Description">

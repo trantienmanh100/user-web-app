@@ -8,6 +8,9 @@ import {TranslateService} from "@ngx-translate/core";
 import {NzModalRef, NzModalService} from "ng-zorro-antd/modal";
 import {result} from "lodash";
 import {LocalStorageService} from "ngx-webstorage";
+import {CartService} from "../../../shared/services/cart.service";
+import {Cart} from "../../../shared/models/cart.model";
+import {ROUTER_UTILS} from "../../../shared/utils/router.utils";
 
 
 @Component({
@@ -25,6 +28,7 @@ export class BoughtComponent implements OnInit {
     private toast : ToastrService,
     private translateService: TranslateService,
     private modalService: NzModalService,
+    private cartService : CartService,
     private localStorage : LocalStorageService
 
   ) { }
@@ -94,52 +98,27 @@ export class BoughtComponent implements OnInit {
   }
 
   muaLaiDonHang(id : any) {
-    const muaLai =CommonUtil.modalConfirm(
-      this.translateService,
-      'Mua lại đơn hàng',
-      'Bạn có muốn mua lại đơn hàng này không',
-      {name: 'a'}
-    )
-    const modal: NzModalRef =this.modalService.create(muaLai);
-    modal.afterClose.subscribe((result:{success: boolean; data: any}) =>{
-      if(result?.success){
-        this.orderService.findOne(id).subscribe((res:any)=> {
-          console.log(res.body?.data)
-          const Doncu = res.body?.data
-          const order = {
-            customerMoney: 1,
-            paymentMethod: PaymentMethod.CARD,
-            transportFee: 1,
-            purchaseType: OrderType.ONLINE,
-            status: StatusEnum.CHO_XAC_NHAN,
-            eventId: Doncu.eventId,
-            address: Doncu.address,
-            userId: Doncu.userId,
-            total: Doncu.total,
-            orderDetailList: Doncu.orderDetailDTOList.map((res:any) => {
-              const price = res.price as number;
-              const productDetail: IProductOrder = {
-                productId: res.productId,
-                quantity: res.quantity,
-                price: res.price,
-                sizeId: res.sizeId,
-                total: ((res.amount as number) * price) as number,
-              };
-              return productDetail;
-            }),
+    this.orderService.findOne(id).subscribe((res:any)=> {
+      const Doncu = res.body?.data
+      const order = {
+        orderDetailList: Doncu.orderDetailDTOList.map((res:any) => {
+          const productDetail: Cart = {
+            userId : 'be2d6163-7979-40fb-a149-dca33bacad1a',
+            amount :res.quantity,
+            productId :res.productId,
+            sizeId: res.sizeId
           };
-          console.log(Doncu)
-          this.orderService.createOrder(order).subscribe(() => {
-            this.toast.success("Đặt hàng lại thành công")
+          this.cartService.addToCart(productDetail).subscribe(()=>{
+            this.router.navigate(['/cart/list'])
+
           })
-        })
-      }
+        }),
+      };
     })
   }
 
   showChiTiet(id : any){
-
-
+    this.router.navigate([ROUTER_UTILS.detail.root,id,'detail'])
   }
 
 }

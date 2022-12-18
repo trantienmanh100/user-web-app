@@ -58,4 +58,5 @@ export class BookComponent implements OnInit {
       this.listProduct=  localData
     }
   }
+
 }

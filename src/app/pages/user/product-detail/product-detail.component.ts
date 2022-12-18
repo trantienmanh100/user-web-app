@@ -3,7 +3,7 @@ import {ProductService} from "../../../shared/services/product.service";
 import {IProduct} from "../../../shared/models/product.model";
 import {ActivatedRoute} from "@angular/router";
 import {ISize, ISizeProduct} from "../../../shared/models/size.model";
-import {FormGroup} from "@angular/forms";
+import {FormGroup, UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 import {Cart} from "../../../shared/models/cart.model";
 import {CartService} from "../../../shared/services/cart.service";
@@ -11,6 +11,7 @@ import {Category} from "../../../shared/models/category.model";
 import {CategoryService} from "../../../shared/services/category.service";
 import {LocalStorageService} from "ngx-webstorage";
 import {ICategorySearchRequest} from "../../../shared/models/request/category-search-request.model";
+import {ApoimentService} from "../../../shared/services/apoiment.service";
 
 @Component({
   selector: 'app-product-detail',
@@ -31,12 +32,17 @@ export class ProductDetailComponent implements OnInit {
   totalQuantity =0;
   form: FormGroup = new FormGroup({});
   input_quantity= 1;
+  validateForm!: UntypedFormGroup;
+
   constructor(
     private productService : ProductService,
     private router: ActivatedRoute,
     private toast: ToastrService,
     private categoryService: CategoryService,
     private cartService : CartService,
+    private apoimentService : ApoimentService,
+    private fb: UntypedFormBuilder,
+
     private localStorage : LocalStorageService
   ) {
     this.router.paramMap.subscribe((res) => {
@@ -45,18 +51,26 @@ export class ProductDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadDataCategory('');
+    this.loadDataCategory();
     this.loadData(this.productId);
+    this.validateForm = this.fb.group({
+      userName: ['', [Validators.required]],
+      phoneNumber: ['', [Validators.required, Validators.maxLength(11)]],
+      email: ['', [Validators.email,Validators.required]],
+      time: ['', [Validators.required]],
+      productId : this.productId,
+      sizeId : ['',[Validators.required]],
+      note: ['', [ Validators.required]],
+      status: "WAIT_CONFIRM",
+    });
   }
 
-  loadDataCategory(keyword: any,loading = false): void {
-    const options = {
-      keyword
-    };
-    this.categoryService.searchCategoriesAutoComplete( options, true).subscribe(
+  loadDataCategory(): void {
+    this.categoryService.searchCategoriesAutoComplete( true).subscribe(
       (response: any) => {
         const data = response?.body?.data;
         this.categories = data;
+        console.log(this.categories)
       },
       (error: any) => {
         this.categories = [];
@@ -67,8 +81,6 @@ export class ProductDetailComponent implements OnInit {
   loadData(id :string): void {
     this.productService.detail(id).subscribe((respone: any)=> {
       this.productDetail =respone.body?.data;
-      console.log(respone)
-      console.log(this.productDetail)
       // @ts-ignore
       this.imageUrl = this.productDetail.productImages[0]?.imageUrl;
       // @ts-ignore
@@ -117,4 +129,36 @@ export class ProductDetailComponent implements OnInit {
     return this.isChosseRadio
   }
 
+  isVisible = false;
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    console.log('Button ok clicked!');
+    this.isVisible = false;
+  }
+
+  handleCancel(): void {
+    console.log('Button cancel clicked!');
+    this.isVisible = false;
+  }
+
+  datLichHen(): void {
+    console.log(this.validateForm.value)
+    this.apoimentService.addToCalendar(this.validateForm.value).subscribe((res:any) => {
+      this.toast.success("Đặt lịch thành công")
+    })
+  }
+  onChange(result: Date): void {
+    console.log('Selected Time: ', result);
+  }
+
+  onOk(result: Date | Date[] | null): void {
+    console.log('onOk', result);
+  }
+
+  onCalendarChange(result: Array<Date | null>): void {
+    console.log('onCalendarChange', result);
+  }
 }

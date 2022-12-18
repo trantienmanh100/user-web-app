@@ -253,8 +253,74 @@
                 <label class="control-label qty" for="input-quantity">Số lượng</label>
                 <input type="number" name="quantity" [(ngModel)]="input_quantity" min="1" max="{{size.quantity}}" id="input-quantity"
                        class="form-quantity">
-                <a type="" id="button-cart" data-loading-text="Loading..." class="btn"(click)="addToCart()" >Thêm giỏ hàng</a>
+                <a type="" id="button-cart" data-loading-text="Loading..." class="btn" (click)="addToCart()" >Thêm giỏ hàng</a>
                 <span> - Hoặc - </span>
+                <a type="" id="button-cart" class="btn" (click)="showModal()" data-loading-text="Loading..." >Đặt lịch hẹn</a>
+                <nz-modal [(nzVisible)]="isVisible" nzTitle="Đặt lịch hẹn" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+                  <ng-container *nzModalContent>
+                    <form [formGroup]="validateForm" (ngSubmit)="datLichHen()">
+                      <nz-form-item>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="userName"> Họ và tên</nz-form-label>
+                        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Họ và tên trống">
+                          <input nz-input formControlName="userName" id="userName" type="text" />
+                        </nz-form-control>
+                      </nz-form-item>
+                      <nz-form-item>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="phoneNumber"> Số điện thoại</nz-form-label>
+                        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Số điện thoại trống">
+                          <input nz-input formControlName="phoneNumber" id="phoneNumber" type="text" />
+                        </nz-form-control>
+                      </nz-form-item>
+                      <nz-form-item>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email"> Email</nz-form-label>
+                        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Email trống">
+                          <input nz-input formControlName="email" id="email" type="text" />
+                        </nz-form-control>
+                      </nz-form-item>
+                      <nz-form-item>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="date">Ngày hẹn</nz-form-label>
+                        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Ngày hẹn trống">
+
+                          <input  type="datetime-local" formControlName="time" id="time"/>
+                        </nz-form-control>
+                      </nz-form-item>
+                      <nz-form-item>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="tensap">Tên sản phẩm</nz-form-label>
+                        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Họ và tên trống">
+                          <input nz-input id="tensap" type="text" value="{{productDetail.nameProduct}}" />
+                        </nz-form-control>
+                      </nz-form-item>
+                      <nz-form-item>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="tensap">Kích thước</nz-form-label>
+                        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Họ và tên trống">
+                          <nz-radio-group  formControlName="sizeId">
+                            <label nz-radio nzValue="{{s.sizeId}}" *ngFor="let s of sizes">{{s.size}}</label>
+                          </nz-radio-group>
+                        </nz-form-control>
+
+                      </nz-form-item>
+
+                      <nz-form-item>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="code">Code sản phẩm</nz-form-label>
+                        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Họ và tên trống">
+                          <input nz-input  id="code" type="text" value="{{productDetail.code}}"  disabled/>
+                        </nz-form-control>
+                      </nz-form-item>
+                      <nz-form-item>
+                        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="note">Ghi chú</nz-form-label>
+                        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Ghi chú trống ">
+                          <textarea rows="4" nz-input formControlName="note"></textarea>
+                        </nz-form-control>
+                      </nz-form-item>
+                      <nz-form-item nz-row class="register-area">
+                        <nz-form-control >
+                          <button nz-button nzType="primary" style="display: flex; align-items: center; margin: 20px auto auto; padding: 20px 50px; background: #F3AE7E; border-radius: 20px; border: 1px solid #F3AE7E">Đặt lịch</button>
+                        </nz-form-control>
+                      </nz-form-item>
+                    </form>
+
+                  </ng-container>
+                </nz-modal>
                 <div class="product__btn-group">
 
                   <a type="" class="wishlist" href="" title="Add to Wish List">
