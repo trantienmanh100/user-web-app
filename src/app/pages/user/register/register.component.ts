@@ -22,7 +22,8 @@ export class RegisterComponent implements OnInit {
   idWard:number = -1;
   addresses:string[] = [];
   isFirst = false;
-
+   checkUser:[] = []
+  customer: IUser = {}
 constructor(
     private toast: ToastrService,
     private userService : UserService,
@@ -36,7 +37,6 @@ constructor(
     this.countryService.province().subscribe((res:any)=>{
       this.province = res.data;
     })
-    let addressDetail = '';
 
     this.validateForm = this.fb.group({
       userName: ['', [Validators.required]],
@@ -49,12 +49,7 @@ constructor(
       confirmPassword: ['', [Validators.required]],
       role: "CUSTOMER",
       cccd: [' '],
-      addressDetail: [
-        addressDetail,
-        [
-          Validators.required,
-        ],
-      ],
+      addressDetail: ['', [Validators.required]],
       province: [
         this.getCodeProvince( this.addresses  ?   this.addresses [ this.addresses .length - 1] : '' ) ,
         [
@@ -79,45 +74,20 @@ constructor(
 
   Dangky():void {
     this.userService.findCustomer().subscribe((res: any) => {
-      const checkUser:[] = res.body?.data
-      const customer: IUser = {
+      this.checkUser = res.body?.data
+      this.customer = {
         ...this.validateForm.value,
         address :this.validateForm.get('addressDetail')?.value +", " +this.getStringWard()+", " + this.getStringDistrcit() +", " + this.getStringpProvince()
       }
-      if(checkUser.length == 0) {
-        if (customer.password === customer.confirmPassword) {
-          this.userService.create(customer).subscribe((res: any) => {
-              this.toast.success("Đăng ký thành công")
-              this.router.navigate(['/login']);
-            },
-          )
-        } else {
-          this.toast.error("'Mật khẩu không khớp")
-        }
-      } else {
-        checkUser.map((res:any) => {
-          if(res.userName == customer.userName) {
-            this.toast.error("Tên đăng nhập đã tồn tại")
-            return;
-          } else if ( res.phoneNumber == customer.phoneNumber){
-            this.toast.error("Số điện thoại đã tồn tại")
-            return;
-          } else if (res.email == customer.email){
-            this.toast.error("Email đã tồn tại")
-            return;
-          }  else if (customer.password === customer.confirmPassword) {
-            this.userService.create(customer).subscribe((res: any) => {
-                this.toast.success("Đăng ký thành công")
-                this.router.navigate(['/login']);
-              },
-            )
-          } else {
-            this.toast.error('Mật khẩu không khớp')
-          }
-        })
-      }
 
-    })
+      this.userService.create(this.customer).subscribe((value: any) => {
+          this.toast.success("Đăng ký thành công")
+          this.router.navigate(['/login']);
+        }, (error:any) => {
+          this.toast.error(error.error.message);
+        }
+      )
+        })
   }
 
   getDistrist(provinceID:number){

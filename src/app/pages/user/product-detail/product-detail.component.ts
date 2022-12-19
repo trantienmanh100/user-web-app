@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from "../../../shared/services/product.service";
 import {IProduct} from "../../../shared/models/product.model";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ISize, ISizeProduct} from "../../../shared/models/size.model";
 import {FormGroup, UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
@@ -10,6 +10,9 @@ import {CartService} from "../../../shared/services/cart.service";
 import {Category} from "../../../shared/models/category.model";
 import {CategoryService} from "../../../shared/services/category.service";
 import {ApoimentService} from "../../../shared/services/apoiment.service";
+import {IProductSearchRequest} from "../../../shared/models/request/product-search-request.model";
+import {PAGINATION} from "../../../shared/constants/pagination.constants";
+import {ROUTER_UTILS} from "../../../shared/utils/router.utils";
 
 @Component({
   selector: 'app-product-detail',
@@ -31,10 +34,17 @@ export class ProductDetailComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   input_quantity= 1;
   validateForm!: UntypedFormGroup;
+  productSearchRequest: IProductSearchRequest = {
+    pageIndex: PAGINATION.PAGE_DEFAULT,
+    pageSize: PAGINATION.SIZE_DEFAULT,
+  };
 
+  products :IProduct[] =[]
   constructor(
     private productService : ProductService,
     private router: ActivatedRoute,
+    private routerR: Router,
+
     private toast: ToastrService,
     private categoryService: CategoryService,
     private cartService : CartService,
@@ -78,6 +88,14 @@ export class ProductDetailComponent implements OnInit {
   loadData(id :string): void {
     this.productService.detail(id).subscribe((respone: any)=> {
       this.productDetail =respone.body?.data;
+
+        this.productSearchRequest.categoryId = this.productDetail.categoryId;
+        this.productService.search(this.productSearchRequest).subscribe((response: any) => {
+          this.products = response.body?.data;
+
+        });
+
+      console.log(this.productDetail)
       // @ts-ignore
       this.imageUrl = this.productDetail.productImages[0]?.imageUrl;
       // @ts-ignore
@@ -164,5 +182,8 @@ export class ProductDetailComponent implements OnInit {
 
   onCalendarChange(result: Array<Date | null>): void {
     console.log('onCalendarChange', result);
+  }
+  showProductDetail(product: IProduct): void {
+    this.routerR.navigate([ROUTER_UTILS.product.root, product.productId, 'detail']);
   }
 }
