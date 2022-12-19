@@ -78,19 +78,6 @@
         </nz-form-item>
 
         <nz-form-item>
-          <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired nzFor="address">Địa chỉ</nz-form-label>
-          <nz-form-control [nzSm]="10" [nzXs]="24" >
-            <input nz-input formControlName="address"  type="text" id="address" />
-            <ng-container *ngIf="validateForm.get('address')?.touched || validateForm.get('address')?.dirty ">
-              <span class="text__red" *ngIf="validateForm.get('address')?.hasError('required')">
-                <small>{{'Địa chỉ trống'}}</small>
-              </span>
-            </ng-container>
-          </nz-form-control>
-        </nz-form-item>
-
-
-        <nz-form-item>
           <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired nzFor="password">Mật khẩu</nz-form-label>
           <nz-form-control [nzSm]="10" [nzXs]="24" >
             <input nz-input formControlName="password"  type="text" id="password" />
@@ -120,6 +107,105 @@
           </nz-form-control>
         </nz-form-item>
       </form>
+    </div>
+
+
+    <div class="row">
+      <div class="col-12">
+        <!-- Total Amount -->
+        <div class="total-amount">
+
+          <div class="row ">
+            <div class="col-lg-8 col-md-5 col-12">
+              <div class="row">
+
+                <div class="left">
+                  <div class="coupon">
+                    <form [formGroup]="validateForm" action="#" target="_blank">
+                      <div class="row">
+                        <div class="col-4 mb-2">
+
+                          <nz-select
+                            formControlName="ward"
+                            nzBorderless
+                            removeOptionTitle
+                            nzPlaceHolder="{{
+                              'Phường,Xã'
+                            }}"
+                          >
+                            <nz-option
+                              *ngFor="let item of this.ward"
+                              [nzLabel]="item.WardName"
+                              [nzValue]="item.WardCode"
+                            >
+
+                            </nz-option>
+                          </nz-select>
+                        </div>
+                        <div class="col-4 mb-2">
+
+                          <nz-select
+                            formControlName="district"
+                            removeOptionTitle
+                            nzBorderless
+                            (ngModelChange)="getWard($event)"
+                            nzPlaceHolder="{{
+                                'Quận,Huyện'
+                              }}"
+                          >
+                            <nz-option
+                              *ngFor="let item of this.distrist"
+                              [nzLabel]="item.DistrictName"
+                              [nzValue]="item.DistrictID"
+                            >
+
+                            </nz-option>
+                          </nz-select>
+
+                        </div>
+
+                        <div class="col-4 mb-2">
+                          <nz-select
+                            nzBorderless
+                            formControlName="province"
+                            (ngModelChange)="this.getDistrist($event)"
+                            nzPlaceHolder="{{
+                               'Tỉnh,Thành phố'
+                              }}"
+                          >
+
+                            <ng-container *ngFor="let item of province">
+                              <nz-option   [nzLabel]="item.ProvinceName"
+                                           [nzValue]="item.ProvinceID"></nz-option>
+                            </ng-container>
+                          </nz-select>
+                        </div>
+                        <div class="col-lg-12 col-md-5">
+                          <textarea nz-input cols="30" rows="5"formControlName="addressDetail" placeholder="Địa chỉ chi tiết"></textarea>
+                          <ng-container
+                            *ngIf="validateForm.get('addressDetail')?.touched || validateForm.get('addressDetail')?.dirty"
+                          >
+                        <span
+                          class="text-danger"
+                          *ngIf="validateForm.get('addressDetail')?.hasError('addressDetail')"
+                        >
+                          Địa chỉ chi tiết không để trống
+                        </span>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+        <!--/ End Total Amount -->
+      </div>
     </div>
   </div>
 </div>
