@@ -26,7 +26,7 @@ export class ProductService extends AbstractService {
     params?: ProductSearchRequest,
     loading = false
   ): Observable<EntityResponseType<IProduct[]>> {
-    return super.get<IProduct>(`${this.resourceUrl}`,{params ,loading});
+    return super.get<IProduct>(`${this.resourceUrl}/search`,{params ,loading});
   }
 
   create(dish: IProduct): Observable<EntityResponseType<IProduct>> {

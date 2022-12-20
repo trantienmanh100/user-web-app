@@ -344,7 +344,7 @@ export class CartListComponent implements OnInit {
           window.location.assign(res.body.paymentUrl)
         })
       } else if( this.pay === PaymentMethod.MONEY){
-
+        this.createOrderPayMoney();
       }
 
     } else {

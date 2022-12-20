@@ -14,6 +14,7 @@ import {AccessorySearchRequest} from "../../../shared/models/request/accessory-s
 import {Size} from "../../../shared/models/size.model";
 import {SizeService} from "../../../shared/services/size.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {Checkbox} from "../../../shared/models/checkbox-options..model";
 
 @Component({
   selector: 'app-product-list',
@@ -21,6 +22,11 @@ import {FormBuilder, FormGroup} from "@angular/forms";
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit {
+  priceRange!: string;
+  checkOptions: Checkbox[]=[] ;
+  checkboxSize: Checkbox []=[];
+  accessoryIds: string[] =[];
+  sizeIds: string[] =[];
   form: FormGroup = new FormGroup({});
   products: Product[] = [];
   size : Size[] =[];
@@ -84,7 +90,9 @@ export class ProductListComponent implements OnInit {
     }
     this.accessoryService.search(params).subscribe((res:any) => {
       this.accessories = res.body?.data;
+      this.checkOptions = this.accessories.map(data=>new Checkbox(data.accessoryId,data.name));
     })
+
   }
   loadSize(){
     this.sizeService.autoComplete(true).subscribe((res:any) => {
@@ -96,7 +104,6 @@ export class ProductListComponent implements OnInit {
   loadNameCate(){
     this.categoryService.findByCategoryId(this.categoryId+'').subscribe((res:any) => {
       this.categoryById = res.body?.data;
-      console.log(this.categoryById)
     })
   }
 
@@ -114,6 +121,7 @@ export class ProductListComponent implements OnInit {
     this.productSearchRequest.pageIndex = pageIndex;
     this.productSearchRequest.pageSize = pageSize;
     this.productSearchRequest.sortBy = sortBy;
+    this.productSearchRequest.status = ProductStatus.ACTIVE;
     this.productService
       .search(this.productSearchRequest)
       .subscribe((response: any) => {
@@ -150,17 +158,70 @@ export class ProductListComponent implements OnInit {
   }
 
   search() {
-    console.log(this.form)
-    this.productSearchRequest.accessoryId = this.form.get('accessoryId')?.value;
+    this.productSearchRequest.accessoryId = this.accessoryIds;
     this.productSearchRequest.categoryId = this.form.get('categoryId')?.value;
-    // this.productSearchRequest.endPrice = this.form.get('endPrice')?.value;
     this.productSearchRequest.gender = this.form.get('gender')?.value;
     this.productSearchRequest.keyword = this.form.get('keyword')?.value;
     this.productSearchRequest.materialId = this.form.get('materialId')?.value;
-    // this.productSearchRequest.startPrice = this.form.get('startPrice')?.value;
     this.productSearchRequest.status = this.form.get('status')?.value;
     // this.productSearchRequest.vendorId = this.form.get('vendorId')?.value;
     console.log(this.productSearchRequest)
     this.loadData(this.pageIndex, this.pageSize);
   }
+  //search theo accessory
+  checkbox(value: object[]): void {
+    this.accessoryIds = [];
+    value.forEach((value)=>{
+      // @ts-ignore
+      if(value.checked){
+       // @ts-ignore
+        this.accessoryIds.push(value.value);
+      }
+    })
+  }
+  initCheckboxSize(value: object[]): void {
+    this.sizeIds = [];
+    value.forEach((value)=>{
+      // @ts-ignore
+      if(value.checked){
+        // @ts-ignore
+        this.sizeIds.push(value.value);
+      }
+    })
+  }
+
+  radioPrice(priceRange: string){
+
+    switch (priceRange) {
+      case '1':
+        this.productSearchRequest.startPrice = 0;
+        this.productSearchRequest.endPrice= 1000000;
+        break;
+      case '2':
+        this.productSearchRequest.startPrice = 1000000;
+        this.productSearchRequest.endPrice= 5000000;
+        break;
+      case '3':
+        this.productSearchRequest.startPrice = 5000000;
+        this.productSearchRequest.endPrice= 10000000;
+        break;
+      case '4':
+        this.productSearchRequest.startPrice = 1000000;
+        this.productSearchRequest.endPrice= 20000000;
+        break;
+
+    }
+  }
+
+  resetSearch(){
+    this.form.reset();
+    this.priceRange= '';
+    this.productSearchRequest = {};
+    this.pageIndex = PAGINATION.PAGE_DEFAULT;
+    this.pageSize = PAGINATION.SIZE_DEFAULT;
+    this.loadAccessory();
+    this.loadData(this.pageIndex, this.pageSize);
+  }
+
+
 }

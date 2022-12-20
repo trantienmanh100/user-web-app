@@ -9,23 +9,19 @@
             class="fas fa-angle-right dropdown" style="position: absolute;top: 27px;left: 90%;"
           ></i
           ></a>
-          <div class="accordion" id="accordionPanelsStayOpenExample" [formGroup]="form">
+          <div class="accordion" id="accordionPanelsStayOpenExample" >
             <div class="accordion-item">
               <div class="accordion-header">
                 <button class="accordion-button collapsed" type="button"
                         data-bs-toggle="collapse" data-bs-target="#collapseThree"
                         aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
-                  Chất liệu
+                  Phụ kiện
                 </button>
               </div>
               <div id="collapseThree" class="accordion-collapse collapse show"
                    aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                 <div class="accordion-body pt-0 grid-container">
-                  <div *ngFor="let accessory of accessories">
-                    <input type="checkbox" class="check-box" formControlName="accessoryId" >
-                    {{accessory.name}}
-                  </div>
-
+                  <nz-checkbox-group class="checkbox-data" [(ngModel)]="checkOptions" (ngModelChange)="checkbox(checkOptions)"></nz-checkbox-group>
                 </div>
               </div>
             </div>
@@ -40,18 +36,12 @@
               <div id="collapseThree1" class="accordion-collapse collapse show"
                    aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                 <div class="accordion-body pt-0 grid-container">
-                  <div>
-                    <input type="radio" name="check-box" > 0đ - 1.000.000đ
-                  </div>
-                  <div>
-                    <input type="radio"  name="check-box" > 1.000.000đ - 5.000.000đ
-                  </div>
-                  <div>
-                    <input type="radio"  name="check-box" > 5.000.000đ - 10.000.000đ
-                  </div>
-                  <div>
-                    <input type="radio" name="check-box" > 10.000.000đ - 20.000.000đ
-                  </div>
+                  <nz-radio-group [(ngModel)]="priceRange" (ngModelChange)="radioPrice(priceRange)">
+                    <label nz-radio nzValue="1">0đ - 1.000.000đ</label>
+                    <label nz-radio nzValue="2">1.000.000đ - 5.000.000đ</label>
+                    <label nz-radio nzValue="3">5.000.000đ - 10.000.000đ</label>
+                    <label nz-radio nzValue="4">10.000.000đ - 20.000.000đ</label>
+                  </nz-radio-group>
 
                 </div>
               </div>
@@ -67,15 +57,17 @@
               <div id="collapseThree2" class="accordion-collapse collapse show"
                    aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                 <div class="accordion-body pt-0 grid-container">
-                  <div *ngFor="let s of size">
-                    <input type="checkbox" class="check-box"> {{s.size}}
-                  </div>
+                  <nz-checkbox-group class="checkbox-data" [(ngModel)]="checkboxSize" (ngModelChange)="checkbox(checkboxSize)"></nz-checkbox-group>
                 </div>
               </div>
             </div>
             <div class="button__search ">
               <a (click)="search()">Tìm kiếm</a>
             </div>
+            <div class="button__search ">
+              <a (click)="resetSearch()">Reset</a>
+            </div>
+
           </div>
         </div>
 
@@ -150,7 +142,7 @@
           </div>
           <div class="row refineSearch__image">
             <div class="col-xs-3 col-sm-2 col-md-3 col-lg-2 col-xl-2 " >
-              <button class="button-cate" (click)="loadDataByCategory()">All</button>
+              <button class="button-cate" (click)="loadDataByCategory()">Tất cả</button>
             </div>
 
             <div class="col-xs-3 col-sm-2 col-md-3 col-lg-2 col-xl-2 " *ngFor="let cate of categories">

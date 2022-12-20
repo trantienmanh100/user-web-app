@@ -8,7 +8,7 @@ export interface IProductSearchRequest {
   sortBy?: string;
   keyword?: string;
   categoryId?: string;
-  accessoryId?: string;
+  accessoryId?: string[];
   materialId?: string;
   status?: ProductStatus;
   gender?: ProductGender;
@@ -24,7 +24,7 @@ export class ProductSearchRequest implements IProductSearchRequest {
     public sortBy?: string,
     public  keyword?: string,
     public  categoryId?: string,
-    public accessoryId?: string,
+    public accessoryId?: string[],
     public  materialId?: string,
     public status?: ProductStatus,
     public gender?: ProductGender,

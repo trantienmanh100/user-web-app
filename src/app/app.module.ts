@@ -46,6 +46,7 @@ import { RegisterComponent } from './pages/user/register/register.component';
 import {NzRadioModule} from "ng-zorro-antd/radio";
 import { DetailComponent } from './pages/user/bought/detail/detail.component';
 import {MdbCarouselModule} from "mdb-angular-ui-kit/carousel";
+import {NzCheckboxModule} from "ng-zorro-antd/checkbox";
 
 registerLocaleData(en);
 
@@ -78,40 +79,41 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     RegisterComponent,
     DetailComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    AppRoutingModule,
-    NzRateModule,
-    FormsModule,
-    NgxWebstorageModule.forRoot(),
-    PipeModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
-      useDefaultLang: true,
-    }),
-    ToastrModule.forRoot({
-      positionClass: 'toast-top-right'
-    }),
-    NzSelectModule,
-    NzModalModule,
-    NzButtonModule,
-    ReactiveFormsModule,
-    NzGridModule,
-    NzFormModule,
-    NzInputModule,
-    NzDatePickerModule,
-    NzDropDownModule,
-    NzRadioModule,
-    MdbCarouselModule,
-    //NgbModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        AppRoutingModule,
+        NzRateModule,
+        FormsModule,
+        NgxWebstorageModule.forRoot(),
+        PipeModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient],
+            },
+            useDefaultLang: true,
+        }),
+        ToastrModule.forRoot({
+            positionClass: 'toast-top-right'
+        }),
+        NzSelectModule,
+        NzModalModule,
+        NzButtonModule,
+        ReactiveFormsModule,
+        NzGridModule,
+        NzFormModule,
+        NzInputModule,
+        NzDatePickerModule,
+        NzDropDownModule,
+        NzRadioModule,
+        MdbCarouselModule,
+        NzCheckboxModule,
+        //NgbModule,
+    ],
   providers: [
     NzModalService,
     ToastrService,

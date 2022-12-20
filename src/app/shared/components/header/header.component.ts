@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
     }
   }
   search(){
-      this.router.navigate([ROUTER_UTILS.product.list ]);
+      this.router.navigate([ROUTER_UTILS.product.list, ]);
   }
   showBought(): void {
     //Do Something

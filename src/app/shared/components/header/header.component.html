@@ -29,11 +29,11 @@
         <div class="row">
           <div class="col-md-12 mx-auto">
             <div class="input-group">
-              <input class="form-control border-end-0 border" type="search" placeholder="Tìm kiếm"
+              <input #keyword class="form-control border-end-0 border" type="search" placeholder="Tìm kiếm"
                     [(ngModel)]="keywordSearch">
               <span class="input-group-append">
                                     <button class="btn btn-outline-secondary bg-white border-start-0  border ms-n5"
-                                            type="button"  (click)="search()">
+                                            type="button" (click)="search()">
                                         <i class="fa fa-search"></i>
                                     </button>
                                 </span>
