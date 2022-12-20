@@ -137,7 +137,6 @@ export class CartListComponent implements OnInit {
           }
         });
         }
-
         if(this.carts === null){
           this.nodata = true;
         }
@@ -145,6 +144,7 @@ export class CartListComponent implements OnInit {
       }
 
     })
+
   }
   loadEvent(): void {
     this.eventService.getAll().subscribe((res: any) => {
@@ -165,10 +165,7 @@ export class CartListComponent implements OnInit {
        this.ward = res.data;
        this.form.get('ward')?.setValue(this.getCodeWard(this.addresses  ?   this.addresses [ this.addresses .length - 3] : '' ))
        this.chargeShipping(this.total)
-
-
       })
-
   }
   getStringWard(){
     const ward = this.form.get('ward')?.value;
@@ -249,6 +246,7 @@ export class CartListComponent implements OnInit {
       if (cart?.cartDetailId != null) {
         const userId = this.localStorage.retrieve("profile").userId;
         this.loadData(userId);
+        this.chargeShipping(this.total);
       }
     })
   }
@@ -261,6 +259,7 @@ export class CartListComponent implements OnInit {
       if (cart?.cartDetailId != null) {
         const userId = this.localStorage.retrieve("profile").userId;
         this.loadData(userId);
+        this.chargeShipping(this.total);
       }
     })
   }
@@ -316,39 +315,39 @@ export class CartListComponent implements OnInit {
           this.cartService.chargeShipping(this.ship).subscribe((respone) =>{
            this.shipMoney = respone.data.total;
          })
-
-
     })
 
   }
 
   createOrder(): void {
-
-    if (this.pay != null) {
-      if ( this.pay === PaymentMethod.CARD) {
-        console.log(this.shipMoney)
-        localStorage.setItem('shipMoney', this.shipMoney);
-        localStorage.setItem('online', 'online');
-        const value = {
-          amount : this.total - (this.total * this.discount/100) +this.shipMoney,
-          backcode: 'NCB',
-          txt_inv_addr1: 'PHU THO',
-          txt_bill_city: 'Thanh Pho Viet Tri',
-          txt_inv_mobile: '0387387993',
-          txt_inv_country: 'VN',
-          txt_inv_email: 'ducd@gmail.com',
-          txt_billing_fullname: 'Hoa Don Cua Hang Toan Huyen',
-          vnp_OrderInfo: 'VND',
+    if(this.total>20000000){
+      this.toast.error("Đơn hàng tối đa là 20 triệu vui lòng giảm số lượng")
+    }else {
+      if (this.pay != null) {
+        if (this.pay === PaymentMethod.CARD) {
+          console.log(this.shipMoney)
+          localStorage.setItem('shipMoney', this.shipMoney);
+          localStorage.setItem('online', 'online');
+          const value = {
+            amount: this.total - (this.total * this.discount / 100) + this.shipMoney,
+            backcode: 'NCB',
+            txt_inv_addr1: 'PHU THO',
+            txt_bill_city: 'Thanh Pho Viet Tri',
+            txt_inv_mobile: '0387387993',
+            txt_inv_country: 'VN',
+            txt_inv_email: 'ducd@gmail.com',
+            txt_billing_fullname: 'Hoa Don Cua Hang Toan Huyen',
+            vnp_OrderInfo: 'VND',
+          }
+          this.paymentService.payment(value).subscribe((res: any) => {
+            window.location.assign(res.body.paymentUrl)
+          })
+        } else if (this.pay === PaymentMethod.MONEY) {
+          this.createOrderPayMoney();
         }
-        this.paymentService.payment(value).subscribe((res:any) =>{
-          window.location.assign(res.body.paymentUrl)
-        })
-      } else if( this.pay === PaymentMethod.MONEY){
-        this.createOrderPayMoney();
+      } else {
+        this.toast.error('Hãy chọn phương thức thanh toán')
       }
-
-    } else {
-      this.toast.error('Hãy chọn phương thức thanh toán')
     }
   }
 

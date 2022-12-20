@@ -123,6 +123,7 @@ export class ProductDetailComponent implements OnInit {
 
   }
   loadData(id :string): void {
+    this.totalQuantity=0;
     this.productService.detail(id).subscribe((respone: any)=> {
       this.productDetail =respone.body?.data;
       console.log(this.productDetail)
@@ -131,7 +132,6 @@ export class ProductDetailComponent implements OnInit {
         this.productSearchRequest.categoryId = this.productDetail.categoryId;
         this.productService.search(this.productSearchRequest).subscribe((response: any) => {
           this.products = response.body?.data;
-
         });
 
       console.log(this.productDetail)
