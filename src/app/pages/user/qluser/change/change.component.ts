@@ -58,6 +58,8 @@ export class ChangeComponent implements OnInit {
           this.changeForm.reset()
           this.loadData(id)
 
+        },(error:any) => {
+          this.toast.error(error.error.message)
         })
       } else {
         this.toast.error('Mật khẩu không khớp');

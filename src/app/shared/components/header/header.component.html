@@ -47,7 +47,7 @@
 
             <div class="dropdown">
               <a class="dropbtn" ><img src="assets/images/account.svg" alt="" class="icon">Tài khoản</a>
-              <div class="dropdown-content">
+              <div class="dropdown-content" style="z-index: 200">
                 <a (click)="showUser() " *ngIf="isLogin">Thông tin cá nhân</a>
                 <a (click)="showLogin()"*ngIf="!isLogin">Đăng nhập</a>
                 <a (click)="showRegister()"*ngIf="!isLogin">Đăng ký</a>
