@@ -15,19 +15,19 @@ export class CountryService extends AbstractService {
     super(http);
   }
   province(
-    ): Observable<any> {
-      return this.http.get("https://online-gateway.ghn.vn/shiip/public-api/master-data/province",{headers:{token:'47c4a6b7-6337-11ed-b824-262f869eb1a7'}});
-    }
-    distrist(
-      params:any
-      ): Observable<any> {
-        return this.http.post("https://online-gateway.ghn.vn/shiip/public-api/master-data/district",params,{headers:{token:'47c4a6b7-6337-11ed-b824-262f869eb1a7'}});
-      }
-      ward(
-        districtId:number
-        ): Observable<any> {
-          return this.http.get(`https://online-gateway.ghn.vn/shiip/public-api/master-data/ward?district_id=${districtId}`,{headers:{token:'47c4a6b7-6337-11ed-b824-262f869eb1a7'}});
-        }
+  ): Observable<any> {
+    return this.http.get("https://online-gateway.ghn.vn/shiip/public-api/master-data/province",{headers:{token:'47c4a6b7-6337-11ed-b824-262f869eb1a7'}});
+  }
+  distrist(
+    params:any
+  ): Observable<any> {
+    return this.http.post("https://online-gateway.ghn.vn/shiip/public-api/master-data/district",params,{headers:{token:'47c4a6b7-6337-11ed-b824-262f869eb1a7'}});
+  }
+  ward(
+    districtId:number
+  ): Observable<any> {
+    return this.http.get(`https://online-gateway.ghn.vn/shiip/public-api/master-data/ward?district_id=${districtId}`,{headers:{token:'47c4a6b7-6337-11ed-b824-262f869eb1a7'}});
+  }
   searchCategoriesAutoComplete(
     params?: any,
     loading = false

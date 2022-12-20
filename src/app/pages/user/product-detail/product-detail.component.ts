@@ -14,6 +14,9 @@ import {ICategorySearchRequest} from "../../../shared/models/request/category-se
 import {ApoimentService} from "../../../shared/services/apoiment.service";
 import {ROUTER_UTILS} from "../../../shared/utils/router.utils";
 import {IProductImage, ProductImage} from "../../../shared/models/product-image.model";
+import {IProductSearchRequest} from "../../../shared/models/request/product-search-request.model";
+import {PAGINATION} from "../../../shared/constants/pagination.constants";
+import {ROUTER_UTILS} from "../../../shared/utils/router.utils";
 
 @Component({
   selector: 'app-product-detail',
@@ -37,7 +40,12 @@ export class ProductDetailComponent implements OnInit {
   input_quantity= 1;
   validateForm!: UntypedFormGroup;
   productImages: ProductImage[] | undefined = [];
+  productSearchRequest: IProductSearchRequest = {
+    pageIndex: PAGINATION.PAGE_DEFAULT,
+    pageSize: PAGINATION.SIZE_DEFAULT,
+  };
 
+  products :IProduct[] =[]
   constructor(
     private productService : ProductService,
     private router: ActivatedRoute,
@@ -67,8 +75,8 @@ export class ProductDetailComponent implements OnInit {
       email: ['', [Validators.email,Validators.required]],
       time: ['', [Validators.required]],
       productId : this.productId,
-      sizeId : ['',[Validators.required]],
-      note: ['', [ Validators.required]],
+      sizeId :  this.size.sizeId,
+      note: [null, [ Validators.required]],
       status: "WAIT_CONFIRM",
     });
   }
@@ -91,6 +99,14 @@ export class ProductDetailComponent implements OnInit {
       this.productDetail =respone.body?.data;
       console.log(this.productDetail)
       this.productImages =this.productDetail?.productImages;
+
+        this.productSearchRequest.categoryId = this.productDetail.categoryId;
+        this.productService.search(this.productSearchRequest).subscribe((response: any) => {
+          this.products = response.body?.data;
+
+        });
+
+      console.log(this.productDetail)
       // @ts-ignore
       this.imageUrl = this.productDetail.productImages[0]?.imageUrl;
       // @ts-ignore
@@ -145,7 +161,17 @@ export class ProductDetailComponent implements OnInit {
 
   isVisible = false;
   showModal(): void {
-    this.isVisible = true;
+    let quantity: any = this.size.quantity +''
+    if (this.checkedRadio(this.size)){
+      this.isChosseRadio2=true;
+      this.toast.error('Vui lòng chọn size trước!')
+      return
+    } else
+    if(this.input_quantity > quantity) {
+      this.toast.error("Sản phẩm không đủ")
+    } else {
+      this.isVisible = true;
+    }
   }
 
   handleOk(): void {
@@ -159,10 +185,10 @@ export class ProductDetailComponent implements OnInit {
   }
 
   datLichHen(): void {
-    console.log(this.validateForm.value)
-    this.apoimentService.addToCalendar(this.validateForm.value).subscribe((res:any) => {
-      this.toast.success("Đặt lịch thành công")
-    })
+    let quantity: any = this.size.quantity +''
+      this.apoimentService.addToCalendar(this.validateForm.value).subscribe((res:any) => {
+        this.toast.success("Đặt lịch thành công")
+      })
   }
   onChange(result: Date): void {
     console.log('Selected Time: ', result);
@@ -174,5 +200,8 @@ export class ProductDetailComponent implements OnInit {
 
   onCalendarChange(result: Array<Date | null>): void {
     console.log('onCalendarChange', result);
+  }
+  showProductDetail(product: IProduct): void {
+    this.router2.navigate([ROUTER_UTILS.product.root, product.productId, 'detail']);
   }
 }

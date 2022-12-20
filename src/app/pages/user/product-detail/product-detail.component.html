@@ -254,7 +254,7 @@
                        class="form-quantity">
                 <a type="" id="button-cart" data-loading-text="Loading..." class="btn" (click)="addToCart()" >Thêm giỏ hàng</a>
                 <span> - Hoặc - </span>
-                <a type="" id="button-cart" class="btn" (click)="showModal()" data-loading-text="Loading..." >Đặt lịch hẹn</a>
+                <a type="" id="button-cart" style="text-align: center" class="btn" (click)="showModal()" data-loading-text="Loading..." >Đặt lịch hẹn</a>
                 <nz-modal [(nzVisible)]="isVisible" nzTitle="Đặt lịch hẹn" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
                   <ng-container *nzModalContent>
                     <form [formGroup]="validateForm" (ngSubmit)="datLichHen()">
@@ -262,18 +262,34 @@
                         <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="userName"> Họ và tên</nz-form-label>
                         <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Họ và tên trống">
                           <input nz-input formControlName="userName" id="userName" type="text" />
+                          <ng-container *ngIf="validateForm.get('userName')?.touched || validateForm.get('userName')?.dirty ">
+              <span class="text__red" *ngIf="validateForm.get('userName')?.hasError('required')">
+                <small>{{'Họ và tên trống'}}</small>
+              </span>
+                          </ng-container>
+
                         </nz-form-control>
                       </nz-form-item>
                       <nz-form-item>
                         <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="phoneNumber"> Số điện thoại</nz-form-label>
                         <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Số điện thoại trống">
                           <input nz-input formControlName="phoneNumber" id="phoneNumber" type="text" />
+                          <ng-container *ngIf="validateForm.get('phoneNumber')?.touched || validateForm.get('phoneNumber')?.dirty ">
+              <span class="text__red" *ngIf="validateForm.get('phoneNumber')?.hasError('required')">
+                <small>{{'Số điện thoại trống'}}</small>
+              </span>
+                          </ng-container>
                         </nz-form-control>
                       </nz-form-item>
                       <nz-form-item>
                         <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email"> Email</nz-form-label>
                         <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Email trống">
                           <input nz-input formControlName="email" id="email" type="text" />
+                          <ng-container *ngIf="validateForm.get('email')?.touched || validateForm.get('email')?.dirty ">
+              <span class="text__red" *ngIf="validateForm.get('email')?.hasError('required')">
+                <small>{{'Email trống'}}</small>
+              </span>
+                          </ng-container>
                         </nz-form-control>
                       </nz-form-item>
                       <nz-form-item>
@@ -281,39 +297,42 @@
                         <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Ngày hẹn trống">
 
                           <input  type="datetime-local" formControlName="time" id="time"/>
+                          <ng-container *ngIf="validateForm.get('time')?.touched || validateForm.get('time')?.dirty ">
+              <span class="text__red" *ngIf="validateForm.get('time')?.hasError('required')">
+                <small>{{'Ngày hẹn trống'}}</small>
+              </span>
+                          </ng-container>
                         </nz-form-control>
                       </nz-form-item>
                       <nz-form-item>
                         <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="tensap">Tên sản phẩm</nz-form-label>
-                        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Họ và tên trống">
-                          <input nz-input id="tensap" type="text" value="{{productDetail.nameProduct}}" />
+                        <nz-form-control [nzSm]="18" [nzXs]="24" >
+                          <input nz-input id="tensap" type="text" style="color: black" value="{{productDetail.nameProduct}}"disabled />
+
                         </nz-form-control>
                       </nz-form-item>
                       <nz-form-item>
                         <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="tensap">Kích thước</nz-form-label>
-                        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Họ và tên trống">
-                          <nz-radio-group  formControlName="sizeId">
-                            <label nz-radio nzValue="{{s.sizeId}}" *ngFor="let s of sizes">{{s.size}}</label>
-                          </nz-radio-group>
+                        <nz-form-control [nzSm]="18" [nzXs]="24" >
+                          <input nz-input id="tensap" type="text" style="color: black" value="{{this.size.size}}"disabled />
+
                         </nz-form-control>
-
                       </nz-form-item>
-
                       <nz-form-item>
                         <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="code">Code sản phẩm</nz-form-label>
-                        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Họ và tên trống">
-                          <input nz-input  id="code" type="text" value="{{productDetail.code}}"  disabled/>
+                        <nz-form-control [nzSm]="18" [nzXs]="24" >
+                          <input nz-input  id="code" type="text" style="color: black" value="{{productDetail.code}}"  disabled/>
                         </nz-form-control>
                       </nz-form-item>
                       <nz-form-item>
                         <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="note">Ghi chú</nz-form-label>
-                        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Ghi chú trống ">
+                        <nz-form-control [nzSm]="18" [nzXs]="24">
                           <textarea rows="4" nz-input formControlName="note"></textarea>
                         </nz-form-control>
                       </nz-form-item>
                       <nz-form-item nz-row class="register-area">
                         <nz-form-control >
-                          <button nz-button nzType="primary" style="display: flex; align-items: center; margin: 20px auto auto; padding: 20px 50px; background: #F3AE7E; border-radius: 20px; border: 1px solid #F3AE7E">Đặt lịch</button>
+                          <button nz-button nzType="primary" [disabled]="!validateForm.valid" style="display: flex; align-items: center; margin: 20px auto auto; padding: 20px 50px; background: #F3AE7E; border-radius: 20px; border: 1px solid #F3AE7E">Đặt lịch</button>
                         </nz-form-control>
                       </nz-form-item>
                     </form>
@@ -505,27 +524,20 @@
             </ul>
           </div>
           <div class="row product1__image">
-            <div class="col-3 image1">
-              <img src="assets/images/small.png" alt="">
-              <span>Diamond Push Pin Earrings</span>
-              <p>$203</p>
-            </div>
-            <div class="col-3 image1">
-              <img src="assets/images/small.png" alt="">
-              <span>Diamond Push Pin Earrings</span>
-              <p>$203</p>
-            </div>
-            <div class="col-3 image1">
-              <img src="assets/images/small.png" alt="">
-              <span>Diamond Push Pin Earrings</span>
-              <p>$203</p>
-            </div>
-            <div class="col-3 image1">
-              <img src="assets/images/small.png" alt="">
-              <span>Diamond Push Pin Earrings</span>
-              <p>$203</p>
-            </div>
+            <div class="col-3 image1" *ngFor="let product of products">
+              <img [src]="product.productImages ? product.productImages[0].imageUrl : null" (click)="showProductDetail(product)" alt="">
+              <div class="middle">
+                <a (click)="showProductDetail(product)" title="Add to cart"><i class="fas fa-cart-plus"></i></a>
+                <a (click)="showProductDetail(product)" title="Chi tiết"><i class="fas fa-eye"></i></a>
+                <a title="Yêu thích"><i class="far fa-heart"></i></a>
+                <a title=""><i class="fas fa-layer-group"></i></a>
 
+              </div>
+              <div class="image1__content">
+                <span class="product-name" (click)="showProductDetail(product)">{{product.nameProduct}}</span>
+                <p>{{product.productSizes ? product.productSizes[0].salePrice : null +'' | vnd}} </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

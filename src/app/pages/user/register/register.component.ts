@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
+import {FormGroup, UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
-import {CategoryService} from "../../../shared/services/category.service";
-import {CartService} from "../../../shared/services/cart.service";
-import {ApoimentService} from "../../../shared/services/apoiment.service";
+
 import {UserService} from "../../../shared/services/user.service";
 import {Router, RouterLink} from "@angular/router";
+import {CountryService} from "../../../shared/services/country.service";
+import {IUser} from "../../../shared/models/user.model";
 
 @Component({
   selector: 'app-register',
@@ -15,15 +15,29 @@ import {Router, RouterLink} from "@angular/router";
 export class RegisterComponent implements OnInit {
   validateForm!: UntypedFormGroup;
 
-  constructor(
+  province:any[] = [];
+  distrist:any[] = [];
+  ward:any[] = [];
+  idDistrict:number = -1;
+  idWard:number = -1;
+  addresses:string[] = [];
+  isFirst = false;
+   checkUser:[] = []
+  customer: IUser = {}
+constructor(
     private toast: ToastrService,
     private userService : UserService,
     private fb: UntypedFormBuilder,
     private router: Router,
+    private countryService : CountryService
 
   ) { }
 
   ngOnInit(): void {
+    this.countryService.province().subscribe((res:any)=>{
+      this.province = res.data;
+    })
+
     this.validateForm = this.fb.group({
       userName: ['', [Validators.required]],
       fullName : ['',[Validators.required]],
@@ -32,25 +46,122 @@ export class RegisterComponent implements OnInit {
       gender: ['', [ Validators.required]],
       birthday: ['', [Validators.required]],
       password: ['', [Validators.required]],
-      confirmPassword: ['', [Validators.email,Validators.required]],
+      confirmPassword: ['', [Validators.required]],
       role: "CUSTOMER",
-      cccd: " ",
-      address: ['', [ Validators.required]],
-
+      cccd: [' '],
+      addressDetail: ['', [Validators.required]],
+      province: [
+        this.getCodeProvince( this.addresses  ?   this.addresses [ this.addresses .length - 1] : '' ) ,
+        [
+          Validators.required,
+        ],
+      ],
+      district: [
+        '',
+        [
+          Validators.required,
+        ],
+      ],
+      ward: [
+        '',
+        [
+          Validators.required,
+        ],
+      ],
     });
   }
 
+
   Dangky():void {
-    if(this.validateForm.value.password === this.validateForm.value.confirmPassword) {
-      this.userService.create(this.validateForm.value).subscribe((res: any) => {
+    this.userService.findCustomer().subscribe((res: any) => {
+      this.checkUser = res.body?.data
+      this.customer = {
+        ...this.validateForm.value,
+        address :this.validateForm.get('addressDetail')?.value +", " +this.getStringWard()+", " + this.getStringDistrcit() +", " + this.getStringpProvince()
+      }
+
+      this.userService.create(this.customer).subscribe((value: any) => {
           this.toast.success("Đăng ký thành công")
           this.router.navigate(['/login']);
-        },
-        (error: any)=> {
-          this.toast.error(error)
+        }, (error:any) => {
+          this.toast.error(error.error.message);
+        }
+      )
         })
-    } else  {
-      this.toast.error('Mật khẩu không khớp')
-    }
   }
+
+  getDistrist(provinceID:number){
+    const params = {
+      province_id:provinceID
+    }
+    this.countryService.distrist(params).subscribe((res:any) =>{
+      this.distrist = res.data;
+    })
+  }
+
+
+  getCodeProvince(param:string):number{
+    let data2 = -1;
+    this.province.forEach((data) => {
+      if(data.ProvinceName === param){
+        data2 =  data.ProvinceID;
+        this.getDistrist(data2);
+
+      }
+    });
+    return data2;
+  }
+
+
+  getStringpProvince():string{
+    const province = this.validateForm.get('province')?.value;
+    let data2 = '';
+    this.province.forEach((data) => {
+      if(data.ProvinceID === province){
+        data2 =  data.ProvinceName;
+      }
+    });
+    return data2;
+  }
+
+
+  getWard(districtId:number){
+    this.countryService.ward(districtId).subscribe((res:any) =>{
+      this.ward = res.data;
+      this.validateForm.get('ward')?.setValue(this.getCodeWard(this.addresses  ?   this.addresses [ this.addresses .length - 3] : '' ))
+
+    })
+  }
+  getStringWard(){
+    const ward = this.validateForm.get('ward')?.value;
+    let data2 = '';
+    this.ward.forEach((data) => {
+      const w= data.WardCode as string;
+      if(w === ward){
+        data2 =  data.WardName;
+      }
+    });
+    return data2;
+  }
+  getCodeWard(param:string):string{
+    let data2 = '';
+    this.ward.forEach((data) => {
+
+      if(data.WardName === param){
+        data2 =  data.WardCode;
+      }
+    });
+    return data2;
+  }
+  getStringDistrcit():string{
+    const district = this.validateForm.get('district')?.value;
+    let data2 = '';
+    this.distrist.forEach((data) => {
+      if(data.DistrictID === district){
+        data2 =  data.DistrictName;
+      }
+    });
+    return data2;
+  }
+
 }
