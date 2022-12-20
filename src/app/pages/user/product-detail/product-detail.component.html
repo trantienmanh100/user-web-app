@@ -21,169 +21,39 @@
             </h2>
           </div>
         </div>
-        <div class="card ">
-          <div class="card-header">
-            <img src="./../../../assets/images/3.png" alt="">
-            Tìm kiếm
-          </div>
-          <div class="accordion" id="accordionPanelsStayOpenExample">
-            <div class="accordion-item">
-              <div class="accordion-header">
-                <button class="accordion-button collapsed" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#collapseThree"
-                        aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
-                  Màu
-                </button>
-              </div>
-              <div id="collapseThree" class="accordion-collapse collapse show"
-                   aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                <div class="accordion-body pt-0 grid-container">
-                  <div>
-                    <input type="checkbox" class="check-box"> Vàng
-                  </div>
-                  <div>
-                    <input type="checkbox" class="check-box"> Trắng
-                  </div>
-                  <div>
-                    <input type="checkbox" class="check-box"> Đỏ
-                  </div>
-                  <div>
-                    <input type="checkbox" class="check-box"> Xanh
-                  </div>
-
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <div class="accordion-header" >
-                <button class="accordion-button collapsed" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#collapseThree1"
-                        aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                  Giá
-                </button>
-              </div>
-              <div id="collapseThree1" class="accordion-collapse collapse show"
-                   aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                <div class="accordion-body pt-0 grid-container">
-                  <div>
-                    <input type="checkbox" class="check-box"> $50.00 - $200.000
-                  </div>
-                  <div>
-                    <input type="checkbox" class="check-box"> $201.000 - $500.00
-                  </div>
-                  <div>
-                    <input type="checkbox" class="check-box"> $501.00 - $800.00
-                  </div>
-                  <div>
-                    <input type="checkbox" class="check-box"> $801.000 - $1000.00
-                  </div>
-
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <div class="accordion-header" id="headingThree">
-                <button class="accordion-button collapsed" type="button"
-                        data-bs-toggle="collapse" data-bs-target="#collapseThree2"
-                        aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                  Kích thước
-                </button>
-              </div>
-              <div id="collapseThree2" class="accordion-collapse collapse show"
-                   aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                <div class="accordion-body pt-0 grid-container">
-                  <div>
-                    <input type="checkbox" class="check-box"> XL
-                  </div>
-                  <div>
-                    <input type="checkbox" class="check-box"> L
-                  </div>
-                  <div>
-                    <input type="checkbox" class="check-box"> M
-                  </div>
-                  <div>
-                    <input type="checkbox" class="check-box"> S
-                  </div>
-
-                </div>
-              </div>
-            </div>
-            <div class="button__search ">
-              <a href="#">Tìm kiếm thể loại</a>
-            </div>
-          </div>
-        </div>
 
         <div class="card">
           <div class="card-header">
             <img src="assets/images/3.png" alt="">
-            Sản phẩm mới
+            Sản phẩm bán mới
           </div>
-          <div class="row card-body ">
-            <div class="card-title col-5 card1__image "><img src="assets/images/icon11.jpg" alt=""></div>
-            <div class="col-7">
-              <p class="card-text ">Gold Croissant Hoop Earrings</p>
-              <p>$19.00</p>
+          <div class="row card-body " *ngFor="let product of newProducts">
+            <div class="card-title col-5 card1__image image2">
+              <img [src]="product.productImages ? product.productImages[0].imageUrl : null" (click)="showProductDetail(product)" alt="">
             </div>
-          </div>
-
-          <div class="row card-body ">
-            <div class="card-title col-5 card1__image "><img src="assets/images/icon2.jpg" alt=""></div>
             <div class="col-7">
-              <p class="card-text ">Gold Croissant Hoop Earrings</p>
-              <p>$19.00</p>
-            </div>
-          </div>
-          <div class="row card-body ">
-            <div class="card-title col-5 card1__image "><img src="assets/images/icon3.jpg" alt=""></div>
-            <div class="col-7">
-              <p class="card-text ">Gold Croissant Hoop Earrings</p>
-              <p>$19.00</p>
-            </div>
-          </div>
-          <div class="row card-body ">
-            <div class="card-title col-5 card1__image "><img src="assets/images/icon4.jpg" alt=""></div>
-            <div class="col-7">
-              <p class="card-text ">Gold Croissant Hoop Earrings</p>
-              <p>$19.00</p>
+              <p class="card-text ">{{product.nameProduct}}</p>
+              <p>{{product.productSizes ? (product.productSizes[0]?.salePrice + '' | vnd) : ''}}</p>
             </div>
           </div>
         </div>
-
         <div class="card">
           <div class="card-header">
             <img src="assets/images/3.png" alt="">
             Sản phẩm bán chạy
           </div>
-          <div class="row card-body ">
-            <div class="card-title col-5 card1__image "><img src="assets/images/icon11.jpg" alt=""></div>
-            <div class="col-7">
-              <p class="card-text ">Gold Croissant Hoop Earrings</p>
-              <p>$19.00</p>
+          <div class="row card-body " *ngFor="let product of productTrending">
+            <div class="card-title col-5 card1__image image2">
+              <img [src]="product.productImages ? product.productImages[0].imageUrl : null" (click)="showProductDetail(product)" alt="">
             </div>
-          </div>
-          <div class="row card-body ">
-            <div class="card-title col-5 card1__image "><img src="assets/images/icon11.jpg" alt=""></div>
             <div class="col-7">
-              <p class="card-text ">Gold Croissant Hoop Earrings</p>
-              <p>$19.00</p>
-            </div>
-          </div>
-          <div class="row card-body ">
-            <div class="card-title col-5 card1__image "><img src="assets/images/icon2.jpg" alt=""></div>
-            <div class="col-7">
-              <p class="card-text ">Gold Croissant Hoop Earrings</p>
-              <p>$19.00</p>
-            </div>
-          </div>
-          <div class="row card-body ">
-            <div class="card-title col-5 card1__image "><img src="assets/images/icon3.jpg" alt=""></div>
-            <div class="col-7">
-              <p class="card-text ">Gold Croissant Hoop Earrings</p>
-              <p>$19.00</p>
+              <p class="card-text ">{{product.nameProduct}}</p>
+              <p>{{product.productSizes ? (product.productSizes[0]?.salePrice + '' | vnd) : ''}}</p>
             </div>
           </div>
         </div>
+
+
       </div>
       <div class="col-9 body__article">
         <div class="row">
@@ -339,49 +209,7 @@
 
                   </ng-container>
                 </nz-modal>
-<!--                <div class="product__btn-group">-->
-
-<!--                  <a type="" class="wishlist" href="" title="Add to Wish List">-->
-<!--                    <i class="far fa-heart"></i>Yêu thích</a>-->
-<!--                  <a type="" class="compare" href="" title="Compare this Product"><i-->
-<!--                    class="	fas fa-balance-scale"></i>So sánh sản phẩm</a>-->
-<!--                </div>-->
                 <hr>
-
-                <div class="addthis_toolbox addthis_default_style"
-                     data-url="https://splashythemes.com/opencart/OPC02/OPC020098/index.php?route=product/product&amp;product_id=33">
-                  <a class="addthis_button_facebook_like at300b" fb:like:layout="button_count">
-                    <div class="fb-like fb_iframe_widget" data-layout="button_count"
-                         data-show_faces="false" data-share="false" data-action="like"
-                         data-width="90" data-height="25" data-font="arial"
-                         data-href="https://splashythemes.com/opencart/OPC02/OPC020098/index.php?route=product/product&amp;product_id=33"
-                         data-send="false" style="height: 25px;" fb-xfbml-state="rendered"
-                         fb-iframe-plugin-query="action=like&amp;app_id=172525162793917&amp;container_width=0&amp;font=arial&amp;height=25&amp;href=https%3A%2F%2Fsplashythemes.com%2Fopencart%2FOPC02%2FOPC020098%2Findex.php%3Froute%3Dproduct%2Fproduct%26product_id%3D33&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;send=false&amp;share=false&amp;show_faces=false&amp;width=90">
-                                                <span style="vertical-align: bottom; width: 90px; height: 28px;"><iframe
-                                                  name="f62804e4bde0e4" width="90px" height="25px"
-                                                  data-testid="fb:like Facebook Social Plugin"
-                                                  title="fb:like Facebook Social Plugin" frameborder="0"
-                                                  allowtransparency="true" allowfullscreen="true" scrolling="no"
-                                                  allow="encrypted-media"
-                                                  src="https://www.facebook.com/v2.6/plugins/like.php?action=like&amp;app_id=172525162793917&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fx%2Fconnect%2Fxd_arbiter%2F%3Fversion%3D46%23cb%3Df3ad95ad69c098c%26domain%3Dsplashythemes.com%26is_canvas%3Dfalse%26origin%3Dhttps%253A%252F%252Fsplashythemes.com%252Ff1f38e2ace75894%26relation%3Dparent.parent&amp;container_width=0&amp;font=arial&amp;height=25&amp;href=https%3A%2F%2Fsplashythemes.com%2Fopencart%2FOPC02%2FOPC020098%2Findex.php%3Froute%3Dproduct%2Fproduct%26product_id%3D33&amp;layout=button_count&amp;locale=en_US&amp;sdk=joey&amp;send=false&amp;share=false&amp;show_faces=false&amp;width=90"
-                                                  style="border: none; visibility: visible; width: 90px; height: 28px;"
-                                                  class=""></iframe></span>
-                    </div>
-                  </a> <a class="addthis_button_tweet at300b">
-                  <div class="" style="width: 62px; height: 25px;">
-                                                <span><iframe id="twitter-widget-0" scrolling="no" frameborder="0"
-                                                              allowtransparency="true" allowfullscreen="true"
-                                                              title="Twitter Tweet Button"></iframe></span>
-                  </div>
-                </a>
-                  <a class="addthis_counter addthis_pill_style" href="#"
-                     style="display: inline-block;"><a
-                    class="atc_s addthis_button_compact">Share<span></span></a>
-                  </a>
-                  <div class="atclear"></div>
-                </div>
-                <script type="text/javascript"
-                        src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-515eeaf54693130e"></script>
               </div>
             </div>
 

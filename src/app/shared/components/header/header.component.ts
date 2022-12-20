@@ -51,7 +51,7 @@ export class HeaderComponent implements OnInit {
     this.localStorage.clear('isadmin');
     this.localStorage.clear('role');
     this.localStorage.clear('jwt-token');
-    this.router.navigate([ROUTER_UTILS.base.home]);
+    this.router.navigate([ROUTER_UTILS.login.root]);
     this.toast.success("Đăng xuất thành công");
   }
   showCart(): void {

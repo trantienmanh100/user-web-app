@@ -83,22 +83,20 @@
             <form [formGroup]="validateForm" action="#" target="_blank">
               <div class="row">
                 <div class="col-4 mb-2">
-
                   <nz-select
-                    formControlName="ward"
                     nzBorderless
-                    removeOptionTitle
+                    [nzShowSearch]="true"
+                    formControlName="province"
+                    (ngModelChange)="this.getDistrist($event)"
                     nzPlaceHolder="{{
-                              'Phường,Xã'
-                            }}"
+                               'Tỉnh,Thành phố'
+                              }}"
                   >
-                    <nz-option
-                      *ngFor="let item of this.ward"
-                      [nzLabel]="item.WardName"
-                      [nzValue]="item.WardCode"
-                    >
 
-                    </nz-option>
+                    <ng-container *ngFor="let item of province">
+                      <nz-option   [nzLabel]="item.ProvinceName"
+                                   [nzValue]="item.ProvinceID"></nz-option>
+                    </ng-container>
                   </nz-select>
                 </div>
                 <div class="col-4 mb-2">
@@ -122,28 +120,30 @@
                   </nz-select>
 
                 </div>
-
                 <div class="col-4 mb-2">
-                  <nz-select
-                    nzBorderless
-                    formControlName="province"
-                    (ngModelChange)="this.getDistrist($event)"
-                    nzPlaceHolder="{{
-                               'Tỉnh,Thành phố'
-                              }}"
-                  >
 
-                    <ng-container *ngFor="let item of province">
-                      <nz-option   [nzLabel]="item.ProvinceName"
-                                   [nzValue]="item.ProvinceID"></nz-option>
-                    </ng-container>
+                  <nz-select
+                    formControlName="ward"
+                    nzBorderless
+                    removeOptionTitle
+                    nzPlaceHolder="{{
+                              'Phường,Xã'
+                            }}"
+                  >
+                    <nz-option
+                      *ngFor="let item of this.ward"
+                      [nzLabel]="item.WardName"
+                      [nzValue]="item.WardCode"
+                    >
+
+                    </nz-option>
                   </nz-select>
                 </div>
                 <div class="col-lg-12 col-md-5">
                   <textarea nz-input cols="30" rows="5"formControlName="addressDetail" placeholder="Địa chỉ chi tiết"></textarea>
                   <ng-container *ngIf="validateForm.get('addressDetail')?.touched || validateForm.get('addressDetail')?.dirty ">
               <span class="text__red" *ngIf="validateForm.get('addressDetail')?.hasError('required')">
-                <small>{{'Mật khẩu trống'}}</small>
+                <small>{{'Địa chỉ chi tiết không được để trống'}}</small>
               </span>
                   </ng-container>
                 </div>
@@ -155,7 +155,7 @@
         <nz-form-item>
           <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired nzFor="password">Mật khẩu</nz-form-label>
           <nz-form-control [nzSm]="10" [nzXs]="24" >
-            <input nz-input formControlName="password"  type="text" id="password" />
+            <input nz-input formControlName="password"  type="password" id="password" />
             <ng-container *ngIf="validateForm.get('password')?.touched || validateForm.get('password')?.dirty ">
               <span class="text__red" *ngIf="validateForm.get('password')?.hasError('required')">
                 <small>{{'Mật khẩu trống'}}</small>
@@ -167,7 +167,7 @@
         <nz-form-item>
           <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired nzFor="confirmPassword">Xác nhận mật khẩu</nz-form-label>
           <nz-form-control [nzSm]="10" [nzXs]="24" >
-            <input nz-input formControlName="confirmPassword" type="text" id="confirmPassword" />
+            <input nz-input formControlName="confirmPassword" type="password" id="confirmPassword" />
             <ng-container *ngIf="validateForm.get('confirmPassword')?.touched || validateForm.get('confirmPassword')?.dirty ">
               <span class="text__red" *ngIf="validateForm.get('confirmPassword')?.hasError('required')">
                 <small>{{'Xác nhận mật khẩu trống'}}</small>

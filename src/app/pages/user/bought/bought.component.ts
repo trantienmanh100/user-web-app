@@ -42,10 +42,12 @@ export class BoughtComponent implements OnInit {
     this.status= '';
     this.orderService.showByBought(this.status,this.userId).subscribe((res :any) => {
       this.orders = res.body?.data;
+      console.log(this.orders)
+      if(this.orders.length === 0){
+        this.nodata =true;
+      }
     })
-    if(this.orders.length === 0){
-      this.nodata =true;
-    }
+
   }
 
   showWaitConfirm(): void {

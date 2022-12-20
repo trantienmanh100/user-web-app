@@ -12,9 +12,8 @@ import {CategoryService} from "../../../shared/services/category.service";
 import {LocalStorageService} from "ngx-webstorage";
 import {ICategorySearchRequest} from "../../../shared/models/request/category-search-request.model";
 import {ApoimentService} from "../../../shared/services/apoiment.service";
-import {ROUTER_UTILS} from "../../../shared/utils/router.utils";
 import {IProductImage, ProductImage} from "../../../shared/models/product-image.model";
-import {IProductSearchRequest} from "../../../shared/models/request/product-search-request.model";
+import {IProductSearchRequest, ProductSearchRequest} from "../../../shared/models/request/product-search-request.model";
 import {PAGINATION} from "../../../shared/constants/pagination.constants";
 import {ROUTER_UTILS} from "../../../shared/utils/router.utils";
 
@@ -24,6 +23,8 @@ import {ROUTER_UTILS} from "../../../shared/utils/router.utils";
   styleUrls: ['./product-detail.component.scss']
 })
 export class ProductDetailComponent implements OnInit {
+  productTrending : IProduct[]=[];
+  newProducts : IProduct[]=[];
   isLogin = false;
   isChosseRadio =false;
   isChosseRadio2 =false;
@@ -78,6 +79,33 @@ export class ProductDetailComponent implements OnInit {
       sizeId :  this.size.sizeId,
       note: [null, [ Validators.required]],
       status: "WAIT_CONFIRM",
+    });
+    this.showProductTrending();
+    this.showNewProduct();
+  }
+  showProductTrending(): void {
+    this.productService.trending().subscribe((res :any) =>{
+      this.productTrending = res.body?.data;
+    });
+  }
+  showNewProduct(): void {
+    const request : ProductSearchRequest= {
+      pageSize: 4,
+      sortBy: "createAt.desc",
+    };
+    this.productService.search(request).subscribe((res :any) =>{
+      if(res){
+        this.newProducts = res.body?.data;
+        this.newProducts.forEach((product:IProduct)=>{
+          // @ts-ignore
+          product.currentImg = product.productImages[0].imageUrl;
+          // @ts-ignore
+          product.secondImg =product.productImages[1].imageUrl;
+          // @ts-ignore
+          product.firstImg =product.productImages[0].imageUrl;
+          console.log(product)
+        })
+      }
     });
   }
 
@@ -203,5 +231,8 @@ export class ProductDetailComponent implements OnInit {
   }
   showProductDetail(product: IProduct): void {
     this.router2.navigate([ROUTER_UTILS.product.root, product.productId, 'detail']);
+    if (product.productId != null) {
+      this.loadData(product.productId);
+    }
   }
 }

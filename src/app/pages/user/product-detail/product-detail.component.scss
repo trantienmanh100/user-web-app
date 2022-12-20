@@ -538,6 +538,17 @@ margin-right: 5px;
   color: #757575;
 }
 //
+.image2 {
+  img {
+    height: 100px;
+    width: 89px;
+    border-radius: 3px;
+    opacity: 1;
+    display: block;
+    transition: .5s ease;
+    backface-visibility: hidden;
+  }
+}
 .image1 {
   margin-top: 10px;
   position: relative;

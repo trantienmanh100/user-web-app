@@ -19,7 +19,7 @@
       <div class="order" *ngFor="let order of orders" >
         <div class="product">
           <div class="product__title">
-            <h5>Hàng USA chuẩn Javihey</h5>
+            <h5>Trang sức Toản Huyền đơn hàng {{order.orderCode}}</h5>
             <p style="color: red;">Đơn hàng:  {{order.status}}</p>
           </div>
           <div class="product__item row" *ngFor="let orderDetail of order.orderDetailDTOList">

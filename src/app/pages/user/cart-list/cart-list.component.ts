@@ -426,8 +426,10 @@ export class CartListComponent implements OnInit {
       }),
     };
     this.orderService.createOrder(order).subscribe(() => {
-
-    })
-
+        this.cartService.deleteCart(id).subscribe(()=>{
+          this.loadData(id);
+        });
+    });
   }
+
 }
