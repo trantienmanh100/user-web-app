@@ -37,7 +37,6 @@ export class OrderService extends AbstractService {
   showByBought(status: string,
          idUser : string
   ): Observable<EntityResponseType<Order[]>> {
-    console.log(status)
     return super.get<ICart>(`${this.resourceUrl}/list?status=${status}&userId=${idUser}`);
   }
 }

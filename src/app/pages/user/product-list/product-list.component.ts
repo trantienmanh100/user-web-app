@@ -66,7 +66,18 @@ export class ProductListComponent implements OnInit {
     this.loadCategory(),
     // this.loadData(this.pageNumber, this.pageSize);
    // this.showProductTrending()
-    this.loadDataByCategory(this.categoryId)
+      this.Activeroute.queryParamMap.subscribe((res) => {
+        const keyword = res.get('keyword') || '';
+        console.log(keyword);
+
+        if(!keyword || keyword === ''){
+          this.productSearchRequest.keyword = '';
+          this.loadDataByCategory(this.categoryId)
+        }else{
+          this.productSearchRequest.keyword = keyword;
+          this.loadDataByCategory();
+        }
+      });
     this.initForm();
 
   }

@@ -239,6 +239,7 @@ export class CartListComponent implements OnInit {
   }
 
   addQuantity(cart : ICartDetail): void {
+    console.log(cart)
     let amount: number =0;
     // @ts-ignore
     amount = cart.amount + 1;
@@ -328,6 +329,8 @@ export class CartListComponent implements OnInit {
           console.log(this.shipMoney)
           localStorage.setItem('shipMoney', this.shipMoney);
           localStorage.setItem('online', 'online');
+          localStorage.setItem('address',this.form.get('addressDetail')?.value +", " +this.getStringWard()+", " + this.getStringDistrcit() +", " + this.getStringpProvince(),
+        )
           const value = {
             amount: this.total - (this.total * this.discount / 100) + this.shipMoney,
             backcode: 'NCB',
@@ -344,6 +347,7 @@ export class CartListComponent implements OnInit {
           })
         } else if (this.pay === PaymentMethod.MONEY) {
           this.createOrderPayMoney();
+          this.router.navigate([ROUTER_UTILS.payment.root],{ queryParams: {vnp_TransactionStatus:'00'}});
         }
       } else {
         this.toast.error('Hãy chọn phương thức thanh toán')
@@ -393,7 +397,6 @@ export class CartListComponent implements OnInit {
         for( let i = 0 ; i< firstArray.length; i++){
           var obj = firstArray[i];
           this.array.push(obj);
-          console.log(this.array)
         }
       }
     }
@@ -408,7 +411,7 @@ export class CartListComponent implements OnInit {
       purchaseType: OrderType.ONLINE,
       status: StatusEnum.CHO_XAC_NHAN,
       eventId: this.eventId,
-      address: this.localStorage.retrieve("profile").address,
+      address: this.form.get('addressDetail')?.value +", " +this.getStringWard()+", " + this.getStringDistrcit() +", " + this.getStringpProvince(),
       userId: id,
       total: this.total ,
 

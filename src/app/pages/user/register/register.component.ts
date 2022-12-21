@@ -6,6 +6,7 @@ import {UserService} from "../../../shared/services/user.service";
 import {Router, RouterLink} from "@angular/router";
 import {CountryService} from "../../../shared/services/country.service";
 import {IUser} from "../../../shared/models/user.model";
+import {AVATAR_PLACEHOLDER_FILE} from "../../../shared/constants/common.constant";
 
 @Component({
   selector: 'app-register',
@@ -14,10 +15,12 @@ import {IUser} from "../../../shared/models/user.model";
 })
 export class RegisterComponent implements OnInit {
   validateForm!: UntypedFormGroup;
-
+  file?: File;
+  avatarPlaceHolder = AVATAR_PLACEHOLDER_FILE;
   province:any[] = [];
   distrist:any[] = [];
   ward:any[] = [];
+  imageUrl?: any;
   idDistrict:number = -1;
   idWard:number = -1;
   addresses:string[] = [];
@@ -77,6 +80,7 @@ constructor(
       this.checkUser = res.body?.data
       this.customer = {
         ...this.validateForm.value,
+        imageUrl: this.imageUrl,
         address :this.validateForm.get('addressDetail')?.value +", " +this.getStringWard()+", " + this.getStringDistrcit() +", " + this.getStringpProvince()
       }
 
@@ -162,6 +166,25 @@ constructor(
       }
     });
     return data2;
+  }
+
+  getFiles(files: any): void {
+    if (files) {
+      this.file = files[0];
+      this.getBase64(files[0]).then((data) => {
+         this.customer.imageUrl = data as string;
+        this.imageUrl = data;
+      });
+    }
+  }
+
+  getBase64(image: any): Promise<unknown> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
   }
 
 }

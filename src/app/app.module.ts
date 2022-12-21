@@ -47,6 +47,7 @@ import {NzRadioModule} from "ng-zorro-antd/radio";
 import { DetailComponent } from './pages/user/bought/detail/detail.component';
 import {MdbCarouselModule} from "mdb-angular-ui-kit/carousel";
 import {NzCheckboxModule} from "ng-zorro-antd/checkbox";
+import {UploadImageComponent} from "./shared/components/upload-image/upload-image.component";
 
 registerLocaleData(en);
 
@@ -78,6 +79,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     PaginationComponent,
     RegisterComponent,
     DetailComponent,
+    UploadImageComponent
   ],
     imports: [
         BrowserModule,

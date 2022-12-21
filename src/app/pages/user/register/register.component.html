@@ -175,6 +175,16 @@
             </ng-container>
           </nz-form-control>
         </nz-form-item>
+        <app-upload-image
+          [customSizeImg]="false"
+          [acceptTypeFiles]="['image']"
+          (emitter)="getFiles($event)"
+          [alternateImageUrl]="'assets/images/User.jpg'"
+          className="image"
+          nzTooltipPlacement="top"
+          nz-tooltip
+        >
+        </app-upload-image>
 
         <nz-form-item nz-row class="register-area">
           <nz-form-control >

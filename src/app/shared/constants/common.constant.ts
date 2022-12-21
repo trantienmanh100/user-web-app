@@ -21,6 +21,7 @@ export const MIN_DAY_IN_MONTH = 1;
 export const MAX_DAY_IN_MONTH = 31;
 export const DEFAULT_TIME_FORMAT = 'HH:mm';
 export const DEFAULT_DATE_FORMAT = 'DD/MM/yyyy';
+export const AVATAR_PLACEHOLDER_FILE = `assets/images/User.jpg`;
 
 export const BOOLEAN_STRING = {
   TRUE: 'true',

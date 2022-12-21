@@ -25,8 +25,6 @@ export class PaymentSuccessComponent implements OnInit {
   ) {
     this.activatedRoute.queryParams.subscribe(params => {
       this.vnp_TransactionStatus= params['vnp_TransactionStatus'];
-      console.log(params)
-      console.log(this.vnp_TransactionStatus)
     });
   }
 
@@ -75,8 +73,7 @@ export class PaymentSuccessComponent implements OnInit {
       transportFee: ship,
       purchaseType: OrderType.ONLINE,
       status: StatusEnum.CHO_XAC_NHAN,
-      eventId: "2b052354-f0a4-4815-8cc6-fb6c957bfa55",
-      address: this.localStorage.retrieve("profile").address,
+      address: localStorage.getItem('address'),
       userId: id,
       total: this.total ,
 
@@ -93,7 +90,8 @@ export class PaymentSuccessComponent implements OnInit {
       }),
     };
     this.orderService.createOrder(order).subscribe(() => {
-
+      this.cartService.deleteCart(id).subscribe(()=>{
+      });
     })
 
   }

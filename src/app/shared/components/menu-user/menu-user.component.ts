@@ -14,6 +14,7 @@ import {IUser} from "../../models/user.model";
 export class MenuUserComponent implements OnInit {
   order: Order[] = [];
   user : IUser = {}
+  imgUrl ='../../../../../assets/images/User.jpg';
 
   constructor(
     private router: Router,
@@ -23,6 +24,9 @@ export class MenuUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.localStorage.retrieve("profile");
+    if(this.user.imageUrl != null){
+      this.imgUrl = this.user.imageUrl;
+    }
     console.log(this.user)
   }
   qlAccount():void {
