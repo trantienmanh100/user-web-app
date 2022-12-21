@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormsModule} from "@angular/forms";
+import {FormBuilder, FormsModule, Validators} from "@angular/forms";
 import {UserService} from "../../../../shared/services/user.service";
 import {ToastrService} from "ngx-toastr";
 import {IUser, User} from "../../../../shared/models/user.model";
@@ -13,9 +13,9 @@ export class ChangeComponent implements OnInit {
   users = new User();
 
   changeForm = this.fb.group({
-    oldPass : '',
-    password: '',
-    confirmPassword: '',
+    oldPass : ['',[Validators.required]],
+    password: ['',[Validators.required]],
+    confirmPassword: ['',[Validators.required]],
   })
   constructor(
     private fb : FormBuilder,

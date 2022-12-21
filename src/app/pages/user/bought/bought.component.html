@@ -40,19 +40,24 @@
           <div class="total__price">
             <p> Tổng tiền : <span>{{order.total +'' | vnd }}</span> </p>
           </div>
-          <div *ngIf="order.status === 'CHO_XAC_NHAN'; else elseBlock">
+          <div *ngIf="order.status === 'CHO_XAC_NHAN'">
             <div class="total__button">
               <a (click)="updateHuyDon(order.id)">Hủy đơn hàng</a>
-
+              <a (click)="muaLaiDonHang(order.id)">Mua lại</a>
               <a (click)="showChiTiet(order.id)">Xem chi tiết</a>
             </div>
           </div>
-          <ng-template #elseBlock>
+          <div *ngIf="order.status === 'XAC_NHAN' || order.status === 'DANG_GIAO' ">
+            <div class="total__button">
+              <a (click)="showChiTiet(order.id)">Xem chi tiết</a>
+            </div>
+          </div>
+          <div *ngIf="order.status === 'DA_GIAO' || order.status === 'HUY' ">
             <div class="total__button">
               <a (click)="muaLaiDonHang(order.id)">Mua lại</a>
               <a (click)="showChiTiet(order.id)">Xem chi tiết</a>
             </div>
-          </ng-template>
+          </div>
         </div>
       </div>
       </div>
