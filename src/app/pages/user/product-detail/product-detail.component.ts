@@ -214,9 +214,10 @@ export class ProductDetailComponent implements OnInit {
 
   datLichHen(): void {
     let quantity: any = this.size.quantity +''
-      this.apoimentService.addToCalendar(this.validateForm.value).subscribe((res:any) => {
-        this.toast.success("Đặt lịch thành công")
-      })
+    console.log(this.validateForm.value)
+      // this.apoimentService.addToCalendar(this.validateForm.value).subscribe((res:any) => {
+      //   this.toast.success("Đặt lịch thành công")
+      // })
   }
   onChange(result: Date): void {
     console.log('Selected Time: ', result);
