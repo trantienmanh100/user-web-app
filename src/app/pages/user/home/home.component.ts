@@ -101,7 +101,13 @@ export class HomeComponent implements OnInit {
 
   showProductTrending(): void {
     this.productService.trending().subscribe((res :any) =>{
+      if(res){
         this.productTrending = res.body?.data;
+        this.productTrending.forEach((product:IProduct)=>{
+          // @ts-ignore
+          product.currentImg = product.productImages[0].imageUrl;
+        })
+      }
     });
   }
 

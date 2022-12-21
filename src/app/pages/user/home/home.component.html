@@ -88,9 +88,7 @@
                   <div class="row" *ngFor="let product of productTrending">
                     <div class="card-title col-5 card1__image ">
                       <div class="img-hover-zoom--brightness">
-                        <img [src]="product.currentImg"
-                             (mouseover)="product.currentImg =product.firstImg"
-                             (mouseout)="product.currentImg= product.firstImg">
+                        <img [src]="product.currentImg">
                       </div>
                     </div>
                     <div class="col-7">

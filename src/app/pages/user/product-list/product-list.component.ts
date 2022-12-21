@@ -65,7 +65,7 @@ export class ProductListComponent implements OnInit {
     this.loadNameCate(),
     this.loadCategory(),
     // this.loadData(this.pageNumber, this.pageSize);
-   // this.showProductTrending()
+    this.showProductTrending();
       this.Activeroute.queryParamMap.subscribe((res) => {
         const keyword = res.get('keyword') || '';
         console.log(keyword);
@@ -154,7 +154,13 @@ export class ProductListComponent implements OnInit {
 
   showProductTrending(): void {
     this.productService.trending().subscribe((res :any) =>{
-      this.productTrending = res.body?.data;
+      if(res){
+        this.productTrending = res.body?.data;
+        this.productTrending.forEach((product:IProduct)=>{
+          // @ts-ignore
+          product.currentImg = product.productImages[0].imageUrl;
+        })
+      }
     });
   }
 

@@ -148,7 +148,7 @@ export class CartListComponent implements OnInit {
   }
   loadEvent(): void {
     this.eventService.getAll().subscribe((res: any) => {
-      this.events = res.body?.data.data;
+      this.events = res.body?.data?.data;
     });
   }
   getDistrist(provinceID:number){
