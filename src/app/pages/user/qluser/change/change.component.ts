@@ -3,6 +3,7 @@ import {FormBuilder, FormsModule, Validators} from "@angular/forms";
 import {UserService} from "../../../../shared/services/user.service";
 import {ToastrService} from "ngx-toastr";
 import {IUser, User} from "../../../../shared/models/user.model";
+import {LocalStorageService} from "ngx-webstorage";
 
 @Component({
   selector: 'app-change',
@@ -11,6 +12,7 @@ import {IUser, User} from "../../../../shared/models/user.model";
 })
 export class ChangeComponent implements OnInit {
   users = new User();
+  userId = this.localStorage.retrieve("profile").userId;
 
   changeForm = this.fb.group({
     oldPass : ['',[Validators.required]],
@@ -21,10 +23,12 @@ export class ChangeComponent implements OnInit {
     private fb : FormBuilder,
     private userService : UserService,
     private toast: ToastrService,
+    private localStorage : LocalStorageService
+
   ) { }
 
   ngOnInit(): void {
-    this.loadData('02951d3d-1045-4fa1-ad46-6edeffd04a3d')
+    this.loadData(this.userId)
   }
 
   loadData (id : String) {
@@ -34,7 +38,7 @@ export class ChangeComponent implements OnInit {
   }
 
   changePass(){
-    const id = '02951d3d-1045-4fa1-ad46-6edeffd04a3d'
+    console.log(this.userId)
     const user: any  = {
       userName : this.users.userName,
       fullName: this.users.fullName,
@@ -50,13 +54,13 @@ export class ChangeComponent implements OnInit {
       imageUrl: this.users.imageUrl,
       note: this.users.note,
     }
-
+    console.log(this.users)
     if( this.users.password === this.changeForm.get('oldPass')?.value) {
       if( this.changeForm.value.password === this.changeForm.value.confirmPassword) {
-        this.userService.changePass(user,id).subscribe((res :any)=>{
-          this.toast.success('Cập nhật thông tin thành công');
+        this.userService.changePass(user,this.userId).subscribe((res :any)=>{
+          this.toast.success('Cập nhật mật khẩu thành công');
           this.changeForm.reset()
-          this.loadData(id)
+          this.loadData(this.userId)
 
         },(error:any) => {
           this.toast.error(error.error.message)

@@ -127,8 +127,9 @@ export class CartListComponent implements OnInit {
 
   loadData(id: string): void {
     this.cartService.search(id, true).subscribe((res :any)=>{
-      if(res && res.body.data !== null){
-        this.carts = res.body?.data?.cartDetailResponseList;
+      console.log(res)
+      if(res && res.body?.data !== null){
+        this.carts = res.body?.data.cartDetailResponseList;
         this.total =0;
         if(this.carts !== null){
         this.carts.forEach((item)=>{
@@ -148,7 +149,7 @@ export class CartListComponent implements OnInit {
   }
   loadEvent(): void {
     this.eventService.getAll().subscribe((res: any) => {
-      this.events = res.body?.data;
+      this.events = res.body?.data?.data;
     });
   }
   getDistrist(provinceID:number){

@@ -57,6 +57,8 @@ export class QLUserComponent implements OnInit {
       this.toast.success('Cập nhật thông tin thành công');
       console.log(this.users)
       this.loadData(id)
+    }, (error:any) => {
+      this.toast.error(error.error.message)
     })
   }
 }
