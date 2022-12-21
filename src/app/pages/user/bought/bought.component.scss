@@ -30,8 +30,13 @@ ul {
 ul li {
   list-style-type: none;
 }
+
+ li .nav-link.active {
+  color: rgb(70, 148, 136);
+  border-bottom: 4px solid rgb(70, 148, 136);
+}
 .menu {
-  height: 25px;
+  //height: 25px;
 }
 .menu ul {
   display: flex;
@@ -47,7 +52,7 @@ ul li {
 }
 .menu ul li a:hover{
   color: rgb(70, 148, 136);
-  border-bottom: 2px solid rgb(70, 148, 136);
+  border-bottom: 4px solid rgb(70, 148, 136);
 }
 
 /* ------------------Account------------- */
@@ -82,6 +87,14 @@ ul li {
 .menu ul{
   display: flex;
   align-content: space-between;
+}
+
+.menu ul li a {
+  border-top: none;
+  border-left: none;
+
+  border-right: none;
+
 }
 .product {
   border: 1px solid #F0F0F0;
