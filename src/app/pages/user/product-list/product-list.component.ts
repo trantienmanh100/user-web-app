@@ -142,6 +142,7 @@ export class ProductListComponent implements OnInit {
   }
 
   loadDataByCategory(categoryId?: string) {
+    this.resetSearch();
     this.products = [];
     this.productSearchRequest.categoryId = categoryId;
     this.productSearchRequest.status = ProductStatus.ACTIVE;

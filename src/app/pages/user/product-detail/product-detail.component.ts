@@ -176,7 +176,9 @@ export class ProductDetailComponent implements OnInit {
     }else {
       this.cartService.addToCart(cart).subscribe(()=>{
         this.toast.success('Thêm vào giỏ hàng thành công');
-      })
+      },(error:any) =>{
+        this.toast.warning(error.error.message);
+      });
     }
   }
 

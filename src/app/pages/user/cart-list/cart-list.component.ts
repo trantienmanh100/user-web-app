@@ -148,7 +148,7 @@ export class CartListComponent implements OnInit {
   }
   loadEvent(): void {
     this.eventService.getAll().subscribe((res: any) => {
-      this.events = res.body?.data;
+      this.events = res.body?.data.data;
     });
   }
   getDistrist(provinceID:number){
@@ -229,7 +229,6 @@ export class CartListComponent implements OnInit {
     return data2;
   }
   chargeShippingWard(){
-    console.log(this.form.value);
     this.chargeShipping(this.total);
 
   }
@@ -239,7 +238,10 @@ export class CartListComponent implements OnInit {
   }
 
   addQuantity(cart : ICartDetail): void {
-    console.log(cart)
+    // @ts-ignore
+    if(cart.productSize.quantity === cart.amount){
+      this.toast.warning("Số lượng của sản phẩm chỉ còn lại "+cart.amount)
+    }else {
     let amount: number =0;
     // @ts-ignore
     amount = cart.amount + 1;
@@ -250,6 +252,7 @@ export class CartListComponent implements OnInit {
         this.chargeShipping(this.total);
       }
     })
+    }
   }
 
   minusQuantity(cart : ICartDetail): void {

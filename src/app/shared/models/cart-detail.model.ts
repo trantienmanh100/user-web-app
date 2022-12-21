@@ -9,6 +9,7 @@ export interface ICartDetail {
   amount?: number;
   price?: number;
   code?: string;
+  productSize?: [];
 }
 export class CartDetail implements ICartDetail {
   constructor(
@@ -19,6 +20,7 @@ export class CartDetail implements ICartDetail {
     public sizeId?: string,
     public amount?: number,
     public code?: string,
+    public productSize?: [],
   ) {
     this.cartDetailId = cartDetailId;
     this.productId = productId;
@@ -27,5 +29,6 @@ export class CartDetail implements ICartDetail {
     this.sizeId =sizeId;
     this.amount =amount;
     this.code =code;
+    this.productSize =productSize;
   }
 }
