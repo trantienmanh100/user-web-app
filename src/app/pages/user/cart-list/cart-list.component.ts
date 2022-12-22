@@ -293,6 +293,7 @@ export class CartListComponent implements OnInit {
     const selectEvent = this.events.filter(
       (evn: IEvent) => evn.eventId === eventId
     );
+    this.eventId =eventId;
     this.discount = selectEvent.length > 0 ? selectEvent[0].discount : 0;
     this.thanhtien = this.total - (this.total * this.discount) / 100;
   }
@@ -341,6 +342,7 @@ export class CartListComponent implements OnInit {
             if (this.pay === PaymentMethod.CARD) {
               console.log(this.shipMoney)
               localStorage.setItem('shipMoney', this.shipMoney);
+              localStorage.setItem('eventId',this.form.get('eventId')?.value);
               localStorage.setItem('online', 'online');
               localStorage.setItem('discount',String((this.total * this.discount / 100)));
               localStorage.setItem('address',this.form.get('addressDetail')?.value +", " +this.getStringWard()+", " + this.getStringDistrcit() +", " + this.getStringpProvince(),
@@ -426,7 +428,7 @@ export class CartListComponent implements OnInit {
       transportFee: this.shipMoney,
       purchaseType: OrderType.ONLINE,
       status: StatusEnum.CHO_XAC_NHAN,
-      eventId: this.eventId,
+      eventId: this.form.get('eventId')?.value,
       address: this.form.get('addressDetail')?.value +", " +this.getStringWard()+", " + this.getStringDistrcit() +", " + this.getStringpProvince(),
       userId: id,
       total: this.total - (this.total * this.discount/100) +this.shipMoney ,

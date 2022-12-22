@@ -68,11 +68,12 @@ export class PaymentSuccessComponent implements OnInit {
     const id = this.localStorage.retrieve("profile").userId;
     const ship =Number (localStorage.getItem('shipMoney'))  ;
     const discount= Number(localStorage.getItem('discount')) ;
-
+    const eventIdSave= localStorage.getItem('eventId');
     const order = {
       customerMoney: 1,
       paymentMethod: PaymentMethod.CARD,
       transportFee: ship,
+      eventId: eventIdSave,
       purchaseType: OrderType.ONLINE,
       status: StatusEnum.CHO_XAC_NHAN,
       address: localStorage.getItem('address'),
@@ -91,12 +92,9 @@ export class PaymentSuccessComponent implements OnInit {
         return productDetail;
       }),
     };
-    console.log(order)
-    debugger
     this.orderService.createOrder(order).subscribe(() => {
       this.cartService.deleteCart(id).subscribe(()=>{
       });
     })
-
   }
 }

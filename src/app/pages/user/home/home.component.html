@@ -54,9 +54,7 @@
                   <div class="row" *ngFor="let product of newProducts">
                     <div class="card-title col-5 card1__image ">
                       <div class="img-hover-zoom--brightness">
-                        <img [src]="product.currentImg || product.firstImg"
-                             (mouseover)="product.currentImg =product.secondImg"
-                             (mouseout)="product.currentImg= product.firstImg">
+                        <img [src]="product.firstImg">
                       </div>
                     </div>
                     <div class="col-7">
