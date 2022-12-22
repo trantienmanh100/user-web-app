@@ -332,10 +332,11 @@ export class CartListComponent implements OnInit {
           console.log(this.shipMoney)
           localStorage.setItem('shipMoney', this.shipMoney);
           localStorage.setItem('online', 'online');
+          localStorage.setItem('discount',String((this.total * this.discount / 100)));
           localStorage.setItem('address',this.form.get('addressDetail')?.value +", " +this.getStringWard()+", " + this.getStringDistrcit() +", " + this.getStringpProvince(),
         )
           const value = {
-            amount: this.total - (this.total * this.discount / 100) + this.shipMoney,
+            amount: Math.round(this.total - (this.total * this.discount / 100) + this.shipMoney),
             backcode: 'NCB',
             txt_inv_addr1: 'PHU THO',
             txt_bill_city: 'Thanh Pho Viet Tri',
@@ -416,7 +417,7 @@ export class CartListComponent implements OnInit {
       eventId: this.eventId,
       address: this.form.get('addressDetail')?.value +", " +this.getStringWard()+", " + this.getStringDistrcit() +", " + this.getStringpProvince(),
       userId: id,
-      total: this.total ,
+      total: this.total - (this.total * this.discount/100) +this.shipMoney ,
 
       orderDetailList: this.carts.map((res) => {
         const price = res.price as number;

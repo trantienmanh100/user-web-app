@@ -67,6 +67,8 @@ export class PaymentSuccessComponent implements OnInit {
   createOrder() : void{
     const id = this.localStorage.retrieve("profile").userId;
     const ship =Number (localStorage.getItem('shipMoney'))  ;
+    const discount= Number(localStorage.getItem('discount')) ;
+
     const order = {
       customerMoney: 1,
       paymentMethod: PaymentMethod.CARD,
@@ -75,7 +77,7 @@ export class PaymentSuccessComponent implements OnInit {
       status: StatusEnum.CHO_XAC_NHAN,
       address: localStorage.getItem('address'),
       userId: id,
-      total: this.total ,
+      total: this.total - discount  ,
 
       orderDetailList: this.carts.map((res) => {
         const price = res.price as number;
@@ -89,6 +91,8 @@ export class PaymentSuccessComponent implements OnInit {
         return productDetail;
       }),
     };
+    console.log(order)
+    debugger
     this.orderService.createOrder(order).subscribe(() => {
       this.cartService.deleteCart(id).subscribe(()=>{
       });
