@@ -166,7 +166,7 @@
                         <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="date">Ngày hẹn</nz-form-label>
                         <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Ngày hẹn trống">
 
-                          <input  type="datetime-local" formControlName="time" id="time"/>
+                          <input  type="datetime-local" formControlName="time" id="time" [min]="this.currentDate" [max]="this.before7ngay"/>
                           <ng-container *ngIf="validateForm.get('time')?.touched || validateForm.get('time')?.dirty ">
               <span class="text__red" *ngIf="validateForm.get('time')?.hasError('required')">
                 <small>{{'Ngày hẹn trống'}}</small>
@@ -184,7 +184,7 @@
                       <nz-form-item>
                         <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="tensap">Kích thước</nz-form-label>
                         <nz-form-control [nzSm]="18" [nzXs]="24" >
-                          <input nz-input id="tensap" type="text" style="color: black" value="{{this.size.sizeId}}"disabled />
+                          <input nz-input id="tensap" type="text" style="color: black" value="{{this.size.size}}"disabled />
 
                         </nz-form-control>
                       </nz-form-item>

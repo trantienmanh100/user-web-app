@@ -37,6 +37,8 @@ export class ProductDetailComponent implements OnInit {
   sizes : ISizeProduct[] =[];
   productDetail : IProduct = {}
   totalQuantity =0;
+  currentDate:string = '';
+  before7ngay:string = '';
   form: FormGroup = new FormGroup({});
   input_quantity= 1;
   validateForm!: UntypedFormGroup;
@@ -65,6 +67,8 @@ export class ProductDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.currentDate = new Date().getFullYear() + '-' + (new Date().getMonth() +1)+ '-' + new Date().getDate()+ 'T00:00';
+      this.before7ngay = new Date().getFullYear() + '-' +(new Date().getMonth() +1)  + '-' + (new Date().getDate() + 7)+ 'T00:00';
     if(this.localStorage.retrieve("username")){
       this.isLogin =true;
     }
@@ -216,10 +220,11 @@ export class ProductDetailComponent implements OnInit {
 
   datLichHen(): void {
     let quantity: any = this.size.quantity +''
-    console.log(this.validateForm.value)
-      // this.apoimentService.addToCalendar(this.validateForm.value).subscribe((res:any) => {
-      //   this.toast.success("Đặt lịch thành công")
-      // })
+    this.validateForm.get('sizeId')?.setValue(this.size.sizeId);
+      this.apoimentService.addToCalendar(this.validateForm.value).subscribe((res:any) => {
+        this.toast.success("Đặt lịch thành công")
+        this.handleCancel()
+      })
   }
   onChange(result: Date): void {
     console.log('Selected Time: ', result);

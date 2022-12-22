@@ -14,7 +14,7 @@ export class ApoimentService extends AbstractService {
     super(http);
   }
   addToCalendar(apoiment: IApoiment): Observable<EntityResponseType<IApoiment>>{
-    return super.post<IApoiment>(`${this.resourceUrl}`, apoiment);
+    return super.post<IApoiment>(`${this.resourceUrl}/add`, apoiment);
   }
 
 
