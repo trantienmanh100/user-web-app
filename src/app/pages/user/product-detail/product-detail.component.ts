@@ -81,7 +81,7 @@ export class ProductDetailComponent implements OnInit {
       time: ['', [Validators.required]],
       productId : this.productId,
       sizeId :  this.size.sizeId,
-      note: [null, [ Validators.required]],
+      note: [''],
       status: "WAIT_CONFIRM",
     });
     this.showProductTrending();
