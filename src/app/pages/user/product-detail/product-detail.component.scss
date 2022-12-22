@@ -100,8 +100,8 @@ a:hover {
   color: black;
 }
 .body__article--image .image--big {
-  max-width: 480px;
-  max-height: 541px;
+  width: 480px;
+  height: 541px;
 }
 .body__article--image .image__small{
   margin: 20px 0 0 8px;
@@ -114,7 +114,8 @@ a:hover {
 }
 
 .body__article--image .image__small img {
-  max-width: 85px;
+  width: 85px;
+  height: 100px;
   margin: 0 5px 0 5px;
 }
 

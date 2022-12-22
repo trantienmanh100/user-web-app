@@ -328,30 +328,43 @@ export class CartListComponent implements OnInit {
       this.toast.error("Đơn hàng tối đa là 20 triệu vui lòng giảm số lượng")
     }else {
       if (this.pay != null) {
-        if (this.pay === PaymentMethod.CARD) {
-          console.log(this.shipMoney)
-          localStorage.setItem('shipMoney', this.shipMoney);
-          localStorage.setItem('online', 'online');
-          localStorage.setItem('address',this.form.get('addressDetail')?.value +", " +this.getStringWard()+", " + this.getStringDistrcit() +", " + this.getStringpProvince(),
+
+        const MuaHang =CommonUtil.modalConfirm(
+          this.translateService,
+          'Mua hàng',
+          'Bạn có muốn đặt hàng không',
+          {name: 'a'}
         )
-          const value = {
-            amount: this.total - (this.total * this.discount / 100) + this.shipMoney,
-            backcode: 'NCB',
-            txt_inv_addr1: 'PHU THO',
-            txt_bill_city: 'Thanh Pho Viet Tri',
-            txt_inv_mobile: '0387387993',
-            txt_inv_country: 'VN',
-            txt_inv_email: 'ducd@gmail.com',
-            txt_billing_fullname: 'Hoa Don Cua Hang Toan Huyen',
-            vnp_OrderInfo: 'VND',
+        const modal: NzModalRef =this.modalService.create(MuaHang);
+
+        modal.afterClose.subscribe((result:{success: boolean; data: any}) =>{
+          if(result?.success){
+            if (this.pay === PaymentMethod.CARD) {
+              console.log(this.shipMoney)
+              localStorage.setItem('shipMoney', this.shipMoney);
+              localStorage.setItem('online', 'online');
+              localStorage.setItem('address',this.form.get('addressDetail')?.value +", " +this.getStringWard()+", " + this.getStringDistrcit() +", " + this.getStringpProvince(),
+              )
+              const value = {
+                amount: this.total - (this.total * this.discount / 100) + this.shipMoney,
+                backcode: 'NCB',
+                txt_inv_addr1: 'PHU THO',
+                txt_bill_city: 'Thanh Pho Viet Tri',
+                txt_inv_mobile: '0387387993',
+                txt_inv_country: 'VN',
+                txt_inv_email: 'ducd@gmail.com',
+                txt_billing_fullname: 'Hoa Don Cua Hang Toan Huyen',
+                vnp_OrderInfo: 'VND',
+              }
+              this.paymentService.payment(value).subscribe((res: any) => {
+                window.location.assign(res.body.paymentUrl)
+              })
+            } else if (this.pay === PaymentMethod.MONEY) {
+              this.createOrderPayMoney();
+              this.router.navigate([ROUTER_UTILS.payment.root],{ queryParams: {vnp_TransactionStatus:'00'}});
+            }
           }
-          this.paymentService.payment(value).subscribe((res: any) => {
-            window.location.assign(res.body.paymentUrl)
-          })
-        } else if (this.pay === PaymentMethod.MONEY) {
-          this.createOrderPayMoney();
-          this.router.navigate([ROUTER_UTILS.payment.root],{ queryParams: {vnp_TransactionStatus:'00'}});
-        }
+        })
       } else {
         this.toast.error('Hãy chọn phương thức thanh toán')
       }
