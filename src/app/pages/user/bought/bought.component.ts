@@ -36,6 +36,8 @@ export class BoughtComponent implements OnInit {
 
   ngOnInit(): void {
     this.showAll();
+    // @ts-ignore
+    document.getElementById("all").click()
   }
 
   showAll(): void {
@@ -43,7 +45,7 @@ export class BoughtComponent implements OnInit {
     this.orderService.showByBought(this.status,this.userId).subscribe((res :any) => {
       this.orders = res.body?.data;
       console.log(this.orders)
-      if(this.orders.length === 0){
+      if(this.orders.length == 0){
         this.nodata =true;
       }
     })

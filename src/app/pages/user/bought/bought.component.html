@@ -5,61 +5,162 @@
     <app-menu-user></app-menu-user>
     </div>
     <div class="col-10 info__product">
-      <div class="menu">
-        <ul>
-          <li><a (click)="showAll()">Tất cả</a></li>
-          <li><a  (click)="showWaitConfirm()">Chờ xác nhận</a></li>
-          <li><a  (click)="showConfirmed()">Đã xác nhận</a></li>
-          <li><a (click)="showDelivering()" >Đang giao</a></li>
-          <li><a (click)="showDelivered()" >Đã giao</a></li>
-          <li><a (click)="showCancel()" >Đã hủy</a></li>
+      <div class="nav nav-tabs menu" id="nav-tab" role="tablist">
+        <ul style="width: 1076px;
+    display: flex;
+    justify-content: space-evenly; line-height: 40px">
+          <li>
+            <a class="nav-link inactive" id="all" data-bs-toggle="tab"
+               data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
+               aria-selected="true" (click)="showAll()">Tất cả</a>
+          </li>
+          <li>
+
+            <a class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab"
+               data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
+               aria-selected="false" (click)="showWaitConfirm()">Chờ xác nhận</a>
+          </li>
+
+          <li>
+          <a class="nav-link inactive" id="nav-profile-tab" data-bs-toggle="tab"
+               data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
+               aria-selected="false" (click)="showConfirmed()">Đã xác nhận</a>
+          </li>
+          <li>
+
+            <a class="nav-link inactive" id="nav-profile-tab" data-bs-toggle="tab"
+               data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
+               aria-selected="false" (click)="showDelivering()">Đang giao</a>
+          </li>
+          <li>
+
+            <a class="nav-link inactive" id="nav-profile-tab" data-bs-toggle="tab"
+               data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
+               aria-selected="false" (click)="showDelivered()">Đã giao</a>
+          </li>
+          <li>
+
+            <a class="nav-link inactive" id="nav-profile-tab" data-bs-toggle="tab"
+               data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
+               aria-selected="false" (click)="showCancel()">Đã hủy</a>
+          </li>
+
         </ul>
+
       </div>
-      <div *ngIf="nodata ==false ;else nodata1">
-      <div class="order" *ngFor="let order of orders" >
-        <div class="product">
-          <div class="product__title">
-            <h5>Trang sức Toản Huyền đơn hàng {{order.orderCode}}</h5>
-            <p style="color: red;">Đơn hàng:  {{order.status}}</p>
-          </div>
-          <div class="product__item row" *ngFor="let orderDetail of order.orderDetailDTOList">
-            <div class="col-md-1 image">
-              <img [src]="orderDetail.imageUrl?orderDetail.imageUrl[0] : 'https://i0.wp.com/www.boznoslawoffice.com/wp-content/uploads/2015/09/no_avatar.jpg?fit=512%2C512&ssl=1'" alt="">
-            </div>
-            <div class="col-md-8 info">
-              <p>{{orderDetail.nameProduct}}</p>
-              <p class="text--small">Size: {{orderDetail.size}} </p>
-              <p>{{'x' +orderDetail.quantity}}</p>
-            </div>
-            <div class="col-md-2 price">
-              <p>{{ orderDetail.price +'' | vnd }}</p>
+
+        <div class="tab-content" id="nav-tabContent">
+
+          <div class="tab-pane fade review " id="nav-profile" role="tabpanel"
+               aria-labelledby="nav-profile-tab"><div class="product1">
+            <div *ngIf="nodata == false ;else nodata1">
+
+              <div class="order" *ngFor="let order of orders" >
+                <div class="product">
+                  <div class="product__title">
+                    <h5>Trang sức Toản Huyền đơn hàng {{order.orderCode}}</h5>
+                    <p style="color: red;">Đơn hàng:  {{order.status}}</p>
+                  </div>
+                  <div class="product__item row" *ngFor="let orderDetail of order.orderDetailDTOList">
+                    <div class="col-md-1 image">
+                      <img [src]="orderDetail.imageUrl?orderDetail.imageUrl[0] : 'https://i0.wp.com/www.boznoslawoffice.com/wp-content/uploads/2015/09/no_avatar.jpg?fit=512%2C512&ssl=1'" alt="">
+                    </div>
+                    <div class="col-md-8 info">
+                      <p>{{orderDetail.nameProduct}}</p>
+                      <p class="text--small">Size: {{orderDetail.size}} </p>
+                      <p>{{'x' +orderDetail.quantity}}</p>
+                    </div>
+                    <div class="col-md-2 price">
+                      <p>{{ orderDetail.price +'' | vnd }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="total">
+                  <div class="total__price">
+                    <p> Tổng tiền : <span>{{order.total +'' | vnd }}</span> </p>
+                  </div>
+                  <div *ngIf="order.status === 'CHO_XAC_NHAN'">
+                    <div class="total__button">
+                      <a (click)="updateHuyDon(order.id)">Hủy đơn hàng</a>
+                      <a (click)="showChiTiet(order.id)">Xem chi tiết</a>
+                    </div>
+                  </div>
+                  <div *ngIf="order.status === 'XAC_NHAN' || order.status === 'DANG_GIAO' ">
+                    <div class="total__button">
+                      <a (click)="showChiTiet(order.id)">Xem chi tiết</a>
+                    </div>
+                  </div>
+                  <div *ngIf="order.status === 'DA_GIAO' || order.status === 'HUY' ">
+                    <div class="total__button">
+                      <a (click)="muaLaiDonHang(order.id)">Mua lại</a>
+                      <a (click)="showChiTiet(order.id)">Xem chi tiết</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="total">
-          <div class="total__price">
-            <p> Tổng tiền : <span>{{order.total +'' | vnd }}</span> </p>
-          </div>
-          <div *ngIf="order.status === 'CHO_XAC_NHAN'">
-            <div class="total__button">
-              <a (click)="updateHuyDon(order.id)">Hủy đơn hàng</a>
-              <a (click)="showChiTiet(order.id)">Xem chi tiết</a>
-            </div>
-          </div>
-          <div *ngIf="order.status === 'XAC_NHAN' || order.status === 'DANG_GIAO' ">
-            <div class="total__button">
-              <a (click)="showChiTiet(order.id)">Xem chi tiết</a>
-            </div>
-          </div>
-          <div *ngIf="order.status === 'DA_GIAO' || order.status === 'HUY' ">
-            <div class="total__button">
-              <a (click)="muaLaiDonHang(order.id)">Mua lại</a>
-              <a (click)="showChiTiet(order.id)">Xem chi tiết</a>
-            </div>
-          </div>
-        </div>
       </div>
-      </div>
+
+
+
+
+<!--      <div class="menu">-->
+<!--        <ul>-->
+<!--          <li><a (click)="showAll()">Tất cả</a></li>-->
+<!--          <li><a  (click)="showWaitConfirm()">Chờ xác nhận</a></li>-->
+<!--          <li><a  (click)="showConfirmed()">Đã xác nhận</a></li>-->
+<!--          <li><a (click)="showDelivering()" >Đang giao</a></li>-->
+<!--          <li><a (click)="showDelivered()" >Đã giao</a></li>-->
+<!--          <li><a (click)="showCancel()" >Đã hủy</a></li>-->
+<!--        </ul>-->
+<!--      </div>-->
+<!--      <div *ngIf="nodata ==false ;else nodata1">-->
+<!--      <div class="order" *ngFor="let order of orders" >-->
+<!--        <div class="product">-->
+<!--          <div class="product__title">-->
+<!--            <h5>Trang sức Toản Huyền đơn hàng {{order.orderCode}}</h5>-->
+<!--            <p style="color: red;">Đơn hàng:  {{order.status}}</p>-->
+<!--          </div>-->
+<!--          <div class="product__item row" *ngFor="let orderDetail of order.orderDetailDTOList">-->
+<!--            <div class="col-md-1 image">-->
+<!--              <img [src]="orderDetail.imageUrl?orderDetail.imageUrl[0] : 'https://i0.wp.com/www.boznoslawoffice.com/wp-content/uploads/2015/09/no_avatar.jpg?fit=512%2C512&ssl=1'" alt="">-->
+<!--            </div>-->
+<!--            <div class="col-md-8 info">-->
+<!--              <p>{{orderDetail.nameProduct}}</p>-->
+<!--              <p class="text&#45;&#45;small">Size: {{orderDetail.size}} </p>-->
+<!--              <p>{{'x' +orderDetail.quantity}}</p>-->
+<!--            </div>-->
+<!--            <div class="col-md-2 price">-->
+<!--              <p>{{ orderDetail.price +'' | vnd }}</p>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="total">-->
+<!--          <div class="total__price">-->
+<!--            <p> Tổng tiền : <span>{{order.total +'' | vnd }}</span> </p>-->
+<!--          </div>-->
+<!--          <div *ngIf="order.status === 'CHO_XAC_NHAN'">-->
+<!--            <div class="total__button">-->
+<!--              <a (click)="updateHuyDon(order.id)">Hủy đơn hàng</a>-->
+<!--              <a (click)="showChiTiet(order.id)">Xem chi tiết</a>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div *ngIf="order.status === 'XAC_NHAN' || order.status === 'DANG_GIAO' ">-->
+<!--            <div class="total__button">-->
+<!--              <a (click)="showChiTiet(order.id)">Xem chi tiết</a>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div *ngIf="order.status === 'DA_GIAO' || order.status === 'HUY' ">-->
+<!--            <div class="total__button">-->
+<!--              <a (click)="muaLaiDonHang(order.id)">Mua lại</a>-->
+<!--              <a (click)="showChiTiet(order.id)">Xem chi tiết</a>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      </div>-->
     </div>
   </div>
   <ng-template #nodata1>
