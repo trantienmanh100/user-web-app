@@ -21,7 +21,7 @@
           <tbody>
           <tr *ngFor="let cart of carts">
 <!--            <app-book [listProduct] = "array"></app-book>-->
-            <td class="image" data-title="No"><img [src]="cart.image" alt="#"></td>
+            <td class="image" data-title="No"><img [src]="cart.image" (click)="detailPro(cart)" alt="#"></td>
             <td class="product-des" data-title="Description">
               <p class="product-name"><a href="#"></a></p>
               {{cart.productName}}
@@ -130,6 +130,7 @@
                             nzBorderless
                               formControlName="province"
                               (ngModelChange)="this.getDistrist($event)"
+                              [nzShowSearch]="true"
                               nzPlaceHolder="{{
                                'Tỉnh,Thành phố'
                               }}"

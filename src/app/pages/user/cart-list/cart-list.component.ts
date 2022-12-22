@@ -451,5 +451,8 @@ export class CartListComponent implements OnInit {
         });
     });
   }
+  detailPro(cart : any): void {
+      this.router.navigate([ROUTER_UTILS.product.root, cart.productId, 'detail']);
+  }
 
 }
