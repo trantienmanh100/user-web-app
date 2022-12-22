@@ -142,10 +142,11 @@ export class ProductListComponent implements OnInit {
   }
 
   loadDataByCategory(categoryId?: string) {
-    this.resetSearch();
+    this.productSearchRequest = {};
     this.products = [];
     this.productSearchRequest.categoryId = categoryId;
     this.productSearchRequest.status = ProductStatus.ACTIVE;
+    console.log(this.productSearchRequest)
     this.productService.search(this.productSearchRequest).subscribe((response: any) => {
         this.products = response.body?.data;
         this.total = response.body.page.total;
@@ -238,6 +239,7 @@ export class ProductListComponent implements OnInit {
     this.pageIndex = PAGINATION.PAGE_DEFAULT;
     this.pageSize = PAGINATION.SIZE_DEFAULT;
     this.loadAccessory();
+    this.productSearchRequest.accessoryId = [];
     this.loadData(this.pageIndex, this.pageSize);
   }
 
