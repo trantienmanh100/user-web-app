@@ -104,7 +104,7 @@ export class ProductDetailComponent implements OnInit {
           // @ts-ignore
           product.currentImg = product.productImages[0].imageUrl;
           // @ts-ignore
-          product.secondImg =product.productImages[1].imageUrl;
+          product.secondImg =product.productImages[1] ? product.productImages[1].imageUrl : product.productImages[0].imageUrl;
           // @ts-ignore
           product.firstImg =product.productImages[0].imageUrl;
           console.log(product)

@@ -56,7 +56,7 @@ export class HeaderComponent implements OnInit {
   }
   showCart(): void {
     if(this.isLogin){
-      this.router.navigate([ROUTER_UTILS.cart.list]);
+      window.location.assign('http://localhost:9990/cart/list')
     }else {
       this.router.navigate([ROUTER_UTILS.login.root]);
       this.toast.success("Bạn phải đăng nhập trước");
