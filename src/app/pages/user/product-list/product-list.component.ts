@@ -144,6 +144,8 @@ export class ProductListComponent implements OnInit {
   loadDataByCategory(categoryId?: string) {
     this.productSearchRequest = {};
     this.products = [];
+    this.productSearchRequest.pageIndex = PAGINATION.PAGE_DEFAULT;
+    this.productSearchRequest.pageSize =PAGINATION.SIZE_DEFAULT;
     this.productSearchRequest.categoryId = categoryId;
     this.productSearchRequest.status = ProductStatus.ACTIVE;
     console.log(this.productSearchRequest)
