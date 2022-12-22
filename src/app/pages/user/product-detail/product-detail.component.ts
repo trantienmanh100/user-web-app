@@ -107,7 +107,6 @@ export class ProductDetailComponent implements OnInit {
           product.secondImg =product.productImages[1].imageUrl;
           // @ts-ignore
           product.firstImg =product.productImages[0].imageUrl;
-          console.log(product)
         })
       }
     });

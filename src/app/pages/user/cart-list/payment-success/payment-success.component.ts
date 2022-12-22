@@ -93,6 +93,9 @@ export class PaymentSuccessComponent implements OnInit {
       }),
     };
     this.orderService.createOrder(order).subscribe(() => {
+      localStorage.removeItem('eventId');
+      Number (localStorage.removeItem('shipMoney')) ;
+      Number(localStorage.removeItem('discount'));
       this.cartService.deleteCart(id).subscribe(()=>{
       });
     })
