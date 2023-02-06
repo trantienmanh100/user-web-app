@@ -17,6 +17,9 @@ import {IProductSearchRequest, ProductSearchRequest} from "../../../shared/model
 import {PAGINATION} from "../../../shared/constants/pagination.constants";
 import {ROUTER_UTILS} from "../../../shared/utils/router.utils";
 import {DataService} from "../../../shared/services/data.service";
+import CommonUtil from "../../../shared/utils/common-utils";
+import {TranslateService} from "@ngx-translate/core";
+import {NzModalRef, NzModalService} from "ng-zorro-antd/modal";
 
 @Component({
   selector: 'app-product-detail',
@@ -56,9 +59,11 @@ export class ProductDetailComponent implements OnInit {
     private productService : ProductService,
     private router: ActivatedRoute,
     private router2 : Router,
+    private translateService: TranslateService,
     private toast: ToastrService,
     private categoryService: CategoryService,
     private cartService : CartService,
+    private modalService: NzModalService,
     private apoimentService : ApoimentService,
     private fb: UntypedFormBuilder,
 
@@ -80,8 +85,16 @@ export class ProductDetailComponent implements OnInit {
     this.loadData(this.productId);
     this.validateForm = this.fb.group({
       userName: ['', [Validators.required]],
-      phoneNumber: ['', [Validators.required, Validators.maxLength(11)]],
-      email: ['', [Validators.email,Validators.required]],
+      phoneNumber: ['', [
+        Validators.required,
+        Validators.maxLength(12),
+        Validators.pattern( '^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$',)
+      ]],
+      email: ['', [
+        Validators.required,
+        Validators.maxLength(50),
+        Validators.pattern( '^(\\s){0,}[a-zA-Z][a-zA-Z0-9_\\.\-]{1,50}@[a-zA-Z0-9\-_]{2,}(\\.[a-zA-Z0-9\]{2,4}){1,2}(\\s){0,}$',)
+      ]],
       time: ['', [Validators.required]],
       productId : this.productId,
       sizeId :  this.size.sizeId,
@@ -224,13 +237,24 @@ export class ProductDetailComponent implements OnInit {
   }
 
   datLichHen(): void {
-    let quantity: any = this.size.quantity +''
-    this.validateForm.get('sizeId')?.setValue(this.size.sizeId);
-      this.apoimentService.addToCalendar(this.validateForm.value).subscribe((res:any) => {
-        this.toast.success("Đặt lịch thành công")
-        this.validateForm.reset();
-        this.handleCancel()
-      })
+    const datlich =CommonUtil.modalConfirm(
+      this.translateService,
+      'Đặt lịch',
+      'Bạn có muốn đặt lịch hẹn không',
+      {name: 'a'}
+    )
+    const modal: NzModalRef =this.modalService.create(datlich);
+    modal.afterClose.subscribe((result:{success: boolean; data: any}) => {
+      if(result?.success){
+        let quantity: any = this.size.quantity +''
+        this.validateForm.get('sizeId')?.setValue(this.size.sizeId);
+        this.apoimentService.addToCalendar(this.validateForm.value).subscribe((res:any) => {
+          this.toast.success("Đặt lịch thành công")
+          this.validateForm.reset();
+          this.handleCancel()
+        })
+      }
+    })
   }
   onChange(result: Date): void {
     console.log('Selected Time: ', result);
