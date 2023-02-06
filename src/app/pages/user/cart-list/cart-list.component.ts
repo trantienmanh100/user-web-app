@@ -422,6 +422,7 @@ export class CartListComponent implements OnInit {
 
   createOrderPayMoney() : void{
     const id = this.localStorage.retrieve("profile").userId;
+    const phoneNumber = this.localStorage.retrieve("profile").phoneNumber;
     const order = {
       customerMoney: 1,
       paymentMethod: PaymentMethod.MONEY,
@@ -431,6 +432,7 @@ export class CartListComponent implements OnInit {
       eventId: this.form.get('eventId')?.value,
       address: this.form.get('addressDetail')?.value +", " +this.getStringWard()+", " + this.getStringDistrcit() +", " + this.getStringpProvince(),
       userId: id,
+      phoneNumber: phoneNumber,
       total: this.total - (this.total * this.discount/100) +this.shipMoney ,
 
       orderDetailList: this.carts.map((res) => {
