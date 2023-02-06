@@ -1,5 +1,6 @@
 <header class="header">
   <div class="container">
+
     <div class="header__container">
       <!--      <div class="header__menu">-->
       <nav class="style-4">
@@ -56,7 +57,10 @@
             </div>
           </div>
           <div class="col-6 lineDoc">
-            <a (click)="showCart()"> <img src="assets/images/header-cart.svg" alt="" class="icon"> Giỏ hàng</a>
+            <a (click)="showCart()"> <img src="assets/images/header-cart.svg" alt="" class="icon"> Giỏ hàng <nz-badge [nzCount]="message">
+              <a class="head-example"></a>
+            </nz-badge> </a>
+
           </div>
         </div>
       </div>

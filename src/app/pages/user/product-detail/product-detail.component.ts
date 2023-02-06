@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {ProductService} from "../../../shared/services/product.service";
 import {IProduct} from "../../../shared/models/product.model";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -16,6 +16,7 @@ import {IProductImage, ProductImage} from "../../../shared/models/product-image.
 import {IProductSearchRequest, ProductSearchRequest} from "../../../shared/models/request/product-search-request.model";
 import {PAGINATION} from "../../../shared/constants/pagination.constants";
 import {ROUTER_UTILS} from "../../../shared/utils/router.utils";
+import {DataService} from "../../../shared/services/data.service";
 
 @Component({
   selector: 'app-product-detail',
@@ -23,6 +24,8 @@ import {ROUTER_UTILS} from "../../../shared/utils/router.utils";
   styleUrls: ['./product-detail.component.scss']
 })
 export class ProductDetailComponent implements OnInit {
+  count ='';
+  message:string ='';
   productTrending : IProduct[]=[];
   newProducts : IProduct[]=[];
   isLogin = false;
@@ -59,7 +62,8 @@ export class ProductDetailComponent implements OnInit {
     private apoimentService : ApoimentService,
     private fb: UntypedFormBuilder,
 
-    private localStorage : LocalStorageService
+    private localStorage : LocalStorageService,
+    private data :DataService,
   ) {
     this.router.paramMap.subscribe((res) => {
       this.productId = res.get('id') || '';
@@ -86,6 +90,7 @@ export class ProductDetailComponent implements OnInit {
     });
     this.showProductTrending();
     this.showNewProduct();
+    this.data.currentMessage.subscribe(message => this.message =message);
   }
   showProductTrending(): void {
     this.productService.trending().subscribe((res :any) =>{
@@ -178,6 +183,7 @@ export class ProductDetailComponent implements OnInit {
       this.toast.error('Số lượng sản phẩm phải lớn hơn 0')
     }else {
       this.cartService.addToCart(cart).subscribe(()=>{
+        this.countCart();
         this.toast.success('Thêm vào giỏ hàng thành công');
       },(error:any) =>{
         this.toast.warning(error.error.message);
@@ -242,5 +248,16 @@ export class ProductDetailComponent implements OnInit {
     if (product.productId != null) {
       this.loadData(product.productId);
     }
+  }
+
+  countCart(){
+    const userId = this.localStorage.retrieve("profile").userId;
+    this.cartService.search(userId, true).subscribe((res :any)=>{
+      if(res && res.body.data !== null) {
+        console.log(res.body.data);
+        this.count = res.body?.data?.cartDetailResponseList.length;
+        this.data.changeMessage(this.count+'');
+      }
+    })
   }
 }

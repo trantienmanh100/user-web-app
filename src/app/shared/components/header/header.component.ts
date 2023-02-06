@@ -1,8 +1,12 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {Router} from "@angular/router";
 import {ROUTER_UTILS} from "../../utils/router.utils";
 import {LocalStorageService} from "ngx-webstorage";
 import {ToastrService} from "ngx-toastr";
+import {CartService} from "../../services/cart.service";
+import {CartListComponent} from "../../../pages/user/cart-list/cart-list.component";
+import {ProductDetailComponent} from "../../../pages/user/product-detail/product-detail.component";
+import {DataService} from "../../services/data.service";
 
 @Component({
   selector: 'app-header',
@@ -10,20 +14,35 @@ import {ToastrService} from "ngx-toastr";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  count =0;
+  message=0;
+
   // @Output() keyword = new EventEmitter<any>();
   keywordSearch = "";
   isLogin : boolean =false;
   constructor(
     private router: Router,
     private localStorage :LocalStorageService,
-    private toast :ToastrService
+    private toast :ToastrService,
+    private cartService :CartService,
+    private data: DataService
   ) { }
 
   ngOnInit(): void {
-    console.log(this.localStorage.retrieve("username"))
     if(this.localStorage.retrieve("username")){
       this.isLogin =true;
     }
+    this.countCart();
+    this.data.currentMessage.subscribe(message => this.message = Number(message));
+    console.log(this.count)
+  }
+  countCart(){
+    const userId = this.localStorage.retrieve("profile").userId;
+    this.cartService.search(userId, true).subscribe((res :any)=>{
+      if(res && res.body.data !== null) {
+        this.message = res.body?.data?.cartDetailResponseList.length;
+      }
+    })
   }
   search(){
     this.router.navigate([ROUTER_UTILS.product.list],{queryParams: {keyword: this.keywordSearch}});

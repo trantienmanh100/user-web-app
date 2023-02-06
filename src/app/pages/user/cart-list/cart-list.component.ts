@@ -19,6 +19,7 @@ import {Location} from '@angular/common';
 import {ROUTER_UTILS} from "../../../shared/utils/router.utils";
 import {LocalStorageService} from "ngx-webstorage";
 import { CountryService } from 'src/app/shared/services/country.service';
+import {DataService} from "../../../shared/services/data.service";
 
 
 @Component({
@@ -27,6 +28,8 @@ import { CountryService } from 'src/app/shared/services/country.service';
   styleUrls: ['./cart-list.component.scss']
 })
 export class CartListComponent implements OnInit {
+  message:string ='';
+  count ='';
   isVisible = false;
   isOkLoading = false;
   nodata : boolean = false;
@@ -72,7 +75,8 @@ export class CartListComponent implements OnInit {
     private router : Router,
     private location: Location,
     private localStorage: LocalStorageService,
-    private countryService:CountryService
+    private countryService:CountryService,
+    private data :DataService,
 
   ) { }
 
@@ -85,6 +89,7 @@ export class CartListComponent implements OnInit {
     this.loadData(userId)
     this.loadEvent();
     this.initForm();
+    this.data.currentMessage.subscribe(message => this.message = message);
   }
 
   private initForm() {
@@ -129,7 +134,7 @@ export class CartListComponent implements OnInit {
         [
           Validators.required,
           Validators.maxLength(12),
-          Validators.pattern( '^(\\+[0-9]+[\\- \\.]*)?(\\([0-9]+\\)[\\- \\.]*)?([0-9][0-9\\- \\.]+[0-9])$'),
+          Validators.pattern( '^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$',)
         ],
       ],
     });
@@ -289,6 +294,7 @@ export class CartListComponent implements OnInit {
   handleOk(cart: ICartDetail): void {
     this.isOkLoading = true;
     this.cartService.deleteCartDetail(cart.cartDetailId).subscribe((respone: any) =>{
+      this.countCart();
       this.toast.success('Xoá thành công sản phẩm khỏi giỏ hàng');
       const userId = this.localStorage.retrieve("profile").userId;
       this.loadData(userId);
@@ -316,6 +322,7 @@ export class CartListComponent implements OnInit {
     modal.afterClose.subscribe((result: {success: boolean; data: any}) =>{
       if(result?.success){
         this.cartService.deleteCartDetail(cart.cartDetailId).subscribe((respone: any) =>{
+          this.countCart();
           this.toast.success('Xoá thành công sản phẩm khỏi giỏ hàng');
           const userId = this.localStorage.retrieve("profile").userId;
           this.loadData(userId);
@@ -467,7 +474,7 @@ export class CartListComponent implements OnInit {
       eventId: this.form.get('eventId')?.value,
       address: this.form.get('addressDetail')?.value +", " +this.getStringWard()+", " + this.getStringDistrcit() +", " + this.getStringpProvince(),
       userId: id,
-      phoneNumber: this.form.get('phoneNumber'),
+      phoneNumber: this.form.get('phoneNumber')?.value,
       total: this.total - (this.total * this.discount/100) +this.shipMoney ,
 
       orderDetailList: this.carts.map((res) => {
@@ -492,4 +499,17 @@ export class CartListComponent implements OnInit {
       this.router.navigate([ROUTER_UTILS.product.root, cart.productId, 'detail']);
   }
 
+  countCart(){
+    const userId = this.localStorage.retrieve("profile").userId;
+    this.cartService.search(userId, true).subscribe((res :any)=>{
+      if(res && res.body.data !== null) {
+        console.log(res.body.data);
+        this.count = res.body?.data?.cartDetailResponseList.length;
+        console.log(this.count)
+        this.data.changeMessage(this.count+'');
+      }
+    })
+  }
+
 }
+
