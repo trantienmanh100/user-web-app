@@ -148,16 +148,23 @@
                       <nz-form-item>
                         <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="phoneNumber"> Số điện thoại</nz-form-label>
                         <nz-form-control [nzSm]="18" [nzXs]="24" >
-                          <input nz-input formControlName="phoneNumber" id="phoneNumber" type="text" />
-                          <ng-container *ngIf="validateForm.get('phoneNumber')?.touched || validateForm.get('phoneNumber')?.dirty ">
-              <span class="text__red" *ngIf="validateForm.get('phoneNumber')?.hasError('required')">
-                <small style="color: red">{{'Số điện thoại trống'}}</small>
-              </span>
+                          <input nz-input formControlName="phoneNumber" id="phoneNumber" type="text" [maxlength]="10" />
+                          <ng-container
+                            *ngIf="
+                validateForm.get('phoneNumber')?.touched ||
+                validateForm.get('phoneNumber')?.dirty
+              "
+                          >
               <span
-                    class="text-danger"
-                    *ngIf="form.get('phoneNumber')?.hasError('pattern')"
+                class="text-danger"
+                *ngIf="validateForm.get('phoneNumber')?.hasError('required')"
+              >  SĐT không được để trống
+              </span>
+                            <span
+                              class="text-danger"
+                              *ngIf="validateForm.get('phoneNumber')?.hasError('pattern')"
                             >
-                <small>{{ "common.pattern" | translate }}</small>
+                <small>Không đúng định dạng SĐT</small>
               </span>
                           </ng-container>
                         </nz-form-control>
@@ -174,7 +181,7 @@
                               class="text-danger"
                               *ngIf="form.get('email')?.hasError('pattern')"
                             >
-                <small>{{ "common.pattern" | translate }}</small>
+                <small>{{ "Email sai định dang"}}</small>
               </span>
                           </ng-container>
                         </nz-form-control>
