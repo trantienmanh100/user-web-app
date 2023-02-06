@@ -22,9 +22,7 @@
             </ng-container>
             <ng-template #elsePay>
               <p class="data_item">{{ 'Khi nhận hàng '}}</p>
-
             </ng-template>
-
           </div>
 
           <div class="data">
@@ -50,7 +48,10 @@
             <p>Phí ship: </p>
             <p class="data_item">{{ orders.transportFee + '' | vnd}}</p>
           </div>
-
+          <div class="data">
+            <p>Số tiền được giảm: </p>
+            <p class="data_item">{{ orders.discount + '' | vnd}}</p>
+          </div>
           <div class="data">
             <p>Tổng tiền: </p>
             <p class="data_item total">{{ orders.total +'' | vnd}}</p>

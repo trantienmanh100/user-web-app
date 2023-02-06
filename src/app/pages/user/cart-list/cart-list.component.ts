@@ -368,9 +368,6 @@ export class CartListComponent implements OnInit {
   }
 
   createOrder(): void {
-    if(this.total>20000000){
-      this.toast.error("Đơn hàng tối đa là 20 triệu vui lòng giảm số lượng")
-    }else {
       if (this.pay != null) {
         const MuaHang =CommonUtil.modalConfirm(
           this.translateService,
@@ -385,13 +382,14 @@ export class CartListComponent implements OnInit {
             if (this.pay === PaymentMethod.CARD) {
               console.log(this.shipMoney)
               localStorage.setItem('shipMoney', this.shipMoney);
+              localStorage.setItem('phoneNumber', this.form.get('phoneNumber')?.value);
               localStorage.setItem('eventId',this.form.get('eventId')?.value);
               localStorage.setItem('online', 'online');
               localStorage.setItem('discount',String((this.total * this.discount / 100)));
               localStorage.setItem('address',this.form.get('addressDetail')?.value +", " +this.getStringWard()+", " + this.getStringDistrcit() +", " + this.getStringpProvince(),
               )
               const value = {
-                amount: this.total - (this.total * this.discount / 100) + this.shipMoney,
+                amount: (this.total - (this.total * this.discount / 100) + this.shipMoney)*100,
                 backcode: 'NCB',
                 txt_inv_addr1: 'PHU THO',
                 txt_bill_city: 'Thanh Pho Viet Tri',
@@ -401,6 +399,7 @@ export class CartListComponent implements OnInit {
                 txt_billing_fullname: 'Hoa Don Cua Hang Toan Huyen',
                 vnp_OrderInfo: 'VND',
               }
+              console.log(value)
               this.paymentService.payment(value).subscribe((res: any) => {
                 window.location.assign(res.body.paymentUrl)
               })
@@ -413,7 +412,7 @@ export class CartListComponent implements OnInit {
       } else {
         this.toast.error('Hãy chọn phương thức thanh toán')
       }
-    }
+
   }
 
   calendar(): void {
@@ -476,6 +475,7 @@ export class CartListComponent implements OnInit {
       userId: id,
       phoneNumber: this.form.get('phoneNumber')?.value,
       total: this.total - (this.total * this.discount/100) +this.shipMoney ,
+      discount: (this.total * this.discount/100),
 
       orderDetailList: this.carts.map((res) => {
         const price = res.price as number;
@@ -489,10 +489,12 @@ export class CartListComponent implements OnInit {
         return productDetail;
       }),
     };
+    console.log(order)
     this.orderService.createOrder(order).subscribe(() => {
         this.cartService.deleteCart(id).subscribe(()=>{
           this.loadData(id);
         });
+      this.data.changeMessage(0+'');
     });
   }
   detailPro(cart : any): void {

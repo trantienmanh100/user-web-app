@@ -37,7 +37,7 @@ export interface IOrder {
   cost?:number;
   note?:string;
   phoneNumber?:string;
-
+  discount?:number;
 }
 
 export class Order implements IOrder {
@@ -63,7 +63,8 @@ export class Order implements IOrder {
     public isRepurchase?:boolean,
     public cost?:number,
     public note?:string,
-    public phoneNumber?:string
+    public phoneNumber?:string,
+    public discount?: number,
     ){
     this.createAt = createAt;
     this.createBy = createBy;
@@ -87,6 +88,7 @@ export class Order implements IOrder {
     this.cost = cost;
     this.note = note;
     this.phoneNumber = phoneNumber;
+    this.discount =discount;
     }
 }
 

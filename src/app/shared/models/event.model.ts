@@ -13,7 +13,7 @@ export interface IEvent {
   lastModifiedBy: string,
   deleted: boolean
 }
-export class EventProduct implements IEvent {
+export class Event implements IEvent {
   constructor(
     public eventId: string,
     public code:string,
@@ -26,7 +26,7 @@ export class EventProduct implements IEvent {
     public  createBy: string,
     public  lastModifiedAt: number,
     public lastModifiedBy: string,
-    public  deleted: boolean
+    public  deleted: boolean,
   ) {
     this.eventId = eventId;
     this.code = code;
