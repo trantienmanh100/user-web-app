@@ -165,7 +165,7 @@
                       >
                         <span
                           class="text-danger"
-                          *ngIf="form.get('addressDetail')?.hasError('addressDetail')"
+                          *ngIf="form.get('addressDetail')?.hasError('required')"
                         >
                           Địa chỉ chi tiết không để trống
                         </span>
@@ -239,7 +239,7 @@
                   <li class="last">Tiền phải trả<span>{{this.total - (this.total * this.discount/100) +this.shipMoney +'' | vnd}}</span></li>
                 </ul>
                 <div class="button5">
-                  <a (click)="createOrder()" class="btn" >Đặt hàng</a>
+                  <button (click)="createOrder()" class="btn" [disabled]="!form.valid">Đặt hàng</button>
                   <a href="#" class="btn">Tiếp tục mua</a>
                 </div>
               </div>
