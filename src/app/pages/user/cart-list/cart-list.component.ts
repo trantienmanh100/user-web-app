@@ -27,6 +27,8 @@ import { CountryService } from 'src/app/shared/services/country.service';
   styleUrls: ['./cart-list.component.scss']
 })
 export class CartListComponent implements OnInit {
+  isVisible = false;
+  isOkLoading = false;
   nodata : boolean = false;
   form: FormGroup = new FormGroup({});
   eventId : string ='';
@@ -88,6 +90,7 @@ export class CartListComponent implements OnInit {
   private initForm() {
     this.addresses = this.localStorage.retrieve("profile").address?.split(", ") as string[];
     let addressDetail = '';
+    let phoneNumber = this.localStorage.retrieve("profile").phoneNumber;
    if( this.addresses ){
     this.addresses .forEach((data,index) =>{
       if(index <  this.addresses .length-3 ) {
@@ -121,6 +124,14 @@ export class CartListComponent implements OnInit {
           Validators.required,
         ],
       ],
+      phoneNumber: [
+        phoneNumber,
+        [
+          Validators.required,
+          Validators.maxLength(12),
+          Validators.pattern( '^(\\+[0-9]+[\\- \\.]*)?(\\([0-9]+\\)[\\- \\.]*)?([0-9][0-9\\- \\.]+[0-9])$'),
+        ],
+      ],
     });
     this.form.get('total')?.setValue(0);
   }
@@ -134,17 +145,15 @@ export class CartListComponent implements OnInit {
         this.carts.forEach((item)=>{
           if(item.price && item.amount) {
             this.total += item.price*item.amount;
+            this.chargeShipping(this.total);
           }
         });
         }
         if(this.carts === null){
           this.nodata = true;
         }
-
       }
-
     })
-
   }
   loadEvent(): void {
     this.eventService.getAll().subscribe((res: any) => {
@@ -249,7 +258,9 @@ export class CartListComponent implements OnInit {
       if (cart?.cartDetailId != null) {
         const userId = this.localStorage.retrieve("profile").userId;
         this.loadData(userId);
+        console.log('Tổng tiền'+this.total)
         this.chargeShipping(this.total);
+
       }
     })
     }
@@ -266,6 +277,32 @@ export class CartListComponent implements OnInit {
         this.chargeShipping(this.total);
       }
     })
+
+    console.log('Tổng tiền'+this.total)
+
+  }
+
+  showModal(cart: ICartDetail): void {
+    this.isVisible = true;
+  }
+
+  handleOk(cart: ICartDetail): void {
+    this.isOkLoading = true;
+    this.cartService.deleteCartDetail(cart.cartDetailId).subscribe((respone: any) =>{
+      this.toast.success('Xoá thành công sản phẩm khỏi giỏ hàng');
+      const userId = this.localStorage.retrieve("profile").userId;
+      this.loadData(userId);
+      this.chargeShipping(this.total);
+
+    });
+    setTimeout(() => {
+      this.isVisible = false;
+      this.isOkLoading = false;
+    }, 3000);
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
   }
 
   delete(cart: ICartDetail) :void {
@@ -273,13 +310,11 @@ export class CartListComponent implements OnInit {
       this.translateService,
       'Xoá sản phẩm khỏi giỏ',
       'Bạn có muốn xoá sản phẩm này không',
-      {name: 'a'}
       //need fix
     )
     const modal: NzModalRef =this.modalService.create(deleteForm);
     modal.afterClose.subscribe((result: {success: boolean; data: any}) =>{
       if(result?.success){
-        console.log(cart.cartDetailId)
         this.cartService.deleteCartDetail(cart.cartDetailId).subscribe((respone: any) =>{
           this.toast.success('Xoá thành công sản phẩm khỏi giỏ hàng');
           const userId = this.localStorage.retrieve("profile").userId;
@@ -319,6 +354,7 @@ export class CartListComponent implements OnInit {
           this.ship.width =10;
           this.cartService.chargeShipping(this.ship).subscribe((respone) =>{
            this.shipMoney = respone.data.total;
+            console.log(this.shipMoney)
          })
     })
 
@@ -431,6 +467,7 @@ export class CartListComponent implements OnInit {
       eventId: this.form.get('eventId')?.value,
       address: this.form.get('addressDetail')?.value +", " +this.getStringWard()+", " + this.getStringDistrcit() +", " + this.getStringpProvince(),
       userId: id,
+      phoneNumber: this.form.get('phoneNumber'),
       total: this.total - (this.total * this.discount/100) +this.shipMoney ,
 
       orderDetailList: this.carts.map((res) => {

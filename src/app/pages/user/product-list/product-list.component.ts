@@ -212,7 +212,7 @@ export class ProductListComponent implements OnInit {
   }
 
   radioPrice(priceRange: string){
-
+    console.log(priceRange)
     switch (priceRange) {
       case '1':
         this.productSearchRequest.startPrice = 0;
@@ -227,7 +227,7 @@ export class ProductListComponent implements OnInit {
         this.productSearchRequest.endPrice= 10000000;
         break;
       case '4':
-        this.productSearchRequest.startPrice = 1000000;
+        this.productSearchRequest.startPrice = 10000000;
         this.productSearchRequest.endPrice= 20000000;
         break;
 

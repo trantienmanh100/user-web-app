@@ -222,6 +222,7 @@ export class ProductDetailComponent implements OnInit {
     this.validateForm.get('sizeId')?.setValue(this.size.sizeId);
       this.apoimentService.addToCalendar(this.validateForm.value).subscribe((res:any) => {
         this.toast.success("Đặt lịch thành công")
+        this.validateForm.reset();
         this.handleCancel()
       })
   }

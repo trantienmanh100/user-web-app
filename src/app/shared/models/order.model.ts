@@ -34,6 +34,9 @@ export interface IOrder {
   event?:Event;
   orderDetailDTOList?:IProductOrder[];
   isRepurchase?:boolean;
+  cost?:number;
+  note?:string;
+  phoneNumber?:string;
 
 }
 
@@ -58,6 +61,9 @@ export class Order implements IOrder {
     public event?:Event,
     public  orderDetailDTOList?:IProductOrder[],
     public isRepurchase?:boolean,
+    public cost?:number,
+    public note?:string,
+    public phoneNumber?:string
     ){
     this.createAt = createAt;
     this.createBy = createBy;
@@ -78,6 +84,9 @@ export class Order implements IOrder {
     this.orderDetailDTOList = orderDetailDTOList;
     this.userId = userId;
     this.isRepurchase = isRepurchase;
+    this.cost = cost;
+    this.note = note;
+    this.phoneNumber = phoneNumber;
     }
 }
 

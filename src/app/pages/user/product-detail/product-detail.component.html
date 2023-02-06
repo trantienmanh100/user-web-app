@@ -54,7 +54,7 @@
             <h3>{{productDetail.nameProduct}}</h3>
             <div class="review">
               <nz-rate [ngModel]="5" nzDisabled></nz-rate>
-              <p>1 reviews</p>
+              <p>2 reviews</p>
             </div>
             <div class="row infoProduct">
               <div class="col-3 infoProduct__proprety">
@@ -106,16 +106,40 @@
                 <a type="" id="button-cart" data-loading-text="Loading..." class="btn" (click)="addToCart()" >Thêm giỏ hàng</a>
                 <span> - Hoặc - </span>
                 <a type="" id="button-cart" style="text-align: center" class="btn" (click)="showModal()" data-loading-text="Loading..." >Đặt lịch hẹn</a>
-                <nz-modal [(nzVisible)]="isVisible" nzTitle="Đặt lịch hẹn" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+                <nz-modal [(nzVisible)]="isVisible" nzTitle="Đặt lịch hẹn" (nzOnCancel)="handleCancel()" nzOkDisabled>
                   <ng-container *nzModalContent>
                     <form [formGroup]="validateForm" (ngSubmit)="datLichHen()">
+<!--                      <div class="row">-->
+<!--                        <div class="col-12 mb-2">-->
+<!--                          <label-->
+<!--                          >Họ và tên-->
+<!--                            <span class="text-danger">*</span></label-->
+<!--                          >-->
+<!--                          <input-->
+<!--                            formControlName="userName"-->
+<!--                            nz-input-->
+<!--                            [maxLength]="30"-->
+<!--                            placeholder="Nhập họ và tên"-->
+<!--                          />-->
+<!--                          <ng-container-->
+<!--                            *ngIf="form.get('userName')?.touched || form.get('userName')?.dirty"-->
+<!--                          >-->
+<!--              <span-->
+<!--                class="text-danger"-->
+<!--                *ngIf="form.get('userName')?.hasError('required')"-->
+<!--              >-->
+<!--                <p>Họ tên không được để trống</p>-->
+<!--              </span>-->
+<!--                          </ng-container>-->
+<!--                        </div>-->
+<!--                      </div>-->
                       <nz-form-item>
                         <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="userName"> Họ và tên</nz-form-label>
-                        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Họ và tên trống">
+                        <nz-form-control [nzSm]="18" [nzXs]="24" >
                           <input nz-input formControlName="userName" id="userName" type="text" />
                           <ng-container *ngIf="validateForm.get('userName')?.touched || validateForm.get('userName')?.dirty ">
               <span class="text__red" *ngIf="validateForm.get('userName')?.hasError('required')">
-                <small>{{'Họ và tên trống'}}</small>
+                <small style="color: red; padding: 0">Họ và tên trống</small>
               </span>
                           </ng-container>
 
@@ -123,30 +147,42 @@
                       </nz-form-item>
                       <nz-form-item>
                         <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="phoneNumber"> Số điện thoại</nz-form-label>
-                        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Số điện thoại trống">
+                        <nz-form-control [nzSm]="18" [nzXs]="24" >
                           <input nz-input formControlName="phoneNumber" id="phoneNumber" type="text" />
                           <ng-container *ngIf="validateForm.get('phoneNumber')?.touched || validateForm.get('phoneNumber')?.dirty ">
               <span class="text__red" *ngIf="validateForm.get('phoneNumber')?.hasError('required')">
-                <small>{{'Số điện thoại trống'}}</small>
+                <small style="color: red">{{'Số điện thoại trống'}}</small>
+              </span>
+              <span
+                    class="text-danger"
+                    *ngIf="form.get('phoneNumber')?.hasError('pattern')"
+                            >
+                <small>{{ "common.pattern" | translate }}</small>
               </span>
                           </ng-container>
                         </nz-form-control>
                       </nz-form-item>
                       <nz-form-item>
                         <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email"> Email</nz-form-label>
-                        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Email trống">
+                        <nz-form-control [nzSm]="18" [nzXs]="24" >
                           <input nz-input formControlName="email" id="email" type="text" />
                           <ng-container *ngIf="validateForm.get('email')?.touched || validateForm.get('email')?.dirty ">
               <span class="text__red" *ngIf="validateForm.get('email')?.hasError('required')">
-                <small>{{'Email trống'}}</small>
+                <small style="color: red">{{'Email trống'}}</small>
+              </span>
+                            <span
+                              class="text-danger"
+                              *ngIf="form.get('email')?.hasError('pattern')"
+                            >
+                <small>{{ "common.pattern" | translate }}</small>
               </span>
                           </ng-container>
                         </nz-form-control>
                       </nz-form-item>
+
                       <nz-form-item>
                         <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="date">Ngày hẹn</nz-form-label>
                         <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Ngày hẹn trống">
-
                           <input  type="datetime-local" formControlName="time" id="time" [min]="this.currentDate" [max]="this.before7ngay"/>
                           <ng-container *ngIf="validateForm.get('time')?.touched || validateForm.get('time')?.dirty ">
               <span class="text__red" *ngIf="validateForm.get('time')?.hasError('required')">
@@ -176,7 +212,7 @@
                         </nz-form-control>
                       </nz-form-item>
                       <nz-form-item>
-                        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="note">Ghi chú</nz-form-label>
+                        <nz-form-label [nzSm]="6" [nzXs]="24"  nzFor="note">Ghi chú</nz-form-label>
                         <nz-form-control [nzSm]="18" [nzXs]="24">
                           <textarea rows="4" nz-input formControlName="note"></textarea>
                         </nz-form-control>

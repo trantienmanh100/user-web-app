@@ -456,9 +456,10 @@ margin-right: 5px;
   text-align: center;
 }
 
-::ng-deep .ant-modal-footer {
-  display: none;
-}
+//::ng-deep .ant-modal-footer {
+//  display: none;
+//}
+
 
 /* -------------product 1 -------- */
 
@@ -855,7 +856,7 @@ margin-right: 5px;
   background: linear-gradient(92.17deg, #0C5531 20.41%, #008242 112.49%);
 }
 .register{
-  color: 000000FF;
+  color: #FFFFFF;
   position: absolute;
   right: 100px;
   display: flex;
@@ -935,4 +936,8 @@ margin-right: 5px;
 }
 .active{
   color: #cbb28b!important;
+}
+nz-date-picker,
+nz-range-picker {
+  margin: 0 8px 12px 0;
 }
