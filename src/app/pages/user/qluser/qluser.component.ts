@@ -20,7 +20,7 @@ export class QLUserComponent implements OnInit {
     userName : this.users.userName,
     email: [this.users.email,[Validators.required, Validators.email]],
     address: [this.users.address, [Validators.required]],
-    gender: 'MALE',
+    gender: [this.users.gender],
     phoneNumber: [this.users.phoneNumber,[Validators.required]],
     birthday: [this.users.birthday,[Validators.required]],
     password: this.users.password,

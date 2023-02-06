@@ -80,7 +80,7 @@ export class ProductDetailComponent implements OnInit {
     this.loadData(this.productId);
     this.validateForm = this.fb.group({
       userName: ['', [Validators.required]],
-      phoneNumber: ['', [Validators.required, Validators.maxLength(11)]],
+      phoneNumber: ['', [Validators.required]],
       email: ['', [Validators.email,Validators.required]],
       time: ['', [Validators.required]],
       productId : this.productId,
