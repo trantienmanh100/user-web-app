@@ -76,8 +76,8 @@ export class ProductDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currentDate = new Date().getFullYear() + '-' + (new Date().getMonth() +1)+ '-' + new Date().getDate()+ 'T00:00';
-      this.before7ngay = new Date().getFullYear() + '-' +(new Date().getMonth() +1)  + '-' + (new Date().getDate() + 7)+ 'T00:00';
+    this.currentDate = new Date().getFullYear() + '-0' + (new Date().getMonth() +1)+ '-0' + new Date().getDate()+ 'T00:00';
+      this.before7ngay = new Date().getFullYear() + '-0' +(new Date().getMonth() +1)  + '-' + (new Date().getDate() + 7)+ 'T00:00';
     if(this.localStorage.retrieve("username")){
       this.isLogin =true;
     }
