@@ -55,16 +55,5 @@ export class UserService extends AbstractService {
     );
   }
 
-  // changePassword(
-  //   userId: any,
-  //   params: IChangePassword,
-  //   loading = true
-  // ): Observable<EntityResponseType<IUser>> {
-  //   return super.post<IUser>(
-  //     `${this.resourceUrl}/${userId}/change-password`,
-  //     params,
-  //     { loading }
-  //   );
-  // }
 
 }

@@ -149,13 +149,48 @@
                       >
                         <span
                           class="text-danger"
-                          *ngIf="form.get('addressDetail')?.hasError('addressDetail')"
+                          *ngIf="form.get('addressDetail')?.hasError('required')"
                         >
                           Địa chỉ chi tiết không để trống
                         </span>
                       </ng-container>
                         </div>
+<<<<<<< HEAD
                     </div>
+=======
+                          <div class="col-12 mb-2 mt-3 ">
+                            <p  style="display: inline"
+                            > Số điện thoại
+                              <span class="text-danger me-3">*</span></p
+                            >
+                            <input
+                              formControlName="phoneNumber"
+                              nz-input
+                              [maxLength]="11"
+                              placeholder="Nhập số điện thoại"
+                            />
+                            <ng-container
+                              *ngIf="
+                form.get('phoneNumber')?.touched ||
+                form.get('phoneNumber')?.dirty
+              "
+                            >
+              <span
+                class="text-danger"
+                *ngIf="form.get('phoneNumber')?.hasError('required')"
+              >  SĐT không được để trống
+              </span>
+                              <span
+                                class="text-danger"
+                                *ngIf="form.get('phoneNumber')?.hasError('pattern')"
+                              >
+                <small>Không đúng định dạng SĐT</small>
+              </span>
+                            </ng-container>
+                          </div>
+                        </div>
+
+>>>>>>> a2edfdcf8a50c38657f84bc07f9ab293d59e7e0d
                       </form>
                     </div>
                   </div>
@@ -193,7 +228,7 @@
                   <li class="last">Tiền phải trả<span>{{this.total - (this.total * this.discount/100) +this.shipMoney +'' | vnd}}</span></li>
                 </ul>
                 <div class="button5">
-                  <a (click)="createOrder()" class="btn" >Đặt hàng</a>
+                  <button (click)="createOrder()" class="btn" [disabled]="!form.valid">Đặt hàng</button>
                   <a href="#" class="btn">Tiếp tục mua</a>
                 </div>
               </div>

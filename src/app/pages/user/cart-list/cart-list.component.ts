@@ -19,6 +19,7 @@ import {Location} from '@angular/common';
 import {ROUTER_UTILS} from "../../../shared/utils/router.utils";
 import {LocalStorageService} from "ngx-webstorage";
 import { CountryService } from 'src/app/shared/services/country.service';
+import {DataService} from "../../../shared/services/data.service";
 
 
 @Component({
@@ -27,6 +28,13 @@ import { CountryService } from 'src/app/shared/services/country.service';
   styleUrls: ['./cart-list.component.scss']
 })
 export class CartListComponent implements OnInit {
+<<<<<<< HEAD
+=======
+  message:string ='';
+  count ='';
+  isVisible = false;
+  isOkLoading = false;
+>>>>>>> a2edfdcf8a50c38657f84bc07f9ab293d59e7e0d
   nodata : boolean = false;
   form: FormGroup = new FormGroup({});
   eventId : string ='';
@@ -70,7 +78,8 @@ export class CartListComponent implements OnInit {
     private router : Router,
     private location: Location,
     private localStorage: LocalStorageService,
-    private countryService:CountryService
+    private countryService:CountryService,
+    private data :DataService,
 
   ) { }
 
@@ -83,6 +92,7 @@ export class CartListComponent implements OnInit {
     this.loadData(userId)
     this.loadEvent();
     this.initForm();
+    this.data.currentMessage.subscribe(message => this.message = message);
   }
 
   private initForm() {
@@ -121,6 +131,17 @@ export class CartListComponent implements OnInit {
           Validators.required,
         ],
       ],
+<<<<<<< HEAD
+=======
+      phoneNumber: [
+        phoneNumber,
+        [
+          Validators.required,
+          Validators.maxLength(12),
+          Validators.pattern( '^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$',)
+        ],
+      ],
+>>>>>>> a2edfdcf8a50c38657f84bc07f9ab293d59e7e0d
     });
     this.form.get('total')?.setValue(0);
   }
@@ -266,6 +287,36 @@ export class CartListComponent implements OnInit {
         this.chargeShipping(this.total);
       }
     })
+<<<<<<< HEAD
+=======
+
+    console.log('Tổng tiền'+this.total)
+
+  }
+
+  showModal(cart: ICartDetail): void {
+    this.isVisible = true;
+  }
+
+  handleOk(cart: ICartDetail): void {
+    this.isOkLoading = true;
+    this.cartService.deleteCartDetail(cart.cartDetailId).subscribe((respone: any) =>{
+      this.countCart();
+      this.toast.success('Xoá thành công sản phẩm khỏi giỏ hàng');
+      const userId = this.localStorage.retrieve("profile").userId;
+      this.loadData(userId);
+      this.chargeShipping(this.total);
+
+    });
+    setTimeout(() => {
+      this.isVisible = false;
+      this.isOkLoading = false;
+    }, 3000);
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+>>>>>>> a2edfdcf8a50c38657f84bc07f9ab293d59e7e0d
   }
 
   delete(cart: ICartDetail) :void {
@@ -281,6 +332,7 @@ export class CartListComponent implements OnInit {
       if(result?.success){
         console.log(cart.cartDetailId)
         this.cartService.deleteCartDetail(cart.cartDetailId).subscribe((respone: any) =>{
+          this.countCart();
           this.toast.success('Xoá thành công sản phẩm khỏi giỏ hàng');
           const userId = this.localStorage.retrieve("profile").userId;
           this.loadData(userId);
@@ -325,9 +377,6 @@ export class CartListComponent implements OnInit {
   }
 
   createOrder(): void {
-    if(this.total>20000000){
-      this.toast.error("Đơn hàng tối đa là 20 triệu vui lòng giảm số lượng")
-    }else {
       if (this.pay != null) {
         const MuaHang =CommonUtil.modalConfirm(
           this.translateService,
@@ -342,13 +391,14 @@ export class CartListComponent implements OnInit {
             if (this.pay === PaymentMethod.CARD) {
               console.log(this.shipMoney)
               localStorage.setItem('shipMoney', this.shipMoney);
+              localStorage.setItem('phoneNumber', this.form.get('phoneNumber')?.value);
               localStorage.setItem('eventId',this.form.get('eventId')?.value);
               localStorage.setItem('online', 'online');
               localStorage.setItem('discount',String((this.total * this.discount / 100)));
               localStorage.setItem('address',this.form.get('addressDetail')?.value +", " +this.getStringWard()+", " + this.getStringDistrcit() +", " + this.getStringpProvince(),
               )
               const value = {
-                amount: this.total - (this.total * this.discount / 100) + this.shipMoney,
+                amount: (this.total - (this.total * this.discount / 100) + this.shipMoney)*100,
                 backcode: 'NCB',
                 txt_inv_addr1: 'PHU THO',
                 txt_bill_city: 'Thanh Pho Viet Tri',
@@ -358,6 +408,7 @@ export class CartListComponent implements OnInit {
                 txt_billing_fullname: 'Hoa Don Cua Hang Toan Huyen',
                 vnp_OrderInfo: 'VND',
               }
+              console.log(value)
               this.paymentService.payment(value).subscribe((res: any) => {
                 window.location.assign(res.body.paymentUrl)
               })
@@ -370,7 +421,7 @@ export class CartListComponent implements OnInit {
       } else {
         this.toast.error('Hãy chọn phương thức thanh toán')
       }
-    }
+
   }
 
   calendar(): void {
@@ -432,8 +483,13 @@ export class CartListComponent implements OnInit {
       eventId: this.form.get('eventId')?.value,
       address: this.form.get('addressDetail')?.value +", " +this.getStringWard()+", " + this.getStringDistrcit() +", " + this.getStringpProvince(),
       userId: id,
+<<<<<<< HEAD
       phoneNumber: phoneNumber,
+=======
+      phoneNumber: this.form.get('phoneNumber')?.value,
+>>>>>>> a2edfdcf8a50c38657f84bc07f9ab293d59e7e0d
       total: this.total - (this.total * this.discount/100) +this.shipMoney ,
+      discount: (this.total * this.discount/100),
 
       orderDetailList: this.carts.map((res) => {
         const price = res.price as number;
@@ -447,14 +503,29 @@ export class CartListComponent implements OnInit {
         return productDetail;
       }),
     };
+    console.log(order)
     this.orderService.createOrder(order).subscribe(() => {
         this.cartService.deleteCart(id).subscribe(()=>{
           this.loadData(id);
         });
+      this.data.changeMessage(0+'');
     });
   }
   detailPro(cart : any): void {
       this.router.navigate([ROUTER_UTILS.product.root, cart.productId, 'detail']);
   }
 
+  countCart(){
+    const userId = this.localStorage.retrieve("profile").userId;
+    this.cartService.search(userId, true).subscribe((res :any)=>{
+      if(res && res.body.data !== null) {
+        console.log(res.body.data);
+        this.count = res.body?.data?.cartDetailResponseList.length;
+        console.log(this.count)
+        this.data.changeMessage(this.count+'');
+      }
+    })
+  }
+
 }
+

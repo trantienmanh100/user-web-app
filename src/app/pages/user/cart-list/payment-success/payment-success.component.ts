@@ -6,6 +6,7 @@ import {ICartDetail} from "../../../../shared/models/cart-detail.model";
 import {Ship} from "../../../../shared/models/ship.model";
 import {OrderService} from "../../../../shared/services/order.service";
 import {LocalStorageService} from "ngx-webstorage";
+import {DataService} from "../../../../shared/services/data.service";
 
 @Component({
   selector: 'app-payment-success',
@@ -13,6 +14,7 @@ import {LocalStorageService} from "ngx-webstorage";
   styleUrls: ['./payment-success.component.scss']
 })
 export class PaymentSuccessComponent implements OnInit {
+  message:string ='';
   vnp_TransactionStatus ='';
   carts: ICartDetail[] = [];
   total = 0;
@@ -22,6 +24,7 @@ export class PaymentSuccessComponent implements OnInit {
     private cartService :CartService,
     private orderService :OrderService,
     private localStorage: LocalStorageService,
+    private data :DataService,
   ) {
     this.activatedRoute.queryParams.subscribe(params => {
       this.vnp_TransactionStatus= params['vnp_TransactionStatus'];
@@ -33,6 +36,7 @@ export class PaymentSuccessComponent implements OnInit {
       const userId = this.localStorage.retrieve("profile").userId;
       this.loadDataCart(userId);
     }
+    this.data.currentMessage.subscribe(message => this.message = message);
   }
 
   loadDataCart(id: string): void {
@@ -68,7 +72,8 @@ export class PaymentSuccessComponent implements OnInit {
     const id = this.localStorage.retrieve("profile").userId;
     const phoneNumber = this.localStorage.retrieve("profile").phoneNumber;
     const ship =Number (localStorage.getItem('shipMoney'))  ;
-    const discount= Number(localStorage.getItem('discount')) ;
+    const discount1= Number(localStorage.getItem('discount')) ;
+    const phoneNumber = localStorage.getItem('phoneNumber');
     const eventIdSave= localStorage.getItem('eventId');
     const order = {
       customerMoney: 1,
@@ -79,8 +84,14 @@ export class PaymentSuccessComponent implements OnInit {
       status: StatusEnum.CHO_XAC_NHAN,
       address: localStorage.getItem('address'),
       userId: id,
+<<<<<<< HEAD
       phoneNumber: phoneNumber,
       total: this.total - discount  ,
+=======
+      total: this.total - discount1 ,
+      discount: discount1,
+      phoneNumber: phoneNumber,
+>>>>>>> a2edfdcf8a50c38657f84bc07f9ab293d59e7e0d
 
       orderDetailList: this.carts.map((res) => {
         const price = res.price as number;
@@ -95,6 +106,7 @@ export class PaymentSuccessComponent implements OnInit {
       }),
     };
     this.orderService.createOrder(order).subscribe(() => {
+       this.data.changeMessage(0+'');
       localStorage.removeItem('eventId');
       Number (localStorage.removeItem('shipMoney')) ;
       Number(localStorage.removeItem('discount'));

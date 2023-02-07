@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {ProductService} from "../../../shared/services/product.service";
 import {IProduct} from "../../../shared/models/product.model";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -16,6 +16,10 @@ import {IProductImage, ProductImage} from "../../../shared/models/product-image.
 import {IProductSearchRequest, ProductSearchRequest} from "../../../shared/models/request/product-search-request.model";
 import {PAGINATION} from "../../../shared/constants/pagination.constants";
 import {ROUTER_UTILS} from "../../../shared/utils/router.utils";
+import {DataService} from "../../../shared/services/data.service";
+import CommonUtil from "../../../shared/utils/common-utils";
+import {TranslateService} from "@ngx-translate/core";
+import {NzModalRef, NzModalService} from "ng-zorro-antd/modal";
 
 @Component({
   selector: 'app-product-detail',
@@ -23,6 +27,8 @@ import {ROUTER_UTILS} from "../../../shared/utils/router.utils";
   styleUrls: ['./product-detail.component.scss']
 })
 export class ProductDetailComponent implements OnInit {
+  count ='';
+  message:string ='';
   productTrending : IProduct[]=[];
   newProducts : IProduct[]=[];
   isLogin = false;
@@ -53,13 +59,16 @@ export class ProductDetailComponent implements OnInit {
     private productService : ProductService,
     private router: ActivatedRoute,
     private router2 : Router,
+    private translateService: TranslateService,
     private toast: ToastrService,
     private categoryService: CategoryService,
     private cartService : CartService,
+    private modalService: NzModalService,
     private apoimentService : ApoimentService,
     private fb: UntypedFormBuilder,
 
-    private localStorage : LocalStorageService
+    private localStorage : LocalStorageService,
+    private data :DataService,
   ) {
     this.router.paramMap.subscribe((res) => {
       this.productId = res.get('id') || '';
@@ -78,8 +87,16 @@ export class ProductDetailComponent implements OnInit {
     this.loadData(this.productId);
     this.validateForm = this.fb.group({
       userName: ['', [Validators.required]],
-      phoneNumber: ['', [Validators.required, Validators.maxLength(11)]],
-      email: ['', [Validators.email,Validators.required]],
+      phoneNumber: ['', [
+        Validators.required,
+        Validators.maxLength(12),
+        Validators.pattern( '^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$',)
+      ]],
+      email: ['', [
+        Validators.required,
+        Validators.maxLength(50),
+        Validators.pattern( '^(\\s){0,}[a-zA-Z][a-zA-Z0-9_\\.\-]{1,50}@[a-zA-Z0-9\-_]{2,}(\\.[a-zA-Z0-9\]{2,4}){1,2}(\\s){0,}$',)
+      ]],
       time: ['', [Validators.required]],
       productId : this.productId,
       sizeId :  this.size.sizeId,
@@ -88,6 +105,7 @@ export class ProductDetailComponent implements OnInit {
     });
     this.showProductTrending();
     this.showNewProduct();
+    this.data.currentMessage.subscribe(message => this.message =message);
   }
   showProductTrending(): void {
     this.productService.trending().subscribe((res :any) =>{
@@ -180,6 +198,7 @@ export class ProductDetailComponent implements OnInit {
       this.toast.error('Số lượng sản phẩm phải lớn hơn 0')
     }else {
       this.cartService.addToCart(cart).subscribe(()=>{
+        this.countCart();
         this.toast.success('Thêm vào giỏ hàng thành công');
       },(error:any) =>{
         this.toast.warning(error.error.message);
@@ -220,12 +239,33 @@ export class ProductDetailComponent implements OnInit {
   }
 
   datLichHen(): void {
+<<<<<<< HEAD
     let quantity: any = this.size.quantity +''
     this.validateForm.get('sizeId')?.setValue(this.size.sizeId);
       this.apoimentService.addToCalendar(this.validateForm.value).subscribe((res:any) => {
         this.toast.success("Đặt lịch thành công")
         this.handleCancel()
       })
+=======
+    const datlich =CommonUtil.modalConfirm(
+      this.translateService,
+      'Đặt lịch',
+      'Bạn có muốn đặt lịch hẹn không',
+      {name: 'a'}
+    )
+    const modal: NzModalRef =this.modalService.create(datlich);
+    modal.afterClose.subscribe((result:{success: boolean; data: any}) => {
+      if(result?.success){
+        let quantity: any = this.size.quantity +''
+        this.validateForm.get('sizeId')?.setValue(this.size.sizeId);
+        this.apoimentService.addToCalendar(this.validateForm.value).subscribe((res:any) => {
+          this.toast.success("Đặt lịch thành công")
+          this.validateForm.reset();
+          this.handleCancel()
+        })
+      }
+    })
+>>>>>>> a2edfdcf8a50c38657f84bc07f9ab293d59e7e0d
   }
   onChange(result: Date): void {
     console.log('Selected Time: ', result);
@@ -243,5 +283,16 @@ export class ProductDetailComponent implements OnInit {
     if (product.productId != null) {
       this.loadData(product.productId);
     }
+  }
+
+  countCart(){
+    const userId = this.localStorage.retrieve("profile").userId;
+    this.cartService.search(userId, true).subscribe((res :any)=>{
+      if(res && res.body.data !== null) {
+        console.log(res.body.data);
+        this.count = res.body?.data?.cartDetailResponseList.length;
+        this.data.changeMessage(this.count+'');
+      }
+    })
   }
 }
